@@ -6,10 +6,13 @@ import { useInView } from 'react-intersection-observer';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 
+const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID;
+
 export default function Contact() {
   const t = useTranslations('contact');
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   const {
@@ -21,23 +24,26 @@ export default function Contact() {
 
   const onSubmit = async (data) => {
     setSubmitting(true);
+    setError(null);
     try {
-      const formData = new FormData();
-      formData.append('form-name', 'contact');
-      Object.entries(data).forEach(([key, value]) => formData.append(key, value));
+      const endpoint = FORMSPREE_ID
+        ? `https://formspree.io/f/${FORMSPREE_ID}`
+        : 'https://formspree.io/f/demo';
 
-      const response = await fetch('/', {
+      const response = await fetch(endpoint, {
         method: 'POST',
-        body: formData,
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
         setSubmitted(true);
         reset();
+      } else {
+        setError('Something went wrong. Please try again.');
       }
     } catch {
-      // fail silently, show success anyway for demo
-      setSubmitted(true);
+      setError('Something went wrong. Please try again.');
     } finally {
       setSubmitting(false);
     }
@@ -74,15 +80,7 @@ export default function Contact() {
                 </p>
               </motion.div>
             ) : (
-              <form
-                name="contact"
-                method="POST"
-                data-netlify="true"
-                onSubmit={handleSubmit(onSubmit)}
-                className="space-y-5"
-              >
-                <input type="hidden" name="form-name" value="contact" />
-
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-[#111111] dark:text-[#F0F0F0] mb-1.5">
                     {t('name')}
@@ -127,6 +125,10 @@ export default function Contact() {
                     placeholder="Your message..."
                   />
                 </div>
+
+                {error && (
+                  <p className="text-sm text-red-500">{error}</p>
+                )}
 
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button

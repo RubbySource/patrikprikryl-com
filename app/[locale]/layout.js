@@ -18,23 +18,11 @@ export default async function LocaleLayout({ children, params: { locale } }) {
   const messages = await getMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-          <NextIntlClientProvider messages={messages} locale={locale}>
-            {children}
-            <GoogleAnalytics />
-          </NextIntlClientProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+      <NextIntlClientProvider messages={messages} locale={locale}>
+        {children}
+        <GoogleAnalytics />
+      </NextIntlClientProvider>
+    </ThemeProvider>
   );
 }
