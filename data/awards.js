@@ -10,6 +10,7 @@ export const awards = [
     quote:
       "Procurement is about negotiation – AI automation of negotiation is the future of purchasing.",
     isNegobot: true,
+    url: "https://www.cacio.cz/cacio-v-gala/",
   },
   {
     icon: "⭐",
@@ -21,6 +22,7 @@ export const awards = [
     quote:
       "Procurement is about negotiation – AI automation of negotiation is the future of purchasing.",
     isNegobot: true,
+    url: "https://www.cacio.cz/cacio-v-gala/",
   },
   {
     icon: "🏆",
