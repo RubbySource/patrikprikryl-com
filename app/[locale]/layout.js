@@ -18,7 +18,7 @@ export default async function LocaleLayout({ children, params: { locale } }) {
   const messages = await getMessages();
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
       <NextIntlClientProvider messages={messages} locale={locale}>
         {children}
         <GoogleAnalytics />
