@@ -1,3 +1,4 @@
+import { setRequestLocale } from 'next-intl/server';
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import StatsBar from '@/components/StatsBar';
@@ -11,7 +12,8 @@ import Footer from '@/components/Footer';
 import CookieBanner from '@/components/CookieBanner';
 import BackToTop from '@/components/BackToTop';
 
-export default function Home() {
+export default function Home({ params: { locale } }) {
+  setRequestLocale(locale);
   return (
     <main className="min-h-screen bg-[#FAFAFA] dark:bg-[#0A0A0A] text-[#111111] dark:text-[#F0F0F0]">
       <Navigation />
