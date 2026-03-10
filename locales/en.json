@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "about": "About",
+    "projects": "Projects",
+    "awards": "Awards",
+    "contact": "Contact"
+  },
+  "hero": {
+    "tagline": "AI Project Manager · Driving Intelligent Procurement",
+    "bio": "I lead AI implementation in procurement at Škoda Auto – building smarter, data-driven sourcing through automation and intelligent tools. After 11 years and the creation of Negobot, I'm convinced that the future of procurement is being written right now.",
+    "cta_projects": "View Projects",
+    "cta_linkedin": "Connect on LinkedIn"
+  },
+  "stats": {
+    "years": "Years at Škoda Auto",
+    "followers": "LinkedIn Followers",
+    "linkedin": "LinkedIn Automotive",
+    "awards": "Industry Awards"
+  },
+  "about": {
+    "label": "About",
+    "title": "Connecting people, technology, and procurement.",
+    "text": "I'm an AI Project Manager at Škoda Auto, where I lead the integration of artificial intelligence into procurement processes. With over 11 years in the company – including 7+ years driving digital transformation in Connected Car sourcing – I've developed a deep conviction: the future of purchasing is automated, intelligent, and human-centred. I believe in optimism, openness, and the power of connecting the right people.",
+    "tags": [
+      "AI Project Management",
+      "Automated Negotiation",
+      "Connected Car",
+      "Digital Transformation",
+      "Procurement Innovation",
+      "Digital Avatars"
+    ]
+  },
+  "projects": {
+    "label": "Projects",
+    "title": "Work & Initiatives",
+    "open": "Open →",
+    "internal": "Internal Project @ Škoda Auto",
+    "featured": "Featured"
+  },
+  "awards": {
+    "label": "Recognition",
+    "title": "Awards & Achievements",
+    "role_label": "Role"
+  },
+  "beliefs": {
+    "label": "Perspective",
+    "title": "What I Believe"
+  },
+  "cocreators": {
+    "label": "Network",
+    "title": "Co-Creators",
+    "collaborators_title": "Collaborators & Co-Creators",
+    "university_title": "University Collaboration"
+  },
+  "contact": {
+    "label": "Contact",
+    "title": "Let's Connect",
+    "subtitle": "Open to collaboration, speaking opportunities, and interesting conversations about AI & innovation.",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message",
+    "success": "Thank you! I'll be in touch soon.",
+    "linkedin_cta": "Connect on LinkedIn"
+  },
+  "cookie": {
+    "text": "This site uses cookies for analytics. No personal data is stored.",
+    "accept": "Accept",
+    "decline": "Decline"
+  }
+}

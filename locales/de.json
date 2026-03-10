@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "about": "Über mich",
+    "projects": "Projekte",
+    "awards": "Auszeichnungen",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "tagline": "AI Project Manager · Intelligente Beschaffung vorantreiben",
+    "bio": "Ich leite die KI-Implementierung in Beschaffungsprozessen bei Škoda Auto – und schaffe eine intelligentere, datengesteuerte Einkaufsumgebung durch Automatisierung und KI-Tools. Nach 11 Jahren und der Entwicklung von Negobot bin ich überzeugt: Die Zukunft des Einkaufs wird gerade jetzt geschrieben.",
+    "cta_projects": "Projekte ansehen",
+    "cta_linkedin": "LinkedIn verbinden"
+  },
+  "stats": {
+    "years": "Jahre bei Škoda Auto",
+    "followers": "LinkedIn-Follower",
+    "linkedin": "LinkedIn Automotive",
+    "awards": "Branchenauszeichnungen"
+  },
+  "about": {
+    "label": "Über mich",
+    "title": "Menschen, Technologie und Einkauf verbinden.",
+    "text": "Ich bin AI Project Manager bei Škoda Auto und leite die Integration von künstlicher Intelligenz in Beschaffungsprozesse. Mit über 11 Jahren im Unternehmen – davon 7+ Jahre in der digitalen Transformation im Bereich Connected Car – habe ich eine tiefe Überzeugung entwickelt: Die Zukunft des Einkaufs ist automatisiert, intelligent und menschenzentriert. Ich glaube an Optimismus, Offenheit und die Kraft, die richtigen Menschen zu vernetzen.",
+    "tags": [
+      "KI-Projektmanagement",
+      "Automatisierte Verhandlung",
+      "Connected Car",
+      "Digitale Transformation",
+      "Beschaffungsinnovation",
+      "Digitale Avatare"
+    ]
+  },
+  "projects": {
+    "label": "Projekte",
+    "title": "Arbeit & Initiativen",
+    "open": "Öffnen →",
+    "internal": "Internes Projekt @ Škoda Auto",
+    "featured": "Hauptprojekt"
+  },
+  "awards": {
+    "label": "Anerkennung",
+    "title": "Auszeichnungen & Erfolge",
+    "role_label": "Rolle"
+  },
+  "beliefs": {
+    "label": "Perspektive",
+    "title": "Was ich glaube"
+  },
+  "cocreators": {
+    "label": "Netzwerk",
+    "title": "Mitgestalter",
+    "collaborators_title": "Mitarbeiter & Mitgestalter",
+    "university_title": "Universitätszusammenarbeit"
+  },
+  "contact": {
+    "label": "Kontakt",
+    "title": "Lass uns verbinden",
+    "subtitle": "Offen für Zusammenarbeit, Vortragsanfragen und interessante Gespräche über KI & Innovation.",
+    "name": "Name",
+    "email": "E-Mail",
+    "message": "Nachricht",
+    "send": "Nachricht senden",
+    "success": "Danke! Ich melde mich bald.",
+    "linkedin_cta": "LinkedIn verbinden"
+  },
+  "cookie": {
+    "text": "Diese Website verwendet Cookies für Analysen. Es werden keine persönlichen Daten gespeichert.",
+    "accept": "Akzeptieren",
+    "decline": "Ablehnen"
+  }
+}

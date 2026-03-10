@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "about": "O mně",
+    "projects": "Projekty",
+    "awards": "Ocenění",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "tagline": "AI Project Manager · Digitální transformace nákupu",
+    "bio": "Vedu implementaci umělé inteligence do nákupních procesů ve Škodě Auto – buduju chytřejší, datově řízené prostředí prostřednictvím automatizace a inteligentních nástrojů. Po 11 letech a vzniku Negobot jsem přesvědčen, že budoucnost nákupu se píše právě teď.",
+    "cta_projects": "Zobrazit projekty",
+    "cta_linkedin": "Spojit se na LinkedIn"
+  },
+  "stats": {
+    "years": "Let ve Škodě Auto",
+    "followers": "Sledujících na LinkedIn",
+    "linkedin": "LinkedIn Automotive",
+    "awards": "Průmyslová ocenění"
+  },
+  "about": {
+    "label": "O mně",
+    "title": "Propojuji lidi, technologie a nákup.",
+    "text": "Jsem AI Project Manager ve Škodě Auto, kde vedu integraci umělé inteligence do nákupních procesů. S více než 11 lety ve firmě – z nichž 7+ let jsem řídil digitální transformaci v oblasti Connected Car – jsem získal pevné přesvědčení: budoucnost nákupu je automatizovaná, inteligentní a lidsky orientovaná. Věřím v optimismus, otevřenost a sílu propojování správných lidí.",
+    "tags": [
+      "AI Project Management",
+      "Automatizované vyjednávání",
+      "Connected Car",
+      "Digitální transformace",
+      "Inovace v nákupu",
+      "Digitální avatary"
+    ]
+  },
+  "projects": {
+    "label": "Projekty",
+    "title": "Práce a iniciativy",
+    "open": "Otevřít →",
+    "internal": "Interní projekt @ Škoda Auto",
+    "featured": "Hlavní projekt"
+  },
+  "awards": {
+    "label": "Uznání",
+    "title": "Ocenění a úspěchy",
+    "role_label": "Role"
+  },
+  "beliefs": {
+    "label": "Perspektiva",
+    "title": "V co věřím"
+  },
+  "cocreators": {
+    "label": "Síť",
+    "title": "Spolutvůrci",
+    "collaborators_title": "Spolupracovníci a spolutvůrci",
+    "university_title": "Univerzitní spolupráce"
+  },
+  "contact": {
+    "label": "Kontakt",
+    "title": "Pojďme se spojit",
+    "subtitle": "Otevřen spolupráci, příležitostem k přednáškám a zajímavým rozhovorům o AI a inovacích.",
+    "name": "Jméno",
+    "email": "Email",
+    "message": "Zpráva",
+    "send": "Odeslat zprávu",
+    "success": "Děkuji! Brzy se ozvu.",
+    "linkedin_cta": "Spojit se na LinkedIn"
+  },
+  "cookie": {
+    "text": "Tento web používá cookies pro analytiku. Žádná osobní data nejsou ukládána.",
+    "accept": "Přijmout",
+    "decline": "Odmítnout"
+  }
+}

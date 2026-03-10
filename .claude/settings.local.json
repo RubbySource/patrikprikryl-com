@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(cmd.exe /c \"where npm\")",
+      "Bash(powershell.exe -command \"Get-Command npm | Select-Object -ExpandProperty Source\")",
+      "Bash(powershell.exe -command \"\\(Get-Command npm -ErrorAction SilentlyContinue\\).Source\")",
+      "Bash(powershell.exe -command \"\\(Get-Command node -ErrorAction SilentlyContinue\\).Source\")",
+      "Read(//mnt/c/Users/User/AppData/Local/Programs/**)",
+      "Read(//mnt/c/Windows/System32/**)",
+      "Read(//mnt/**)",
+      "Bash(\"C:/Program Files/nodejs/npm.cmd\" install)",
+      "Bash(PATH=\"/mnt/c/Program Files/nodejs:$PATH\" \"C:/Program Files/nodejs/npm.cmd\" install)",
+      "Bash(powershell.exe -NonInteractive -Command \"Set-Location ''C:\\\\Users\\\\User\\\\Documents\\\\Claude Code\\\\04_Central Web''; & ''C:\\\\Program Files\\\\nodejs\\\\npm.cmd'' install 2>&1 | Select-Object -Last 10\")",
+      "Bash(powershell.exe -NonInteractive -Command '$env:Path = \\\\\"\"C:\\\\Program Files\\\\nodejs;\\\\\"\" + $env:Path; Set-Location \\\\\"\"C:\\\\Users\\\\User\\\\Documents\\\\Claude Code\\\\04_Central Web\\\\\"\"; & \\\\\"\"C:\\\\Program Files\\\\nodejs\\\\npm.cmd\\\\\"\" install 2>&1 | Select-Object -Last 8')",
+      "Bash(powershell.exe -NonInteractive -Command 'try { $env:Path = \"\"C:\\\\Program Files\\\\nodejs;\"\" + $env:Path; Set-Location \"\"C:\\\\Users\\\\User\\\\Documents\\\\Claude Code\\\\04_Central Web\"\"; $r = & \"\"C:\\\\Program Files\\\\nodejs\\\\npm.cmd\"\" install 2>&1; $r | Select-Object -Last 8; exit $LASTEXITCODE } catch { Write-Error $_; exit 1 }')",
+      "mcp__Claude_Preview__preview_start"
+    ]
+  }
+}
