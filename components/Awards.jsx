@@ -2,11 +2,18 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { awards } from '@/data/awards';
 
-function AwardCard({ award, index, t }) {
+function AwardCard({ award, index, t, locale }) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
+
+  // Pick the right locale from a multilingual field object; fall back to 'en'
+  const f = (field) => {
+    if (!field) return null;
+    if (typeof field === 'string') return field;
+    return field[locale] ?? field.en;
+  };
 
   return (
     <motion.div
@@ -21,30 +28,30 @@ function AwardCard({ award, index, t }) {
 
       {/* Subtitle */}
       <span className="text-xs font-semibold tracking-wider uppercase text-[#6B7280] mb-2 block">
-        {award.subtitle}
+        {f(award.subtitle)}
       </span>
 
       {/* Title */}
       <h3 className="font-display font-bold text-lg sm:text-xl text-[#111111] dark:text-[#F0F0F0] mb-2 leading-tight">
-        {award.title}
+        {f(award.title)}
       </h3>
 
       {/* Project name */}
       {award.project && (
         <p className="text-sm font-semibold text-[#1A56DB] mb-3">
-          {award.project}
+          {f(award.project)}
         </p>
       )}
 
       {/* Description */}
       <p className="text-sm text-[#6B7280] dark:text-gray-400 leading-relaxed mb-3">
-        {award.description}
+        {f(award.description)}
       </p>
 
       {/* Role */}
       {award.role && (
         <p className="text-xs text-[#6B7280] dark:text-gray-500">
-          <span className="font-semibold">{t('role_label')}:</span> {award.role}
+          <span className="font-semibold">{t('role_label')}:</span> {f(award.role)}
         </p>
       )}
 
@@ -84,6 +91,7 @@ function AwardCard({ award, index, t }) {
 
 export default function Awards() {
   const t = useTranslations('awards');
+  const locale = useLocale();
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
@@ -106,7 +114,7 @@ export default function Awards() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {awards.map((award, index) => (
-            <AwardCard key={index} award={award} index={index} t={t} />
+            <AwardCard key={index} award={award} index={index} t={t} locale={locale} />
           ))}
         </div>
       </div>

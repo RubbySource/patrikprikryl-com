@@ -2,7 +2,7 @@ export const projects = [
   {
     title: "Automated Negotiation",
     description:
-      "AI-powered tool that conducts procurement negotiations autonomously – evaluating supplier offers, running counter-offers, and optimising total cost of ownership. Conceptualised and developed from scratch. Winner of CACIO IT Project of the Year 2023 – TOP 8 IT projects in the Czech Republic.",
+      "AI tool that negotiates autonomously with suppliers and optimises procurement costs. A project with significant potential for the future of purchasing. Recognised for an innovative and highly successful approach to adopting new technologies – nominated among the TOP 8 projects at IT Project of the Year 2023 in the Czech Republic.",
     tag: "AI Tool",
     url: null,
     featured: true,
