@@ -5,6 +5,12 @@ import Lenis from 'lenis';
 
 export default function SmoothScroll({ children }) {
   useEffect(() => {
+    // Zakáže browser scroll restoration — Lenis ji řídí sám
+    if (typeof window !== 'undefined') {
+      history.scrollRestoration = 'manual';
+      window.scrollTo(0, 0);
+    }
+
     const lenis = new Lenis({
       duration: 1.4,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
