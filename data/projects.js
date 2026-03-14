@@ -6,6 +6,9 @@ export const projects = [
     tag: "AI Tool · Internal Project",
     url: null,
     featured: true,
+    image: null, // "/projects/negobot.jpg"
+    bgFrom: "#0A1628",
+    bgTo: "#1A56DB",
   },
   {
     title: "MySKODA App Sourcing",
@@ -14,6 +17,9 @@ export const projects = [
     tag: "Connected Car · Mobile App",
     url: null,
     featured: false,
+    image: null, // "/projects/myskoda.jpg"
+    bgFrom: "#0F1F0F",
+    bgTo: "#1A4A2A",
   },
   {
     title: "iV App Procurement",
@@ -22,6 +28,9 @@ export const projects = [
     tag: "EV · Digital Product",
     url: null,
     featured: false,
+    image: null, // "/projects/iv-app.jpg"
+    bgFrom: "#0D1A2A",
+    bgTo: "#0F4060",
   },
   {
     title: "Cybersecurity Sourcing",
@@ -30,5 +39,8 @@ export const projects = [
     tag: "Cybersecurity · Automotive",
     url: null,
     featured: false,
+    image: null, // "/projects/cybersecurity.jpg"
+    bgFrom: "#1A0A0A",
+    bgTo: "#4A1010",
   },
 ];

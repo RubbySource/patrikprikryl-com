@@ -32,6 +32,19 @@ export const metadata = {
   },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Patrik Přikryl',
+  jobTitle: 'AI Project Manager',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Škoda Auto',
+  },
+  url: 'https://patrikprikryl.com',
+  sameAs: ['https://www.linkedin.com/in/patrikprikryl'],
+};
+
 export default function RootLayout({ children }) {
   return (
     <html suppressHydrationWarning>
@@ -41,6 +54,10 @@ export default function RootLayout({ children }) {
         <link
           href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
           rel="stylesheet"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body>{children}</body>
