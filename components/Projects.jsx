@@ -14,27 +14,27 @@ function ProjectScrollCard({ project, index, t }) {
     offset: ['start end', 'end start'],
   });
 
-  // Přímý transform bez spring — plynulý 1:1 se scrollem, žádný lag
+  // Trojúhelníkový průběh — karta roste do maxima a hned se začne zmenšovat, žádná prodleva
   const scale = useTransform(
     scrollYProgress,
-    [0, 0.28, 0.72, 1],
-    [0.6, 1, 1, 0.6]
+    [0, 0.5, 1],
+    [0.6, 1, 0.6]
   );
 
   const borderRadius = useTransform(
     scrollYProgress,
-    [0, 0.25, 0.75, 1],
-    [28, 0, 0, 28]
+    [0, 0.5, 1],
+    [28, 0, 28]
   );
 
   const overlayOpacity = useTransform(
     scrollYProgress,
-    [0, 0.3, 0.7, 1],
-    [0.85, 0.55, 0.55, 0.85]
+    [0, 0.5, 1],
+    [0.85, 0.5, 0.85]
   );
 
   return (
-    <div ref={ref} className="h-[180vh] relative">
+    <div ref={ref} className="h-[130vh] relative">
       {/* Sticky container — stays in place while scroll happens */}
       <div className="sticky top-0 h-screen overflow-hidden">
         <motion.div
