@@ -3,6 +3,7 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import { ThemeProvider } from 'next-themes';
 import { notFound } from 'next/navigation';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
+import SmoothScroll from '@/components/SmoothScroll';
 
 const locales = ['en', 'cs', 'de'];
 
@@ -20,7 +21,9 @@ export default async function LocaleLayout({ children, params: { locale } }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
       <NextIntlClientProvider messages={messages} locale={locale}>
-        {children}
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
         <GoogleAnalytics />
       </NextIntlClientProvider>
     </ThemeProvider>
