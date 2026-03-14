@@ -1,46 +1,35 @@
 export const projects = [
   {
-    title: "Negobot",
+    title: "Automated Negotiation",
     description:
-      "AI-powered automated negotiation assistant for procurement at Škoda Auto. As the author of the concept, I believe AI negotiation automation is the future of purchasing. Winner of CACIO IT Project of the Year 2023 – TOP 8 IT projects in the Czech Republic.",
-    tag: "AI Tool · Internal Project",
+      "AI-powered tool that conducts procurement negotiations autonomously – evaluating supplier offers, running counter-offers, and optimising total cost of ownership. Conceptualised and developed from scratch. Winner of CACIO IT Project of the Year 2023 – TOP 8 IT projects in the Czech Republic.",
+    tag: "AI Tool",
     url: null,
     featured: true,
-    image: null, // "/projects/negobot.jpg"
+    image: null, // "/projects/negotiation.jpg"
     bgFrom: "#0A1628",
     bgTo: "#1A56DB",
   },
   {
-    title: "MySKODA App Sourcing",
+    title: "Hackathons & Events",
     description:
-      "Led the tender and sourcing process for the MySKODA mobile application – a flagship connectivity product serving millions of Škoda owners worldwide.",
-    tag: "Connected Car · Mobile App",
+      "Organising and co-creating hackathons and innovation events focused on IT, sustainability, and procurement transformation. Bringing together developers, buyers, and business leaders to build solutions that matter.",
+    tag: "Innovation · Community",
     url: null,
     featured: false,
-    image: null, // "/projects/myskoda.jpg"
-    bgFrom: "#0F1F0F",
-    bgTo: "#1A4A2A",
+    image: null, // "/projects/hackathon.jpg"
+    bgFrom: "#0A1A12",
+    bgTo: "#0D4A2A",
   },
   {
-    title: "iV App Procurement",
+    title: "AI Evangelization",
     description:
-      "Managed procurement for the iV App – Škoda's dedicated application for electric vehicle owners, covering charging management and battery monitoring.",
-    tag: "EV · Digital Product",
+      "Sharing the potential of AI-driven procurement at universities across the Czech Republic and internationally, and as a speaker at industry events. Making the case that automation isn't a threat – it's the next frontier for smart buyers.",
+    tag: "Education · Thought Leadership",
     url: null,
     featured: false,
-    image: null, // "/projects/iv-app.jpg"
-    bgFrom: "#0D1A2A",
-    bgTo: "#0F4060",
-  },
-  {
-    title: "Cybersecurity Sourcing",
-    description:
-      "Oversaw sourcing of cybersecurity solutions for connected car platforms, ensuring compliance with UNECE WP.29 regulations and automotive security standards.",
-    tag: "Cybersecurity · Automotive",
-    url: null,
-    featured: false,
-    image: null, // "/projects/cybersecurity.jpg"
-    bgFrom: "#1A0A0A",
-    bgTo: "#4A1010",
+    image: null, // "/projects/speaking.jpg"
+    bgFrom: "#1A0D2E",
+    bgTo: "#4A1080",
   },
 ];

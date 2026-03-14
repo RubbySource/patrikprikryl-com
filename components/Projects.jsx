@@ -6,6 +6,14 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { projects } from '@/data/projects';
 
+// Each card enters from a different direction — cycles through the list
+const SLIDE_DIRECTIONS = [
+  { x: ['-40%', '0%', '40%'], y: ['30%', '0%', '-30%'] },  // bottom-left → top-right
+  { x: ['40%', '0%', '-40%'], y: ['-30%', '0%', '30%'] },  // top-right → bottom-left
+  { x: ['-40%', '0%', '40%'], y: ['-30%', '0%', '30%'] },  // top-left → bottom-right
+  { x: ['40%', '0%', '-40%'], y: ['30%', '0%', '-30%'] },  // bottom-right → top-left
+];
+
 function ProjectScrollCard({ project, index, t }) {
   const ref = useRef(null);
 
@@ -14,31 +22,20 @@ function ProjectScrollCard({ project, index, t }) {
     offset: ['start end', 'end start'],
   });
 
-  // Trojúhelníkový průběh — karta roste do maxima a hned se začne zmenšovat, žádná prodleva
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [0.6, 1, 0.6]
-  );
+  const dir = SLIDE_DIRECTIONS[index % SLIDE_DIRECTIONS.length];
 
-  const borderRadius = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [28, 0, 28]
-  );
-
-  const overlayOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [0.85, 0.5, 0.85]
-  );
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.6, 1, 0.6]);
+  const borderRadius = useTransform(scrollYProgress, [0, 0.5, 1], [28, 0, 28]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.85, 0.45, 0.85]);
+  const x = useTransform(scrollYProgress, [0, 0.5, 1], dir.x);
+  const y = useTransform(scrollYProgress, [0, 0.5, 1], dir.y);
 
   return (
     <div ref={ref} className="h-[130vh] relative">
-      {/* Sticky container — stays in place while scroll happens */}
+      {/* Sticky container — stays in place while scroll drives the animation */}
       <div className="sticky top-0 h-screen overflow-hidden">
         <motion.div
-          style={{ scale, borderRadius, willChange: 'transform' }}
+          style={{ scale, borderRadius, x, y, willChange: 'transform' }}
           className="absolute inset-0 project-card-mask"
         >
           {/* Background — image or gradient */}
@@ -62,13 +59,14 @@ function ProjectScrollCard({ project, index, t }) {
           {/* Gradient overlay for text legibility */}
           <motion.div
             style={{ opacity: overlayOpacity }}
-            className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"
+            className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"
           />
 
           {/* Content */}
-          <div className="absolute inset-0 flex flex-col justify-between p-8 sm:p-12 lg:p-16">
-            {/* Top row */}
-            <div className="flex items-start justify-between">
+          <div className="absolute inset-0 flex flex-col p-8 sm:p-12 lg:p-16">
+
+            {/* Top row — card counter + badges */}
+            <div className="flex items-start justify-between flex-shrink-0">
               <span className="text-xs font-semibold tracking-widest uppercase text-white/40">
                 {String(index + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
               </span>
@@ -94,18 +92,19 @@ function ProjectScrollCard({ project, index, t }) {
               </div>
             </div>
 
-            {/* Bottom content */}
-            <div>
-              <span className="block text-xs font-semibold tracking-widest uppercase text-white/50 mb-4">
+            {/* Vertically centred main content */}
+            <div className="flex-1 flex flex-col justify-center items-center text-center">
+              <span className="block text-xs font-semibold tracking-widest uppercase text-white/50 mb-5">
                 {project.tag}
               </span>
-              <h3 className="font-display font-bold text-5xl sm:text-6xl lg:text-8xl text-white mb-5 leading-[0.95] tracking-tight">
+              <h3 className="font-display font-bold text-5xl sm:text-6xl lg:text-8xl text-white mb-6 leading-[0.95] tracking-tight max-w-5xl">
                 {project.title}
               </h3>
               <p className="text-sm sm:text-base lg:text-lg text-white/60 max-w-2xl leading-relaxed">
                 {project.description}
               </p>
             </div>
+
           </div>
         </motion.div>
       </div>
