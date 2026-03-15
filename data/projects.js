@@ -6,7 +6,7 @@ export const projects = [
     tag: "AI Tool",
     url: null,
     featured: true,
-    image: null, // "/projects/negotiation.jpg"
+    image: "/projects/negotiation.jpg",
     bgFrom: "#0A1628",
     bgTo: "#1A56DB",
   },
@@ -17,7 +17,7 @@ export const projects = [
     tag: "Innovation · Community",
     url: null,
     featured: false,
-    image: null, // "/projects/hackathon.jpg"
+    image: "/projects/events.jpg",
     bgFrom: "#0A1A12",
     bgTo: "#0D4A2A",
   },
@@ -28,7 +28,7 @@ export const projects = [
     tag: "Education · Thought Leadership",
     url: null,
     featured: false,
-    image: null, // "/projects/speaking.jpg"
+    image: "/projects/evangelization.jpg",
     bgFrom: "#1A0D2E",
     bgTo: "#4A1080",
   },

@@ -1,20 +1,17 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import { useTranslations } from 'next-intl';
 import { beliefs } from '@/data/beliefs';
 
 function BeliefCard({ belief, index }) {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
-
   return (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.6, delay: index * 0.15 }}
-      className="group relative overflow-hidden bg-white dark:bg-[#141414] rounded-2xl p-8 sm:p-10 border border-gray-100 dark:border-gray-800 hover:border-[#1A56DB]/20 dark:hover:border-[#1A56DB]/20 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/5 cursor-default"
+      className="group relative overflow-hidden bg-white dark:bg-[#141414] rounded-2xl p-8 sm:p-10 border border-gray-100 dark:border-gray-800 hover:border-[#1A56DB]/20 dark:hover:border-[#1A56DB]/20 transition-[border-color,box-shadow] duration-500 hover:shadow-2xl hover:shadow-blue-500/5 cursor-default"
     >
       {/* Large background number */}
       <div
@@ -47,15 +44,14 @@ function BeliefCard({ belief, index }) {
 
 export default function Beliefs() {
   const t = useTranslations('beliefs');
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section className="section-padding bg-gray-50/50 dark:bg-[#0D0D0D]">
+    <section className="section-padding">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          ref={ref}
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6 }}
           className="mb-12"
         >

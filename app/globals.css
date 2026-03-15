@@ -102,13 +102,25 @@ h1, h2, h3, h4, h5, h6 {
   outline-offset: 2px;
 }
 
-/* Project scroll card — mask fade adapts to light/dark mode */
+/* Project scroll card — mask fades all four edges (top, bottom, left, right) */
 .project-card-mask {
-  mask-image: linear-gradient(to bottom, transparent 0%, white 14%, white 86%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, white 14%, white 86%, transparent 100%);
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, white 14%, white 86%, transparent 100%),
+    linear-gradient(to right,  transparent 0%, white  7%, white 93%, transparent 100%);
+  mask-composite: intersect;
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0%, white 14%, white 86%, transparent 100%),
+    linear-gradient(to right,  transparent 0%, white  7%, white 93%, transparent 100%);
+  -webkit-mask-composite: destination-in;
 }
 
 .dark .project-card-mask {
-  mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 86%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 86%, transparent 100%);
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, black 14%, black 86%, transparent 100%),
+    linear-gradient(to right,  transparent 0%, black  7%, black 93%, transparent 100%);
+  mask-composite: intersect;
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0%, black 14%, black 86%, transparent 100%),
+    linear-gradient(to right,  transparent 0%, black  7%, black 93%, transparent 100%);
+  -webkit-mask-composite: destination-in;
 }

@@ -6,12 +6,10 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { projects } from '@/data/projects';
 
-// Each card enters from a different direction — cycles through the list
+// Two alternating directions — exit of card N == entry of card N+1, so spacing looks equal
 const SLIDE_DIRECTIONS = [
   { x: ['-40%', '0%', '40%'], y: ['30%', '0%', '-30%'] },  // bottom-left → top-right
   { x: ['40%', '0%', '-40%'], y: ['-30%', '0%', '30%'] },  // top-right → bottom-left
-  { x: ['-40%', '0%', '40%'], y: ['-30%', '0%', '30%'] },  // top-left → bottom-right
-  { x: ['40%', '0%', '-40%'], y: ['30%', '0%', '-30%'] },  // bottom-right → top-left
 ];
 
 function ProjectScrollCard({ project, index, t }) {
@@ -116,7 +114,7 @@ export default function Projects() {
   const t = useTranslations('projects');
 
   return (
-    <section id="projects" className="bg-[#FAFAFA] dark:bg-[#0A0A0A]">
+    <section id="projects">
       {/* Section header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-28 pb-8">
         <span className="text-xs font-semibold tracking-widest uppercase text-[#1A56DB] mb-4 block">

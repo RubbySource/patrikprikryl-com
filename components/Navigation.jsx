@@ -46,7 +46,6 @@ export default function Navigation() {
   }, []);
 
   const navItems = [
-    { label: t('about'), href: '#about' },
     { label: t('projects'), href: '#projects' },
     { label: t('awards'), href: '#awards' },
     { label: t('contact'), href: '#contact' },

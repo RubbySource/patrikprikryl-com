@@ -1,6 +1,6 @@
 export const awards = [
   {
-    icon: "🏆",
+    icon: "trophy",
     title: {
       en: "Jiří Polák Award – IT Project of the Year",
       cs: "Cena Jiřího Poláka – IT Projekt roku",
@@ -31,7 +31,7 @@ export const awards = [
     url: "https://www.cacio.cz/cacio-v-gala/",
   },
   {
-    icon: "⭐",
+    icon: "star",
     title: {
       en: "Finalist – IT Project of the Year",
       cs: "Finalista – IT Projekt roku",
@@ -62,7 +62,7 @@ export const awards = [
     url: "https://www.cacio.cz/cacio-v-gala/",
   },
   {
-    icon: "🏆",
+    icon: "trophy",
     title: {
       en: "Purchaser of the Year 2021",
       cs: "Purchaser of the Year 2021",

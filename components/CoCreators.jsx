@@ -1,8 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { collaborators, universityCollaborators } from '@/data/cocreators';
 
 const avatarColors = [
@@ -15,22 +15,33 @@ const avatarColors = [
 ];
 
 function PersonCard({ person, index, globalIndex }) {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
   const colorClass = avatarColors[globalIndex % avatarColors.length];
 
   return (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.4, delay: index * 0.08 }}
-      className="group bg-white dark:bg-[#141414] rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:border-[#1A56DB]/20 dark:hover:border-[#1A56DB]/20 transition-all duration-300 hover:shadow-lg hover:shadow-gray-100/50 dark:hover:shadow-black/20"
+      className="group bg-white dark:bg-[#141414] rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:border-[#1A56DB]/20 dark:hover:border-[#1A56DB]/20 transition-[border-color,box-shadow] duration-300 hover:shadow-lg hover:shadow-gray-100/50 dark:hover:shadow-black/20"
     >
       <div className="flex items-start gap-4">
         {/* Avatar */}
-        <div className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-display font-bold text-sm ${colorClass}`}>
-          {person.initials}
-        </div>
+        {person.image ? (
+          <div className="flex-shrink-0 w-12 h-12 rounded-full overflow-hidden ring-2 ring-gray-100 dark:ring-gray-700">
+            <Image
+              src={person.image}
+              alt={person.name}
+              width={48}
+              height={48}
+              className="object-cover w-full h-full"
+            />
+          </div>
+        ) : (
+          <div className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-display font-bold text-sm ${colorClass}`}>
+            {person.initials}
+          </div>
+        )}
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2 mb-2">
@@ -60,15 +71,14 @@ function PersonCard({ person, index, globalIndex }) {
 
 export default function CoCreators() {
   const t = useTranslations('cocreators');
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
     <section className="section-padding">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          ref={ref}
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6 }}
           className="mb-12"
         >

@@ -31,33 +31,6 @@ export default function Hero() {
       {/* Background gradient mesh */}
       <div className="gradient-mesh" />
 
-      {/* Animated background particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full opacity-[0.03] dark:opacity-[0.05] bg-[#1A56DB]"
-            style={{
-              width: `${200 + i * 80}px`,
-              height: `${200 + i * 80}px`,
-              left: `${10 + i * 15}%`,
-              top: `${20 + (i % 3) * 20}%`,
-            }}
-            animate={{
-              x: [0, 20, -10, 0],
-              y: [0, -15, 10, 0],
-              scale: [1, 1.05, 0.98, 1],
-            }}
-            transition={{
-              duration: 8 + i * 2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: i * 0.5,
-            }}
-          />
-        ))}
-      </div>
-
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[calc(100vh-5rem)]">
 
