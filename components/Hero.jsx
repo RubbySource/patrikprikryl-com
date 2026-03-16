@@ -39,7 +39,7 @@ export default function Hero() {
             variants={container}
             initial="hidden"
             animate="show"
-            className="flex flex-col justify-center order-2 lg:order-1 pb-12 lg:pb-0"
+            className="flex flex-col justify-center order-1 pb-12 lg:pb-0"
           >
             <motion.div variants={item}>
               <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#1A56DB] mb-4">
@@ -78,7 +78,7 @@ export default function Hero() {
               >
                 {t('cta_projects')}
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </button>
               <a
@@ -100,7 +100,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-            className="order-1 lg:order-2 flex justify-center lg:justify-end"
+            className="order-2 flex justify-center lg:justify-end"
           >
             <div className="relative w-full max-w-sm lg:max-w-none lg:w-full aspect-[3/4] lg:aspect-[4/5] rounded-2xl overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-[#1A56DB]/10 to-transparent z-10 rounded-2xl" />

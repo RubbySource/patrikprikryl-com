@@ -121,7 +121,7 @@ export default function Projects() {
         <span className="text-xs font-semibold tracking-widest uppercase text-[#1A56DB] mb-4 block">
           {t('label')}
         </span>
-        <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-[#F0F0F0]">
+        <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-[#111111] dark:text-[#F0F0F0]">
           {t('title')}
         </h2>
       </div>

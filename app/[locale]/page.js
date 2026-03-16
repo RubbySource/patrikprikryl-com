@@ -10,6 +10,7 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import CookieBanner from '@/components/CookieBanner';
 import BackToTop from '@/components/BackToTop';
+import ScrollNav from '@/components/ScrollNav';
 import NetworkCanvas from '@/components/NetworkCanvas';
 
 export default function Home({ params: { locale } }) {
@@ -31,6 +32,7 @@ export default function Home({ params: { locale } }) {
         <Footer />
         <CookieBanner />
         <BackToTop />
+        <ScrollNav />
       </main>
     </>
   );

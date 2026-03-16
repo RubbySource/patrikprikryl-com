@@ -11,7 +11,7 @@ function BeliefCard({ belief, index, locale }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.6, delay: index * 0.15 }}
-      className="group relative overflow-hidden bg-white dark:bg-[#141414] rounded-2xl p-8 sm:p-10 border border-gray-100 dark:border-gray-800 hover:border-[#1A56DB]/20 dark:hover:border-[#1A56DB]/20 transition-[border-color,box-shadow] duration-500 hover:shadow-2xl hover:shadow-blue-500/5 cursor-default"
+      className="group relative overflow-hidden bg-[#1C1C1C] rounded-2xl p-8 sm:p-10 border border-white/5 hover:border-[#1A56DB]/30 transition-[border-color,box-shadow] duration-500 hover:shadow-2xl hover:shadow-blue-500/10 cursor-default"
     >
       {/* Large background number */}
       <div
@@ -32,7 +32,7 @@ function BeliefCard({ belief, index, locale }) {
       </span>
 
       {/* Statement */}
-      <p className="relative font-display font-semibold text-xl sm:text-2xl text-[#111111] dark:text-[#F0F0F0] leading-snug">
+      <p className="relative font-display font-semibold text-xl sm:text-2xl text-[#F0F0F0] leading-snug">
         {belief.text[locale] ?? belief.text.en}
       </p>
 
@@ -47,7 +47,7 @@ export default function Beliefs() {
   const locale = useLocale();
 
   return (
-    <section className="section-padding">
+    <section id="beliefs" className="section-padding bg-[#111111] dark:bg-[#0D0D0D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -59,7 +59,7 @@ export default function Beliefs() {
           <span className="text-xs font-semibold tracking-widest uppercase text-[#1A56DB] mb-4 block">
             {t('label')}
           </span>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-[#111111] dark:text-[#F0F0F0]">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-[#F0F0F0]">
             {t('title')}
           </h2>
         </motion.div>
