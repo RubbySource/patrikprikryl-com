@@ -6,6 +6,7 @@
     "contact": "Kontakt"
   },
   "hero": {
+    "name_last": "Přikryl",
     "tagline": "AI Project Manager · Škoda Auto",
     "bio": "Jsem AI Project Manager ve Škodě Auto, kde prosazuji integraci umělé inteligence do nákupních procesů. Se 13 lety zkušeností v nákupu – z nichž 8+ let jsem vedl výběrová řízení v oblasti IT a zajišťoval nákup hardwaru – jsem si vybudoval pevné přesvědčení: budoucnost nákupu je automatizovaná, inteligentní a lidsky orientovaná. Věřím v optimismus, otevřenost a sílu propojování správných lidí.",
     "cta_projects": "Zobrazit projekty",
@@ -40,7 +41,9 @@
   "awards": {
     "label": "Uznání",
     "title": "Ocenění a úspěchy",
-    "role_label": "Role"
+    "role_label": "Role",
+    "internal_project": "Interní projekt @ Škoda Auto",
+    "more_info": "Více informací →"
   },
   "beliefs": {
     "label": "Perspektiva",

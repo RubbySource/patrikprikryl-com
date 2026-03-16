@@ -6,6 +6,7 @@
     "contact": "Kontakt"
   },
   "hero": {
+    "name_last": "Prikryl",
     "tagline": "AI Project Manager · Škoda Auto",
     "bio": "Ich bin AI Project Manager bei Škoda Auto und treibe die Integration von künstlicher Intelligenz in Beschaffungsprozesse voran. Mit 13 Jahren Erfahrung im Einkauf – davon 8+ Jahre in der Leitung von IT-Ausschreibungen und Hardware-Beschaffung – habe ich eine tiefe Überzeugung entwickelt: Die Zukunft des Einkaufs ist automatisiert, intelligent und menschenzentriert. Ich glaube an Optimismus, Offenheit und die Kraft, die richtigen Menschen zu vernetzen.",
     "cta_projects": "Projekte ansehen",
@@ -40,7 +41,9 @@
   "awards": {
     "label": "Anerkennung",
     "title": "Auszeichnungen & Erfolge",
-    "role_label": "Rolle"
+    "role_label": "Rolle",
+    "internal_project": "Internes Projekt @ Škoda Auto",
+    "more_info": "Mehr Infos →"
   },
   "beliefs": {
     "label": "Perspektive",

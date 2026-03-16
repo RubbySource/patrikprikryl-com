@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import { collaborators, universityCollaborators } from '@/data/cocreators';
 
@@ -14,7 +14,7 @@ const avatarColors = [
   'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300',
 ];
 
-function PersonCard({ person, index, globalIndex }) {
+function PersonCard({ person, index, globalIndex, locale }) {
   const colorClass = avatarColors[globalIndex % avatarColors.length];
 
   return (
@@ -61,7 +61,7 @@ function PersonCard({ person, index, globalIndex }) {
             </a>
           </div>
           <p className="text-sm text-[#6B7280] dark:text-gray-400 leading-relaxed">
-            {person.description}
+            {person.description[locale] ?? person.description.en}
           </p>
         </div>
       </div>
@@ -71,6 +71,7 @@ function PersonCard({ person, index, globalIndex }) {
 
 export default function CoCreators() {
   const t = useTranslations('cocreators');
+  const locale = useLocale();
 
   return (
     <section className="section-padding">
@@ -97,7 +98,7 @@ export default function CoCreators() {
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {collaborators.map((person, index) => (
-              <PersonCard key={index} person={person} index={index} globalIndex={index} />
+              <PersonCard key={index} person={person} index={index} globalIndex={index} locale={locale} />
             ))}
           </div>
         </div>
@@ -114,6 +115,7 @@ export default function CoCreators() {
                 person={person}
                 index={index}
                 globalIndex={index + collaborators.length}
+                locale={locale}
               />
             ))}
           </div>

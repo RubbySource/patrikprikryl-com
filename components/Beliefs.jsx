@@ -1,10 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { beliefs } from '@/data/beliefs';
 
-function BeliefCard({ belief, index }) {
+function BeliefCard({ belief, index, locale }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -33,7 +33,7 @@ function BeliefCard({ belief, index }) {
 
       {/* Statement */}
       <p className="relative font-display font-semibold text-xl sm:text-2xl text-[#111111] dark:text-[#F0F0F0] leading-snug">
-        {belief.text}
+        {belief.text[locale] ?? belief.text.en}
       </p>
 
       {/* Accent line on hover */}
@@ -44,6 +44,7 @@ function BeliefCard({ belief, index }) {
 
 export default function Beliefs() {
   const t = useTranslations('beliefs');
+  const locale = useLocale();
 
   return (
     <section className="section-padding">
@@ -65,7 +66,7 @@ export default function Beliefs() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {beliefs.map((belief, index) => (
-            <BeliefCard key={index} belief={belief} index={index} />
+            <BeliefCard key={index} belief={belief} index={index} locale={locale} />
           ))}
         </div>
       </div>

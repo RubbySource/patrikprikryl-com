@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import { projects } from '@/data/projects';
 
@@ -12,7 +12,7 @@ const SLIDE_DIRECTIONS = [
   { x: ['40%', '0%', '-40%'], y: ['-30%', '0%', '30%'] },  // top-right → bottom-left
 ];
 
-function ProjectScrollCard({ project, index, t }) {
+function ProjectScrollCard({ project, index, t, locale }) {
   const ref = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -24,7 +24,7 @@ function ProjectScrollCard({ project, index, t }) {
 
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.6, 1, 0.6]);
   const borderRadius = useTransform(scrollYProgress, [0, 0.5, 1], [28, 0, 28]);
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.85, 0.45, 0.85]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 0.65, 0.95]);
   const x = useTransform(scrollYProgress, [0, 0.5, 1], dir.x);
   const y = useTransform(scrollYProgress, [0, 0.5, 1], dir.y);
 
@@ -57,7 +57,7 @@ function ProjectScrollCard({ project, index, t }) {
           {/* Gradient overlay for text legibility */}
           <motion.div
             style={{ opacity: overlayOpacity }}
-            className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"
+            className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10"
           />
 
           {/* Content */}
@@ -93,13 +93,13 @@ function ProjectScrollCard({ project, index, t }) {
             {/* Vertically centred main content */}
             <div className="flex-1 flex flex-col justify-center items-center text-center">
               <span className="block text-xs font-semibold tracking-widest uppercase text-white/50 mb-5">
-                {project.tag}
+                {project.tag[locale] ?? project.tag.en}
               </span>
               <h3 className="font-display font-bold text-5xl sm:text-6xl lg:text-8xl text-white mb-6 leading-[0.95] tracking-tight max-w-5xl">
-                {project.title}
+                {project.title[locale] ?? project.title.en}
               </h3>
-              <p className="text-sm sm:text-base lg:text-lg text-white/60 max-w-2xl leading-relaxed">
-                {project.description}
+              <p className="text-sm sm:text-base lg:text-lg text-white/85 max-w-2xl leading-relaxed">
+                {project.description[locale] ?? project.description.en}
               </p>
             </div>
 
@@ -112,6 +112,7 @@ function ProjectScrollCard({ project, index, t }) {
 
 export default function Projects() {
   const t = useTranslations('projects');
+  const locale = useLocale();
 
   return (
     <section id="projects">
@@ -133,6 +134,7 @@ export default function Projects() {
             project={project}
             index={index}
             t={t}
+            locale={locale}
           />
         ))}
       </div>

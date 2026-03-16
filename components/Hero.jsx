@@ -49,11 +49,12 @@ export default function Hero() {
 
             <motion.h1
               variants={item}
-              className="font-display font-bold text-[clamp(3rem,8vw,7rem)] leading-[0.95] tracking-tight text-[#111111] dark:text-[#F0F0F0] mb-6"
+              className="font-bold text-[clamp(3rem,8vw,7rem)] leading-[0.9] tracking-[-0.03em] text-[#111111] dark:text-[#F0F0F0] mb-6"
+              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
             >
               Patrik
               <br />
-              <span className="text-[#1A56DB]">Přikryl</span>
+              <span className="text-[#1A56DB]">{t('name_last')}</span>
             </motion.h1>
 
             <motion.p

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useTranslations } from 'next-intl';
 import { stats } from '@/data/stats';
 
 function CountUp({ value, isInView }) {
@@ -42,6 +43,7 @@ function CountUp({ value, isInView }) {
 }
 
 export default function StatsBar() {
+  const t = useTranslations('stats');
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
 
   return (
@@ -62,7 +64,7 @@ export default function StatsBar() {
                 <CountUp value={stat.value} isInView={inView} />
               </span>
               <span className="text-xs sm:text-sm text-gray-400 font-medium text-center leading-tight">
-                {stat.label}
+                {t(stat.key)}
               </span>
             </div>
           ))}
