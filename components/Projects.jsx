@@ -92,15 +92,17 @@ function ProjectScrollCard({ project, index, t, locale }) {
 
             {/* Vertically centred main content */}
             <div className="flex-1 flex flex-col justify-center items-center text-center">
-              <span className="block text-xs font-semibold tracking-widest uppercase text-white/50 mb-5">
-                {project.tag[locale] ?? project.tag.en}
-              </span>
-              <h3 className="font-display font-bold text-5xl sm:text-6xl lg:text-8xl text-white mb-6 leading-[0.95] tracking-tight max-w-5xl">
-                {project.title[locale] ?? project.title.en}
-              </h3>
-              <p className="text-sm sm:text-base lg:text-lg text-white/85 max-w-2xl leading-relaxed">
-                {project.description[locale] ?? project.description.en}
-              </p>
+              <div className="px-8 py-8 sm:px-12 sm:py-10 rounded-3xl" style={{ background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
+                <span className="block text-xs font-semibold tracking-widest uppercase text-white/60 mb-5">
+                  {project.tag[locale] ?? project.tag.en}
+                </span>
+                <h3 className="font-display font-bold text-5xl sm:text-6xl lg:text-8xl text-white mb-6 leading-[0.95] tracking-tight max-w-5xl">
+                  {project.title[locale] ?? project.title.en}
+                </h3>
+                <p className="text-sm sm:text-base lg:text-lg text-white/90 max-w-2xl leading-relaxed">
+                  {project.description[locale] ?? project.description.en}
+                </p>
+              </div>
             </div>
 
           </div>
