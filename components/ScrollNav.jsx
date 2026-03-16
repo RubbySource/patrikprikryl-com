@@ -54,7 +54,10 @@ export default function ScrollNav() {
   };
 
   return (
-    <div className="fixed right-7 top-1/2 -translate-y-1/2 z-50 hidden lg:block select-none">
+    <div
+      className="fixed top-1/2 -translate-y-1/2 z-50 hidden lg:block select-none"
+      style={{ right: 'calc(50vw - 40rem - 2rem)' }}
+    >
       <div className="relative flex flex-col items-end">
 
         {/* Track line — full height behind dots */}
@@ -132,10 +135,12 @@ export default function ScrollNav() {
           );
         })}
 
-        {/* Scroll percentage — bottom of nav */}
+        {/* Scroll % — floats along the progress line */}
         <motion.span
-          className="mt-1 text-[9px] font-mono text-[#6B7280]/60 dark:text-white/20 text-right pr-0.5"
-          animate={{ opacity: scrollPct > 0.02 ? 1 : 0 }}
+          className="absolute text-[9px] font-mono text-[#1A56DB]/70 dark:text-[#1A56DB]/60 whitespace-nowrap pointer-events-none -translate-y-1/2"
+          style={{ top: `${scrollPct * 100}%`, right: '1.5rem' }}
+          animate={{ opacity: scrollPct > 0.02 && scrollPct < 0.97 ? 1 : 0 }}
+          transition={{ duration: 0.2 }}
         >
           {Math.round(scrollPct * 100)}%
         </motion.span>
