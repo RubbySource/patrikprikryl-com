@@ -37,12 +37,28 @@ const jsonLd = {
   '@type': 'Person',
   name: 'Patrik Přikryl',
   jobTitle: 'AI Project Manager',
+  description: 'AI Project Manager at Škoda Auto with 13+ years in procurement. Pioneering AI-powered negotiation tools and digital transformation in automotive purchasing.',
   worksFor: {
     '@type': 'Organization',
     name: 'Škoda Auto',
+    url: 'https://www.skoda-auto.com',
   },
   url: 'https://patrikprikryl.com',
-  sameAs: ['https://www.linkedin.com/in/patrikprikryl'],
+  sameAs: [
+    'https://www.linkedin.com/in/patrikprikryl',
+  ],
+  knowsAbout: [
+    'Artificial Intelligence',
+    'Procurement Automation',
+    'Automated Negotiation',
+    'Digital Transformation',
+    'AI Project Management',
+    'Connected Car Sourcing',
+  ],
+  award: [
+    'Jiří Polák Award – IT Project of the Year 2023 (CACIO)',
+    'Purchaser of the Year 2021 (Škoda Auto)',
+  ],
 };
 
 export default function RootLayout({ children }) {

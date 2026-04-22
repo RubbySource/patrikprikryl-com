@@ -7,13 +7,13 @@
   },
   "hero": {
     "name_last": "Prikryl",
-    "tagline": "AI Project Manager · Škoda Auto",
+    "tagline": "Pioneering AI in Procurement · Škoda Auto",
     "bio": "I'm an AI Project Manager at Škoda Auto, where I drive the integration of artificial intelligence into procurement processes. With 13 years in procurement – including 8+ years leading IT tenders and hardware sourcing – I've developed a deep conviction: the future of purchasing is automated, intelligent, and human-centred. I believe in optimism, openness, and the power of connecting the right people.",
     "cta_projects": "View Projects",
     "cta_linkedin": "Connect on LinkedIn"
   },
   "stats": {
-    "years": "Years at Škoda Auto",
+    "years": "Years in Procurement",
     "followers": "LinkedIn Followers",
     "linkedin": "LinkedIn Automotive",
     "awards": "Industry Awards"
@@ -21,7 +21,7 @@
   "about": {
     "label": "About",
     "title": "Connecting people, technology, and procurement.",
-    "text": "I'm an AI Project Manager at Škoda Auto, where I lead the integration of artificial intelligence into procurement processes. With over 11 years in the company – including 7+ years leading IT and Connected Car tenders – I've developed a deep conviction: the future of purchasing is automated, intelligent, and human-centred. I believe in optimism, openness, and the power of connecting the right people.",
+    "text": "I'm an AI Project Manager at Škoda Auto, where I lead the integration of artificial intelligence into procurement processes. With over 13 years in procurement – including 8+ years leading IT and Connected Car tenders – I've developed a deep conviction: the future of purchasing is automated, intelligent, and human-centred. I believe in optimism, openness, and the power of connecting the right people.",
     "tags": [
       "AI Project Management",
       "Automated Negotiation",
