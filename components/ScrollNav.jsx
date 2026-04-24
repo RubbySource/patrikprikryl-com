@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
@@ -9,14 +9,14 @@ export default function ScrollNav() {
   const tb = useTranslations('beliefs');
   const tc = useTranslations('cocreators');
 
-  const sections = [
+  const sections = useMemo(() => [
     { id: 'hero',       label: 'Home' },
     { id: 'projects',   label: tn('projects') },
     { id: 'awards',     label: tn('awards') },
     { id: 'beliefs',    label: tb('label') },
     { id: 'cocreators', label: tc('label') },
     { id: 'contact',    label: tn('contact') },
-  ];
+  ], [tn, tb, tc]);
 
   const [active, setActive] = useState('hero');
   const [hovered, setHovered] = useState(null);
@@ -47,7 +47,7 @@ export default function ScrollNav() {
       observers.push(obs);
     });
     return () => observers.forEach(o => o.disconnect());
-  }, []);
+  }, [sections]);
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
