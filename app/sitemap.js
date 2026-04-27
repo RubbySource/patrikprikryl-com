@@ -1,22 +1,52 @@
-export default function sitemap() {
-  const baseUrl = 'https://patrikprikryl.com';
-  const locales = ['en', 'cs', 'de'];
-  const lastModified = new Date().toISOString();
+import { blogPosts } from '@/data/blog';
 
-  const routes = locales.map((locale) => ({
-    url: `${baseUrl}/${locale}`,
-    lastModified,
-    changeFrequency: 'monthly',
-    priority: locale === 'cs' ? 1.0 : 0.8,
-  }));
+const BASE_URL = 'https://patrikprikryl.com';
+const LOCALES = ['en', 'cs', 'de'];
+
+export default function sitemap() {
+  const lastModified = new Date().toISOString();
+  const entries = [];
 
   // Root URL (redirects to default locale)
-  routes.unshift({
-    url: baseUrl,
+  entries.push({
+    url: BASE_URL,
     lastModified,
     changeFrequency: 'monthly',
     priority: 1.0,
   });
 
-  return routes;
+  // Per-locale homepage
+  for (const locale of LOCALES) {
+    entries.push({
+      url: `${BASE_URL}/${locale}`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: locale === 'cs' ? 1.0 : 0.8,
+    });
+  }
+
+  // Blog posts (one entry per locale; empty until data/blog.js is populated)
+  for (const post of blogPosts) {
+    const postLastMod = new Date(post.date).toISOString();
+    for (const locale of LOCALES) {
+      entries.push({
+        url: `${BASE_URL}/${locale}/blog/${post.slug}`,
+        lastModified: postLastMod,
+        changeFrequency: 'yearly',
+        priority: 0.6,
+      });
+    }
+  }
+
+  // Easter-egg terminal page (low priority — discoverable, not promoted)
+  for (const locale of LOCALES) {
+    entries.push({
+      url: `${BASE_URL}/${locale}/terminal`,
+      lastModified,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    });
+  }
+
+  return entries;
 }
