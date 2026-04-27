@@ -8,12 +8,14 @@ export default function ScrollNav() {
   const tn = useTranslations('nav');
   const tb = useTranslations('beliefs');
   const tc = useTranslations('cocreators');
+  const ts = useTranslations('skills');
 
   const sections = [
     { id: 'hero',       label: 'Home' },
     { id: 'projects',   label: tn('projects') },
     { id: 'awards',     label: tn('awards') },
     { id: 'beliefs',    label: tb('label') },
+    { id: 'skills',     label: ts('label') },
     { id: 'cocreators', label: tc('label') },
     { id: 'contact',    label: tn('contact') },
   ];
