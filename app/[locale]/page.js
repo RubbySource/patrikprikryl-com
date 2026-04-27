@@ -7,12 +7,12 @@ import Awards from '@/components/Awards';
 import Beliefs from '@/components/Beliefs';
 import CoCreators from '@/components/CoCreators';
 import Contact from '@/components/Contact';
+import GetInTouch from '@/components/GetInTouch';
 import Footer from '@/components/Footer';
 import CookieBanner from '@/components/CookieBanner';
 import BackToTop from '@/components/BackToTop';
 import ScrollNav from '@/components/ScrollNav';
 import NetworkCanvas from '@/components/NetworkCanvas';
-import ScrollReveal from '@/components/ScrollReveal';
 
 export default function Home({ params: { locale } }) {
   setRequestLocale(locale);
@@ -30,12 +30,7 @@ export default function Home({ params: { locale } }) {
         <Beliefs />
         <CoCreators />
         <Contact />
+        <GetInTouch />
         <Footer />
         <CookieBanner />
-        <BackToTop />
-        <ScrollNav />
-        <ScrollReveal />
-      </main>
-    </>
-  );
-}
+    

@@ -47,6 +47,16 @@ export default function Hero() {
               </span>
             </motion.div>
 
+            <motion.div variants={item} className="mb-5">
+              <span className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800/60 px-3.5 py-1.5 rounded-full">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                Currently building GardenPin 🌱
+              </span>
+            </motion.div>
+
             <motion.h1
               variants={item}
               className="font-bold text-[clamp(3rem,8vw,7rem)] leading-[0.9] tracking-[-0.03em] text-[#111111] dark:text-[#F0F0F0] mb-6"
@@ -115,25 +125,4 @@ export default function Hero() {
               {/* Decorative frame */}
               <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-black/5 dark:ring-white/5 z-20" />
             </div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-5 h-8 rounded-full border-2 border-[#6B7280]/40 flex items-start justify-center p-1"
-        >
-          <div className="w-1 h-2 rounded-full bg-[#6B7280]/60" />
-        </motion.div>
-      </motion.div>
-    </section>
-  );
-}
+          </motion
