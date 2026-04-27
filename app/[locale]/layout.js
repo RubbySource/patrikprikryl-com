@@ -4,6 +4,7 @@ import { ThemeProvider } from 'next-themes';
 import { notFound } from 'next/navigation';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import SmoothScroll from '@/components/SmoothScroll';
+import TerminalShortcut from '@/components/TerminalShortcut';
 
 const locales = ['en', 'cs', 'de'];
 
@@ -24,6 +25,7 @@ export default async function LocaleLayout({ children, params: { locale } }) {
         <SmoothScroll>
           {children}
         </SmoothScroll>
+        <TerminalShortcut />
         <GoogleAnalytics />
       </NextIntlClientProvider>
     </ThemeProvider>
