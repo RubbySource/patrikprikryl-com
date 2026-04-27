@@ -65,4 +65,26 @@ export const projects = [
     bgFrom: "#1A0D2E",
     bgTo: "#4A1080",
   },
+  {
+    title: {
+      en: "GardenPin",
+      cs: "GardenPin",
+      de: "GardenPin",
+    },
+    description: {
+      en: "Pin your garden plants on a real photo of your garden and export seasonal care reminders straight to your calendar. A side project exploring how PWAs and lightweight tech (React, Node.js, SQLite) can make gardening easier — currently in beta.",
+      cs: "Připni rostliny na skutečnou fotku své zahrady a nech si exportovat sezónní péči přímo do kalendáře. Vedlejší projekt zkoumající, jak mohou PWA a odlehčené technologie (React, Node.js, SQLite) usnadnit zahradničení – aktuálně v beta verzi.",
+      de: "Hefte deine Pflanzen auf ein echtes Foto deines Gartens und exportiere saisonale Pflegeerinnerungen direkt in deinen Kalender. Ein Nebenprojekt, das erforscht, wie PWAs und leichtgewichtige Technologien (React, Node.js, SQLite) das Gärtnern erleichtern können – derzeit in der Beta-Phase.",
+    },
+    tag: {
+      en: "Side Project · Beta",
+      cs: "Vedlejší projekt · Beta",
+      de: "Nebenprojekt · Beta",
+    },
+    url: "https://github.com/RubbySource/gardenpin",
+    featured: false,
+    image: null,
+    bgFrom: "#0A1F0E",
+    bgTo: "#3B7A2E",
+  },
 ];
