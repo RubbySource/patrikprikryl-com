@@ -70,5 +70,16 @@
     "text": "This site uses cookies for analytics. No personal data is stored.",
     "accept": "Accept",
     "decline": "Decline"
+  },
+  "newsletter": {
+    "label": "Newsletter",
+    "title": "Stay in the loop.",
+    "subtitle": "Short, honest notes on AI in procurement, side projects, and what I'm building. No spam.",
+    "email_label": "Your email address",
+    "email_placeholder": "you@example.com",
+    "submit": "Subscribe",
+    "submitting": "Subscribing…",
+    "success": "Added to the list — first article coming soon.",
+    "error_generic": "Something went wrong. Please try again."
   }
 }

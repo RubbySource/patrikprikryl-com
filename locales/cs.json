@@ -70,5 +70,16 @@
     "text": "Tento web používá cookies pro analytiku. Žádná osobní data nejsou ukládána.",
     "accept": "Přijmout",
     "decline": "Odmítnout"
+  },
+  "newsletter": {
+    "label": "Newsletter",
+    "title": "Zůstaňte ve smyčce.",
+    "subtitle": "Stručné a upřímné poznámky o AI v nákupu, vedlejších projektech a tom, co právě stavím. Žádný spam.",
+    "email_label": "Vaše e-mailová adresa",
+    "email_placeholder": "vy@example.com",
+    "submit": "Odebírat",
+    "submitting": "Přihlašuji…",
+    "success": "Přidán do seznamu — první článek přijde brzy.",
+    "error_generic": "Něco se nepovedlo. Zkuste to prosím znovu."
   }
 }
