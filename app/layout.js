@@ -27,9 +27,6 @@ export const metadata = {
       'AI Project Manager at Škoda Auto. Driving intelligent procurement through automation, AI tools, and digital transformation.',
     images: ['/og-image.jpg'],
   },
-  icons: {
-    icon: '/favicon.ico',
-  },
 };
 
 const jsonLd = {
