@@ -74,7 +74,7 @@ export default function Navigation() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'glass-nav shadow-sm' : 'bg-transparent'
+        scrolled ? 'scrolled shadow-sm' : 'bg-transparent'
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -93,7 +93,7 @@ export default function Navigation() {
             <button
               key={item.href}
               onClick={() => scrollTo(item.href)}
-              className="text-sm font-medium text-[#6B7280] dark:text-gray-400 hover:text-[#111111] dark:hover:text-[#F0F0F0] transition-colors"
+              className="nav-link text-sm font-medium text-[#6B7280] dark:text-gray-400 hover:text-[#111111] dark:hover:text-[#F0F0F0] transition-colors"
             >
               {item.label}
             </button>

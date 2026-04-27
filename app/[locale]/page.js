@@ -12,6 +12,7 @@ import CookieBanner from '@/components/CookieBanner';
 import BackToTop from '@/components/BackToTop';
 import ScrollNav from '@/components/ScrollNav';
 import NetworkCanvas from '@/components/NetworkCanvas';
+import ScrollReveal from '@/components/ScrollReveal';
 
 export default function Home({ params: { locale } }) {
   setRequestLocale(locale);
@@ -33,6 +34,7 @@ export default function Home({ params: { locale } }) {
         <CookieBanner />
         <BackToTop />
         <ScrollNav />
+        <ScrollReveal />
       </main>
     </>
   );
