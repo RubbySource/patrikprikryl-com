@@ -32,7 +32,7 @@ export const projects = [
     description: {
       en: "Organising and co-creating hackathons and innovation events focused on IT, sustainability, and procurement transformation. Bringing together developers, buyers, and business leaders to build solutions that matter.",
       cs: "Organizace a spolutvorba hackathonů a inovačních akcí zaměřených na IT, udržitelnost a transformaci nákupu. Spojování vývojářů, nákupčích a obchodních lídrů, kteří společně tvoří řešení, na nichž záleží.",
-      de: "Organisation und Mitgestaltung von Hackathons und Innovationsveranstaltungen mit Fokus auf IT, Nachhaltigkeit und Transformation des Einkaufs. Zusammenbringen von Entwicklern, Einkäufern und Führungskräften, um relevante Lösungen zu entwickeln.",
+      de: "Organisation und Mitgestaltung von Hackathons und Innovationsveranstaltungen mit Fokus auf IT, Nachhaltigkeit und Transformation des Einkaufs. Zusammenbringen von Entwicklern, Einkäufern und Führungskräfern, um relevante Lösungen zu entwickeln.",
     },
     tag: {
       en: "Innovation · Community",
@@ -65,3 +65,38 @@ export const projects = [
     },
     url: null,
     featured: false,
+    image: "/projects/evangelization.jpg",
+    bgFrom: "#1A0D2E",
+    bgTo: "#4A1080",
+    category: "commercial",
+    techStack: ["OpenAI", "Python", "Notion"],
+  },
+];
+
+export const hobbyProjects = [
+  {
+    title: {
+      en: "GardenPin",
+      cs: "GardenPin",
+      de: "GardenPin",
+    },
+    description: {
+      en: "Pin your garden plants on a real photo of your garden and export seasonal care reminders straight to your calendar. A side project exploring how PWAs and lightweight tech can make gardening easier — currently in beta.",
+      cs: "Připni rostliny na skutečnou fotku své zahrady a nech si exportovat sezónní péči přímo do kalendáře. Vedlejší projekt zkoumající, jak mohou PWA a odlehčené technologie usnadnit zahradničení – aktuálně v beta verzi.",
+      de: "Hefte deine Pflanzen auf ein echtes Foto deines Gartens und exportiere saisonale Pflegeerinnerungen direkt in deinen Kalender. Ein Nebenprojekt, das erforscht, wie PWAs und leichtgewichtige Technologien das Gärtnern erleichtern können – derzeit in der Beta-Phase.",
+    },
+    tag: {
+      en: "Side Project · Beta",
+      cs: "Vedlejší projekt · Beta",
+      de: "Nebenprojekt · Beta",
+    },
+    url: "https://github.com/RubbySource/gardenpin",
+    featured: false,
+    image: null,
+    bgFrom: "#0A1F0E",
+    bgTo: "#3B7A2E",
+    category: "hobby",
+    techStack: ["React", "Node.js", "SQLite"],
+    currentlyBuilding: true,
+  },
+];
