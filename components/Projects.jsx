@@ -137,3 +137,125 @@ function HobbyProjectCard({ project, index, locale }) {
       className="relative rounded-2xl overflow-hidden border border-emerald-900/40"
       style={{ background: `linear-gradient(145deg, ${project.bgFrom} 0%, ${project.bgTo} 100%)` }}
     >
+      {/* Subtle overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+
+      <div className="relative z-10 p-7 sm:p-8 flex flex-col gap-4 min-h-[280px]">
+        {/* Top badges */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase text-emerald-300 bg-emerald-900/50 border border-emerald-700/50 px-2.5 py-1 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Hobby
+            </span>
+            {project.currentlyBuilding && (
+              <span className="text-[10px] font-semibold tracking-wider uppercase text-white/50 border border-white/15 px-2.5 py-1 rounded-full">
+                In Progress
+              </span>
+            )}
+          </div>
+          {project.url && (
+            <a href={project.url} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          )}
+        </div>
+
+        {/* Tag */}
+        <span className="text-xs font-semibold tracking-widest uppercase text-white/40">
+          {project.tag[locale] ?? project.tag.en}
+        </span>
+
+        {/* Title */}
+        <h3 className="font-display font-bold text-3xl sm:text-4xl text-white leading-tight">
+          {project.title[locale] ?? project.title.en}
+        </h3>
+
+        {/* Description */}
+        <p className="text-sm text-white/70 leading-relaxed flex-1">
+          {project.description[locale] ?? project.description.en}
+        </p>
+
+        {/* Tech stack */}
+        {project.techStack?.length > 0 && (
+          <div className="flex flex-wrap gap-2 pt-1">
+            {project.techStack.map((tech) => (
+              <span
+                key={tech}
+                className="text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full bg-white/10 text-white/60 border border-white/15"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
+export default function Projects() {
+  const t = useTranslations('projects');
+  const locale = useLocale();
+
+  return (
+    <section id="projects">
+      {/* ── Commercial projects header ── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-28 pb-8">
+        <span className="text-xs font-semibold tracking-widest uppercase text-[#1A56DB] mb-4 block">
+          {t('label')}
+        </span>
+        <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-[#111111] dark:text-[#F0F0F0]">
+          {t('title')}
+        </h2>
+      </div>
+
+      {/* ── Commercial scroll gallery ── */}
+      <div>
+        {projects.map((project, index) => (
+          <ProjectScrollCard
+            key={index}
+            project={project}
+            index={index}
+            totalCount={projects.length}
+            t={t}
+            locale={locale}
+          />
+        ))}
+      </div>
+
+      {/* ── Hobby projects section ── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-32 pb-4">
+        <div className="flex items-center gap-3 mb-4">
+          <span className="text-xs font-semibold tracking-widest uppercase text-emerald-500">
+            Side Projects
+          </span>
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+        </div>
+        <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-[#111111] dark:text-[#F0F0F0] mb-3">
+          Hobby Projects
+        </h2>
+        <p className="text-base text-[#6B7280] dark:text-gray-400 max-w-xl">
+          Things I build in my own time — exploring ideas, learning new tech, and shipping just for the joy of it.
+        </p>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-8">
+          {hobbyProjects.map((project, index) => (
+            <HobbyProjectCard
+              key={index}
+              project={project}
+              index={index}
+              locale={locale}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="pb-16 md:pb-24" />
+    </section>
+  );
+}
