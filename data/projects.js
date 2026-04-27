@@ -65,4 +65,27 @@ export const projects = [
     bgFrom: "#1A0D2E",
     bgTo: "#4A1080",
   },
+  {
+    title: {
+      en: "GardenPin",
+      cs: "GardenPin",
+      de: "GardenPin",
+    },
+    description: {
+      en: "Weekend-built garden planning app. Drag plants onto a canvas grid of your raised beds, see real-time companion-planting scores, get reminders for sowing and harvest. Offline-first, no accounts, hand-rolled canvas — and yes, an actual case study.",
+      cs: "Aplikace pro plánování zahrady postavená za víkend. Přetáhnete rostliny na canvas mřížku svých záhonů, vidíte skóre společné výsadby v reálném čase, dostanete upozornění na výsev a sklizeň. Offline-first, bez účtů, vlastní canvas — a ano, případová studie.",
+      de: "Garten-Planning-App, an einem Wochenende gebaut. Pflanzen per Drag-and-Drop auf ein Canvas-Raster der Hochbeete, Echtzeit-Bewertung der Mischkultur, Erinnerungen für Aussaat und Ernte. Offline-first, ohne Konten, eigener Canvas-Code — und eine echte Fallstudie.",
+    },
+    tag: {
+      en: "Side Project · Case Study",
+      cs: "Side projekt · Případová studie",
+      de: "Nebenprojekt · Fallstudie",
+    },
+    url: null,
+    caseStudy: "/projects/gardenpin",
+    featured: false,
+    image: null,
+    bgFrom: "#0D4A2A",
+    bgTo: "#1A56DB",
+  },
 ];

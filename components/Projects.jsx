@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
+import Link from 'next/link';
 import { projects } from '@/data/projects';
 
 // Two alternating directions — exit of card N == entry of card N+1, so spacing looks equal
@@ -101,6 +102,18 @@ function ProjectScrollCard({ project, index, t, locale }) {
               <p className="text-sm sm:text-base lg:text-lg text-white/85 max-w-2xl leading-relaxed px-5 py-3 rounded-2xl" style={{ background: 'rgba(0,0,0,0.25)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}>
                 {project.description[locale] ?? project.description.en}
               </p>
+
+              {project.caseStudy && (
+                <Link
+                  href={`/${locale}${project.caseStudy}`}
+                  className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/15 hover:bg-white text-white hover:text-[#0D4A2A] font-semibold text-sm backdrop-blur-md border border-white/20 transition-all duration-200 active:scale-95"
+                >
+                  Read case study
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
+              )}
             </div>
 
           </div>
