@@ -37,4 +37,9 @@ export default function Home({ params: { locale } }) {
         <Newsletter />
         <Footer />
         <CookieBanner />
-    
+        <BackToTop />
+        <ScrollNav />
+      </main>
+    </>
+  );
+}
