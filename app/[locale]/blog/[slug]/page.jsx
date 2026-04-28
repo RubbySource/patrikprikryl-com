@@ -17,7 +17,8 @@ export function generateStaticParams() {
   );
 }
 
-export async function generateMetadata({ params: { locale, slug } }) {
+export async function generateMetadata({ params }) {
+  const { locale, slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return {};
 
@@ -130,7 +131,8 @@ const mdxComponents = {
   hr: () => <hr className="my-10 border-[var(--border)]" />,
 };
 
-export default async function BlogPost({ params: { locale, slug } }) {
+export default async function BlogPost({ params }) {
+  const { locale, slug } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'blog' });
   const post = getPostBySlug(slug);

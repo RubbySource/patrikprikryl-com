@@ -7,7 +7,8 @@ import GardenPinCaseStudy from '@/components/GardenPinCaseStudy';
 
 const SITE_URL = 'https://patrikprikryl.com';
 
-export async function generateMetadata({ params: { locale } }) {
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
   const path = locale === 'en' ? '/projects/gardenpin' : `/${locale}/projects/gardenpin`;
   return {
@@ -47,7 +48,8 @@ export async function generateMetadata({ params: { locale } }) {
   };
 }
 
-export default async function GardenPinCaseStudyPage({ params: { locale } }) {
+export default async function GardenPinCaseStudyPage({ params }) {
+  const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'projects' });
 

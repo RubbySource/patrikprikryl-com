@@ -1,7 +1,8 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import Terminal from '@/components/Terminal';
 
-export async function generateMetadata({ params: { locale } }) {
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
   return {
     title: t('terminal_title'),
@@ -10,7 +11,8 @@ export async function generateMetadata({ params: { locale } }) {
   };
 }
 
-export default function TerminalPage({ params: { locale } }) {
+export default async function TerminalPage({ params }) {
+  const { locale } = await params;
   setRequestLocale(locale);
   return <Terminal />;
 }

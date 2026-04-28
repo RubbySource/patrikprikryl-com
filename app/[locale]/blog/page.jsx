@@ -7,7 +7,8 @@ import { getAllPosts } from '@/lib/blog';
 
 const SITE_URL = 'https://patrikprikryl.com';
 
-export async function generateMetadata({ params: { locale } }) {
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
   const path = locale === 'en' ? '/blog' : `/${locale}/blog`;
   return {
@@ -61,7 +62,8 @@ function formatDate(iso, locale) {
   }
 }
 
-export default async function BlogIndex({ params: { locale } }) {
+export default async function BlogIndex({ params }) {
+  const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'blog' });
   const posts = getAllPosts();

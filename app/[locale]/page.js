@@ -18,7 +18,8 @@ import NetworkCanvas from '@/components/NetworkCanvas';
 
 const SITE_URL = 'https://patrikprikryl.com';
 
-export async function generateMetadata({ params: { locale } }) {
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
   const path = locale === 'en' ? '/' : `/${locale}`;
   return {
@@ -58,7 +59,8 @@ export async function generateMetadata({ params: { locale } }) {
   };
 }
 
-export default function Home({ params: { locale } }) {
+export default async function Home({ params }) {
+  const { locale } = await params;
   setRequestLocale(locale);
   return (
     <>

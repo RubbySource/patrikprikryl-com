@@ -5,7 +5,8 @@ import Navigation from '@/components/Navigation';
 import NetworkCanvas from '@/components/NetworkCanvas';
 
 export async function generateMetadata({ params }) {
-  const locale = params?.locale || 'en';
+  const resolvedParams = await params;
+  const locale = resolvedParams?.locale || 'en';
   const t = await getTranslations({ locale, namespace: 'meta' });
   return {
     title: t('notfound_title'),
@@ -15,7 +16,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function LocaleNotFound({ params }) {
-  const locale = params?.locale || 'en';
+  const resolvedParams = await params;
+  const locale = resolvedParams?.locale || 'en';
   const t = await getTranslations({ locale, namespace: 'notfound' });
   const home = locale === 'en' ? '/' : `/${locale}`;
   const blog = locale === 'en' ? '/blog' : `/${locale}/blog`;
