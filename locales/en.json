@@ -49,6 +49,11 @@
     "label": "Perspective",
     "title": "What I Believe"
   },
+  "skills": {
+    "label": "Skills",
+    "title": "Where I'm strong, where I'm still learning.",
+    "subtitle": "Honest self-assessment — not CV embellishment. The bars below reflect how confident I am shipping production work in each area."
+  },
   "cocreators": {
     "label": "Network",
     "title": "Co-Creators",

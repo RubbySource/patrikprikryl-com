@@ -1,0 +1,101 @@
+---
+title: "Why I built a local health analyzer instead of paying for an API"
+date: "2026-03-28"
+excerpt: "A €30/month OpenAI bill for a side project that occasionally analyzed my running data felt absurd. Here's how I replaced it with a local Ollama model and got better results."
+tags: ["Local LLMs", "Ollama", "Privacy", "Side Project"]
+thumbnail: "/projects/negotiation.jpg"
+---
+
+I track everything I run. Pace, heart rate, cadence, the weather, how I slept the night before. After a year I had 240 runs sitting in a Postgres table, and a vague suspicion that something in the data could tell me why some weeks I felt great and others I felt like I'd been hit by a tram.
+
+My first instinct was to throw it at GPT-4. I wrote a script that summarised my last 30 days into a prompt and asked: "what's correlated with how I feel afterwards?" The answers were genuinely useful. So useful that I ran it daily. So useful that my OpenAI bill was €31 in February, for a tool that helps exactly one user — me.
+
+Thirty euros a month is not a lot of money. But it bothered me on principle. The data is mine, the inference is mathematically reproducible, and there was no good reason for a third party to be in the loop. So I spent a Sunday building the local version.
+
+## What "local" actually means
+
+"Local LLM" is one of those phrases that means three different things depending on who you ask. To be precise: the model file lives on my laptop's SSD, the weights are loaded into VRAM by [Ollama](https://ollama.com), and the inference happens on my GPU. Nothing leaves my machine. The model I settled on is Llama 3.1 8B, quantised to Q4_K_M — 4.7 GB on disk, fits comfortably in 8 GB of VRAM.
+
+For a health-data summariser, 8B is enough. The task is structured: read a table of numbers, find correlations, suggest hypotheses. It's not a creative-writing task; the model isn't asked to be witty or original.
+
+## The pipeline
+
+The architecture is boring on purpose:
+
+```
+runs.db (SQLite)  →  feature extractor (Python)  →  Ollama (local)  →  Markdown report
+```
+
+Once a day, a cron job:
+
+1. Reads the last 30 days from SQLite
+2. Computes derived features (rolling averages, deltas, week-over-week changes)
+3. Renders a fixed prompt template with those numbers
+4. Sends the prompt to Ollama via its HTTP API
+5. Writes the response to `~/health/report-YYYY-MM-DD.md`
+
+The whole script is 120 lines of Python. There is nothing remotely interesting about the code. The interesting part is what I learned about the prompt.
+
+## The prompt was the bottleneck
+
+My first attempt, ported directly from the GPT-4 version, gave me garbage. The 8B model would hallucinate numbers that weren't in the data, miss obvious patterns, and occasionally produce English so stilted I could feel the quantisation.
+
+The fix was to stop treating the LLM as an analyst and start treating it as a summariser. I do the analysis in Python — compute the correlations, the trends, the outliers — and pass those facts as a structured input. The model's job is to rephrase them in plain English and order them by importance.
+
+```python
+prompt = f"""You are a running coach reviewing one runner's data.
+Below are numerical facts already computed. Your only task is to
+turn them into a short, plain-English weekly summary. Do not invent
+data. Do not add disclaimers. Two short paragraphs.
+
+Facts:
+- Weekly volume: {weekly_km} km (last week: {prev_week_km} km, change: {pct_change:+.0f}%)
+- Avg heart rate: {avg_hr} bpm (resting: {resting_hr} bpm)
+- HR/pace ratio trend over 4 weeks: {hr_pace_trend}
+- Sleep on run days vs rest days: {sleep_diff_min} min difference
+- Top correlation with subjective feel: {top_corr_label} (r={top_corr_value:.2f})
+
+Output:"""
+```
+
+This single change — moving from "analyse this for me" to "rephrase these computed facts" — was the entire difference between a useless local model and a genuinely better-than-GPT4 result. Better, because I trust it. The numbers in the report are the numbers in my data. The model has no opportunity to confabulate.
+
+## The numbers that matter
+
+After a month of running this:
+
+- **API cost:** €0
+- **Latency:** 4-8 seconds for a daily report on my MacBook Pro M2 (vs. 3-6 seconds for GPT-4 over the network)
+- **Quality:** indistinguishable, possibly better, because the facts are guaranteed accurate
+- **Privacy:** my entire health dataset never leaves the laptop
+
+The latency parity surprised me. I expected local inference on a 4-bit quantised 8B model to be much slower than calling GPT-4. It isn't, because the prompt is small (under 500 tokens) and the response is small (under 200 tokens). The MacBook is the right shape of fast for this workload.
+
+## Where local models still lose
+
+I'd be lying if I said local was strictly better. Three places where the cloud still wins:
+
+1. **Scaling.** I run one report per day for one user. If I had a thousand users, my MacBook melts. Cloud APIs scale; my GPU doesn't.
+
+2. **Reasoning.** When I asked the local 8B to explain *why* my heart rate variability dropped after a hard week, the answers were weaker than GPT-4's. For the rephrasing task it's fine. For genuine analysis it isn't.
+
+3. **Cold starts.** Ollama keeps the model warm for ~5 minutes after the last request. If my cron job runs at 6:00 and I open the report at 7:00, that's a 30-second cold start while the weights load. Cloud APIs don't have this problem.
+
+## The decision framework
+
+After building this I think the question "should I use a cloud API or a local model?" actually decomposes into four sharper questions:
+
+- **Is the task creative or structured?** Creative → cloud. Structured → local often works.
+- **How sensitive is the data?** Sensitive → local. Public → either.
+- **What's the request volume?** High → cloud. Low → local.
+- **Can you do the analysis in code?** Yes → use the LLM only as a rephraser, then size down.
+
+For my health data, the answers are: structured, sensitive, low, yes. Local was obvious in retrospect.
+
+## What I'd build next
+
+The piece I'd most like to add is anomaly detection. The current pipeline summarises trends; it doesn't flag outliers. A heart rate of 178 on what should be an easy run is a signal that something is wrong, and the model has no way to tell me unless my Python preprocessing already noticed it.
+
+The honest version of that feature is "compute z-scores in pandas, flag anything past 2σ, ask the model to write a sentence about it." Which is, in the end, the same lesson as the rest of this piece: the LLM is a thin layer of natural language on top of code that has already done the hard work.
+
+That's a fine division of labour. It runs on my laptop, costs nothing, and the data stays mine.

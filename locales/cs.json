@@ -49,6 +49,11 @@
     "label": "Perspektiva",
     "title": "V co věřím"
   },
+  "skills": {
+    "label": "Dovednosti",
+    "title": "Kde jsem silný, kde se stále učím.",
+    "subtitle": "Upřímné sebehodnocení — ne přikrášlené CV. Sloupce níže odrážejí, jak sebejistě umím v každé oblasti dodávat produkční práci."
+  },
   "cocreators": {
     "label": "Síť",
     "title": "Spolutvůrci",

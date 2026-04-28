@@ -49,6 +49,11 @@
     "label": "Perspektive",
     "title": "Was ich glaube"
   },
+  "skills": {
+    "label": "Fähigkeiten",
+    "title": "Wo ich stark bin, wo ich noch lerne.",
+    "subtitle": "Ehrliche Selbsteinschätzung — keine Lebenslauf-Schönfärberei. Die Balken zeigen, wie sicher ich in jedem Bereich produktive Arbeit liefere."
+  },
   "cocreators": {
     "label": "Netzwerk",
     "title": "Mitgestalter",
