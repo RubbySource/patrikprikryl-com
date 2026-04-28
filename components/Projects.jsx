@@ -127,7 +127,7 @@ function ProjectScrollCard({ project, index, totalCount, t, locale }) {
   );
 }
 
-function HobbyProjectCard({ project, index, locale }) {
+function HobbyProjectCard({ project, index, locale, t }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -146,11 +146,11 @@ function HobbyProjectCard({ project, index, locale }) {
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase text-emerald-300 bg-emerald-900/50 border border-emerald-700/50 px-2.5 py-1 rounded-full">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Hobby
+              {t('hobby_badge')}
             </span>
             {project.currentlyBuilding && (
               <span className="text-[10px] font-semibold tracking-wider uppercase text-white/50 border border-white/15 px-2.5 py-1 rounded-full">
-                In Progress
+                {t('in_progress_badge')}
               </span>
             )}
           </div>
@@ -230,15 +230,15 @@ export default function Projects() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-32 pb-4">
         <div className="flex items-center gap-3 mb-4">
           <span className="text-xs font-semibold tracking-widest uppercase text-emerald-500">
-            Side Projects
+            {t('hobby_label')}
           </span>
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
         </div>
         <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-[#111111] dark:text-[#F0F0F0] mb-3">
-          Hobby Projects
+          {t('hobby_title')}
         </h2>
         <p className="text-base text-[#6B7280] dark:text-gray-400 max-w-xl">
-          Things I build in my own time — exploring ideas, learning new tech, and shipping just for the joy of it.
+          {t('hobby_subtitle')}
         </p>
       </div>
 
@@ -250,6 +250,7 @@ export default function Projects() {
               project={project}
               index={index}
               locale={locale}
+              t={t}
             />
           ))}
         </div>

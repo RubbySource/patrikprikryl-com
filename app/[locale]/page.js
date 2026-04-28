@@ -9,6 +9,7 @@ import Skills from '@/components/Skills';
 import CoCreators from '@/components/CoCreators';
 import Contact from '@/components/Contact';
 import GetInTouch from '@/components/GetInTouch';
+import Newsletter from '@/components/Newsletter';
 import Footer from '@/components/Footer';
 import CookieBanner from '@/components/CookieBanner';
 import BackToTop from '@/components/BackToTop';
@@ -33,6 +34,7 @@ export default function Home({ params: { locale } }) {
         <CoCreators />
         <Contact />
         <GetInTouch />
+        <Newsletter />
         <Footer />
         <CookieBanner />
         <BackToTop />

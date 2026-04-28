@@ -10,7 +10,8 @@
     "tagline": "Průkopník AI v nákupu · Škoda Auto",
     "bio": "Jsem AI Project Manager ve Škodě Auto, kde prosazuji integraci umělé inteligence do nákupních procesů. Se 13 lety zkušeností v nákupu – z nichž 8+ let jsem vedl výběrová řízení v oblasti IT a zajišťoval nákup hardwaru – jsem si vybudoval pevné přesvědčení: budoucnost nákupu je automatizovaná, inteligentní a lidsky orientovaná. Věřím v optimismus, otevřenost a sílu propojování správných lidí.",
     "cta_projects": "Zobrazit projekty",
-    "cta_linkedin": "Spojit se na LinkedIn"
+    "cta_linkedin": "Spojit se na LinkedIn",
+    "currently_building": "Aktuálně stavím GardenPin 🌱"
   },
   "stats": {
     "years": "Let v nákupu",
@@ -36,7 +37,12 @@
     "title": "Práce a iniciativy",
     "open": "Otevřít →",
     "internal": "Interní projekt @ Škoda Auto",
-    "featured": "Hlavní projekt"
+    "featured": "Hlavní projekt",
+    "hobby_label": "Vedlejší projekty",
+    "hobby_title": "Hobby projekty",
+    "hobby_subtitle": "Věci, které stavím ve volném čase — zkoumám nápady, učím se nové technologie a vydávám je čistě pro radost.",
+    "hobby_badge": "Hobby",
+    "in_progress_badge": "Rozpracováno"
   },
   "awards": {
     "label": "Uznání",
@@ -75,5 +81,23 @@
     "text": "Tento web používá cookies pro analytiku. Žádná osobní data nejsou ukládána.",
     "accept": "Přijmout",
     "decline": "Odmítnout"
+  },
+  "getInTouch": {
+    "label": "Pojďme se spojit",
+    "title": "Pojďme spolu něco postavit.",
+    "subtitle": "Otevřen AI spolupráci, příležitostem k přednáškám a zajímavým vedlejším projektům.",
+    "email_cta": "Poslat e-mail",
+    "linkedin_cta": "Spojit se na LinkedIn"
+  },
+  "newsletter": {
+    "label": "Newsletter",
+    "title": "Zůstaňte ve smyčce.",
+    "subtitle": "Stručné a upřímné poznámky o AI v nákupu, vedlejších projektech a tom, co právě stavím. Žádný spam.",
+    "email_label": "Vaše e-mailová adresa",
+    "email_placeholder": "vy@example.com",
+    "submit": "Odebírat",
+    "submitting": "Přihlašuji…",
+    "success": "Přidán do seznamu — první článek přijde brzy.",
+    "error_generic": "Něco se nepovedlo. Zkuste to prosím znovu."
   }
 }

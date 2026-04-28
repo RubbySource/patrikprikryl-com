@@ -10,7 +10,8 @@
     "tagline": "KI-Pionier im Einkauf · Škoda Auto",
     "bio": "Ich bin AI Project Manager bei Škoda Auto und treibe die Integration von künstlicher Intelligenz in Beschaffungsprozesse voran. Mit 13 Jahren Erfahrung im Einkauf – davon 8+ Jahre in der Leitung von IT-Ausschreibungen und Hardware-Beschaffung – habe ich eine tiefe Überzeugung entwickelt: Die Zukunft des Einkaufs ist automatisiert, intelligent und menschenzentriert. Ich glaube an Optimismus, Offenheit und die Kraft, die richtigen Menschen zu vernetzen.",
     "cta_projects": "Projekte ansehen",
-    "cta_linkedin": "LinkedIn verbinden"
+    "cta_linkedin": "LinkedIn verbinden",
+    "currently_building": "Aktuell baue ich GardenPin 🌱"
   },
   "stats": {
     "years": "Jahre im Einkauf",
@@ -36,7 +37,12 @@
     "title": "Arbeit & Initiativen",
     "open": "Öffnen →",
     "internal": "Internes Projekt @ Škoda Auto",
-    "featured": "Hauptprojekt"
+    "featured": "Hauptprojekt",
+    "hobby_label": "Nebenprojekte",
+    "hobby_title": "Hobby-Projekte",
+    "hobby_subtitle": "Dinge, die ich in meiner Freizeit baue — Ideen erkunden, neue Technologien lernen und einfach aus Freude veröffentlichen.",
+    "hobby_badge": "Hobby",
+    "in_progress_badge": "In Arbeit"
   },
   "awards": {
     "label": "Anerkennung",
@@ -75,5 +81,23 @@
     "text": "Diese Website verwendet Cookies für Analysen. Es werden keine persönlichen Daten gespeichert.",
     "accept": "Akzeptieren",
     "decline": "Ablehnen"
+  },
+  "getInTouch": {
+    "label": "Kontakt aufnehmen",
+    "title": "Lass uns gemeinsam etwas bauen.",
+    "subtitle": "Offen für KI-Kooperationen, Vortragsanfragen und spannende Nebenprojekte.",
+    "email_cta": "E-Mail senden",
+    "linkedin_cta": "LinkedIn verbinden"
+  },
+  "newsletter": {
+    "label": "Newsletter",
+    "title": "Bleib in Verbindung.",
+    "subtitle": "Kurze, ehrliche Notizen zu KI im Einkauf, Nebenprojekten und dem, was ich gerade baue. Kein Spam.",
+    "email_label": "Deine E-Mail-Adresse",
+    "email_placeholder": "du@example.com",
+    "submit": "Abonnieren",
+    "submitting": "Anmelden…",
+    "success": "Zur Liste hinzugefügt — der erste Artikel kommt bald.",
+    "error_generic": "Etwas ist schiefgelaufen. Bitte versuche es erneut."
   }
 }
