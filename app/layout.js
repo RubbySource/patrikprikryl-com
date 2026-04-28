@@ -1,6 +1,7 @@
 import './globals.css';
 
 export const metadata = {
+  metadataBase: new URL('https://patrikprikryl.com'),
   title: 'Patrik Přikryl – AI Project Manager',
   description:
     'AI Project Manager at Škoda Auto. Driving intelligent procurement through automation, AI tools, and digital transformation.',
@@ -12,9 +13,11 @@ export const metadata = {
     siteName: 'Patrik Přikryl',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
+        type: 'image/png',
+        alt: 'Patrik Přikryl – AI Project Manager · Škoda Auto',
       },
     ],
     locale: 'en_US',
@@ -25,7 +28,7 @@ export const metadata = {
     title: 'Patrik Přikryl – AI Project Manager',
     description:
       'AI Project Manager at Škoda Auto. Driving intelligent procurement through automation, AI tools, and digital transformation.',
-    images: ['/og-image.jpg'],
+    images: ['/og-image.png'],
   },
 };
 

@@ -20,6 +20,8 @@ export const projects = [
     image: "/projects/negotiation.jpg",
     bgFrom: "#0A1628",
     bgTo: "#1A56DB",
+    category: "commercial",
+    techStack: ["Python", "Azure", "Power Automate", "LLM"],
   },
   {
     title: {
@@ -30,7 +32,7 @@ export const projects = [
     description: {
       en: "Organising and co-creating hackathons and innovation events focused on IT, sustainability, and procurement transformation. Bringing together developers, buyers, and business leaders to build solutions that matter.",
       cs: "Organizace a spolutvorba hackathonů a inovačních akcí zaměřených na IT, udržitelnost a transformaci nákupu. Spojování vývojářů, nákupčích a obchodních lídrů, kteří společně tvoří řešení, na nichž záleží.",
-      de: "Organisation und Mitgestaltung von Hackathons und Innovationsveranstaltungen mit Fokus auf IT, Nachhaltigkeit und Transformation des Einkaufs. Zusammenbringen von Entwicklern, Einkäufern und Führungskräften, um relevante Lösungen zu entwickeln.",
+      de: "Organisation und Mitgestaltung von Hackathons und Innovationsveranstaltungen mit Fokus auf IT, Nachhaltigkeit und Transformation des Einkaufs. Zusammenbringen von Entwicklern, Einkäufern und Führungskräfern, um relevante Lösungen zu entwickeln.",
     },
     tag: {
       en: "Innovation · Community",
@@ -42,6 +44,8 @@ export const projects = [
     image: "/projects/events.jpg",
     bgFrom: "#0A1A12",
     bgTo: "#0D4A2A",
+    category: "commercial",
+    techStack: ["Notion", "GitHub", "Figma"],
   },
   {
     title: {
@@ -64,7 +68,12 @@ export const projects = [
     image: "/projects/evangelization.jpg",
     bgFrom: "#1A0D2E",
     bgTo: "#4A1080",
+    category: "commercial",
+    techStack: ["OpenAI", "Python", "Notion"],
   },
+];
+
+export const hobbyProjects = [
   {
     title: {
       en: "GardenPin",
@@ -72,20 +81,22 @@ export const projects = [
       de: "GardenPin",
     },
     description: {
-      en: "Weekend-built garden planning app. Drag plants onto a canvas grid of your raised beds, see real-time companion-planting scores, get reminders for sowing and harvest. Offline-first, no accounts, hand-rolled canvas — and yes, an actual case study.",
-      cs: "Aplikace pro plánování zahrady postavená za víkend. Přetáhnete rostliny na canvas mřížku svých záhonů, vidíte skóre společné výsadby v reálném čase, dostanete upozornění na výsev a sklizeň. Offline-first, bez účtů, vlastní canvas — a ano, případová studie.",
-      de: "Garten-Planning-App, an einem Wochenende gebaut. Pflanzen per Drag-and-Drop auf ein Canvas-Raster der Hochbeete, Echtzeit-Bewertung der Mischkultur, Erinnerungen für Aussaat und Ernte. Offline-first, ohne Konten, eigener Canvas-Code — und eine echte Fallstudie.",
+      en: "Pin your garden plants on a real photo of your garden and export seasonal care reminders straight to your calendar. A side project exploring how PWAs and lightweight tech can make gardening easier — currently in beta.",
+      cs: "Připni rostliny na skutečnou fotku své zahrady a nech si exportovat sezónní péči přímo do kalendáře. Vedlejší projekt zkoumající, jak mohou PWA a odlehčené technologie usnadnit zahradničení – aktuálně v beta verzi.",
+      de: "Hefte deine Pflanzen auf ein echtes Foto deines Gartens und exportiere saisonale Pflegeerinnerungen direkt in deinen Kalender. Ein Nebenprojekt, das erforscht, wie PWAs und leichtgewichtige Technologien das Gärtnern erleichtern können – derzeit in der Beta-Phase.",
     },
     tag: {
-      en: "Side Project · Case Study",
-      cs: "Side projekt · Případová studie",
-      de: "Nebenprojekt · Fallstudie",
+      en: "Side Project · Beta",
+      cs: "Vedlejší projekt · Beta",
+      de: "Nebenprojekt · Beta",
     },
-    url: null,
-    caseStudy: "/projects/gardenpin",
+    url: "https://github.com/RubbySource/gardenpin",
     featured: false,
     image: null,
-    bgFrom: "#0D4A2A",
-    bgTo: "#1A56DB",
+    bgFrom: "#0A1F0E",
+    bgTo: "#3B7A2E",
+    category: "hobby",
+    techStack: ["React", "Node.js", "SQLite"],
+    currentlyBuilding: true,
   },
 ];
