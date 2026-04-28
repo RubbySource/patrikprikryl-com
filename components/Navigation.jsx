@@ -114,7 +114,7 @@ export default function Navigation() {
                 : 'text-[#6B7280] dark:text-gray-400 hover:text-[#111111] dark:hover:text-[#F0F0F0]'
             }`}
           >
-            Blog
+            {t('blog')}
           </Link>
         </div>
 
@@ -200,7 +200,7 @@ export default function Navigation() {
                   onBlog ? 'text-[#1A56DB]' : 'text-[#111111] dark:text-[#F0F0F0] hover:text-[#1A56DB]'
                 }`}
               >
-                Blog
+                {t('blog')}
               </Link>
               <div className="flex items-center gap-3 pt-2 border-t border-gray-200/30 dark:border-gray-700/30">
                 {locales.map((l) => (

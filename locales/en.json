@@ -1,9 +1,11 @@
 {
   "nav": {
+    "home": "Home",
     "about": "About",
     "projects": "Projects",
     "awards": "Awards",
-    "contact": "Contact"
+    "contact": "Contact",
+    "blog": "Blog"
   },
   "hero": {
     "name_last": "Prikryl",
@@ -42,7 +44,8 @@
     "hobby_title": "Hobby Projects",
     "hobby_subtitle": "Things I build in my own time — exploring ideas, learning new tech, and shipping just for the joy of it.",
     "hobby_badge": "Hobby",
-    "in_progress_badge": "In Progress"
+    "in_progress_badge": "In Progress",
+    "back_to_projects": "Back to projects"
   },
   "awards": {
     "label": "Recognition",
@@ -74,8 +77,23 @@
     "email": "Email",
     "message": "Message",
     "send": "Send Message",
+    "sending": "Sending…",
     "success": "Thank you! I'll be in touch soon.",
-    "linkedin_cta": "Connect on LinkedIn"
+    "linkedin_cta": "Connect on LinkedIn",
+    "placeholder_name": "Your name",
+    "placeholder_email": "your@email.com",
+    "placeholder_message": "Your message…",
+    "available": "Available",
+    "available_text": "Open to speaking engagements, AI collaboration, and procurement innovation projects. Typically responds within 24 hours.",
+    "topics_label": "Good topics to discuss",
+    "topics": [
+      "AI in Procurement",
+      "Automated Negotiation",
+      "Digital Avatars",
+      "Speaking",
+      "Hackathons"
+    ],
+    "error_generic": "Something went wrong. Please try again."
   },
   "cookie": {
     "text": "This site uses cookies for analytics. No personal data is stored.",
@@ -99,5 +117,36 @@
     "submitting": "Subscribing…",
     "success": "Added to the list — first article coming soon.",
     "error_generic": "Something went wrong. Please try again."
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  },
+  "blog": {
+    "label": "Blog",
+    "title": "Notes on building, AI, and procurement.",
+    "subtitle": "Long-form thoughts on what I'm working on, what I learned the hard way, and what I'd do differently next time.",
+    "empty": "No posts yet — check back soon.",
+    "read_post": "Read post",
+    "all_posts": "All posts"
+  },
+  "notfound": {
+    "error_label": "Error · 404",
+    "title": "This page got lost in the garden 🌿",
+    "text": "Maybe it's under a tomato leaf, maybe a butterfly carried it off. Either way — let's get you somewhere useful.",
+    "back_home": "Back to homepage",
+    "read_blog": "Read the blog"
+  },
+  "meta": {
+    "home_title": "Patrik Přikryl – AI Project Manager · Škoda Auto",
+    "home_description": "AI Project Manager at Škoda Auto. Driving intelligent procurement through automation, AI tools, and digital transformation.",
+    "blog_title": "Blog — Patrik Přikryl",
+    "blog_description": "Notes on AI, procurement, side projects, and what I learn while building.",
+    "gardenpin_title": "GardenPin — Case Study | Patrik Přikryl",
+    "gardenpin_description": "A weekend build: how GardenPin grew from a Moleskine sketch into a working garden-planning app with companion-planting recommendations, offline mode, and a hand-rolled canvas grid.",
+    "terminal_title": "Terminal — patrikprikryl.com",
+    "terminal_description": "patrik@portfolio:~$ — type 'help' for a list of commands.",
+    "notfound_title": "404 — Lost in the garden | Patrik Přikryl",
+    "notfound_description": "This page wandered off into the garden. Let's get you back.",
+    "og_alt": "Patrik Přikryl – AI Project Manager · Škoda Auto"
   }
 }

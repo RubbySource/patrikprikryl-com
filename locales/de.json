@@ -1,16 +1,18 @@
 {
   "nav": {
+    "home": "Start",
     "about": "Über mich",
     "projects": "Projekte",
     "awards": "Auszeichnungen",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "blog": "Blog"
   },
   "hero": {
     "name_last": "Prikryl",
     "tagline": "KI-Pionier im Einkauf · Škoda Auto",
     "bio": "Ich bin AI Project Manager bei Škoda Auto und treibe die Integration von künstlicher Intelligenz in Beschaffungsprozesse voran. Mit 13 Jahren Erfahrung im Einkauf – davon 8+ Jahre in der Leitung von IT-Ausschreibungen und Hardware-Beschaffung – habe ich eine tiefe Überzeugung entwickelt: Die Zukunft des Einkaufs ist automatisiert, intelligent und menschenzentriert. Ich glaube an Optimismus, Offenheit und die Kraft, die richtigen Menschen zu vernetzen.",
     "cta_projects": "Projekte ansehen",
-    "cta_linkedin": "LinkedIn verbinden",
+    "cta_linkedin": "Auf LinkedIn vernetzen",
     "currently_building": "Aktuell baue ich GardenPin 🌱"
   },
   "stats": {
@@ -42,7 +44,8 @@
     "hobby_title": "Hobby-Projekte",
     "hobby_subtitle": "Dinge, die ich in meiner Freizeit baue — Ideen erkunden, neue Technologien lernen und einfach aus Freude veröffentlichen.",
     "hobby_badge": "Hobby",
-    "in_progress_badge": "In Arbeit"
+    "in_progress_badge": "In Arbeit",
+    "back_to_projects": "Zurück zu Projekten"
   },
   "awards": {
     "label": "Anerkennung",
@@ -68,14 +71,29 @@
   },
   "contact": {
     "label": "Kontakt",
-    "title": "Lass uns verbinden",
+    "title": "Lassen Sie uns vernetzen",
     "subtitle": "Offen für Zusammenarbeit, Vortragsanfragen und interessante Gespräche über KI & Innovation.",
     "name": "Name",
     "email": "E-Mail",
     "message": "Nachricht",
     "send": "Nachricht senden",
-    "success": "Danke! Ich melde mich bald.",
-    "linkedin_cta": "LinkedIn verbinden"
+    "sending": "Senden…",
+    "success": "Vielen Dank! Ich melde mich in Kürze.",
+    "linkedin_cta": "Auf LinkedIn vernetzen",
+    "placeholder_name": "Ihr Name",
+    "placeholder_email": "ihre@e-mail.de",
+    "placeholder_message": "Ihre Nachricht…",
+    "available": "Verfügbar",
+    "available_text": "Offen für Vortragsanfragen, KI-Kooperationen und Projekte zur Beschaffungsinnovation. Antwortet in der Regel innerhalb von 24 Stunden.",
+    "topics_label": "Gute Gesprächsthemen",
+    "topics": [
+      "KI im Einkauf",
+      "Automatisierte Verhandlung",
+      "Digitale Avatare",
+      "Vorträge",
+      "Hackathons"
+    ],
+    "error_generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
   },
   "cookie": {
     "text": "Diese Website verwendet Cookies für Analysen. Es werden keine persönlichen Daten gespeichert.",
@@ -84,20 +102,51 @@
   },
   "getInTouch": {
     "label": "Kontakt aufnehmen",
-    "title": "Lass uns gemeinsam etwas bauen.",
+    "title": "Lassen Sie uns gemeinsam etwas bauen.",
     "subtitle": "Offen für KI-Kooperationen, Vortragsanfragen und spannende Nebenprojekte.",
     "email_cta": "E-Mail senden",
-    "linkedin_cta": "LinkedIn verbinden"
+    "linkedin_cta": "Auf LinkedIn vernetzen"
   },
   "newsletter": {
     "label": "Newsletter",
-    "title": "Bleib in Verbindung.",
+    "title": "Bleiben Sie in Verbindung.",
     "subtitle": "Kurze, ehrliche Notizen zu KI im Einkauf, Nebenprojekten und dem, was ich gerade baue. Kein Spam.",
-    "email_label": "Deine E-Mail-Adresse",
-    "email_placeholder": "du@example.com",
+    "email_label": "Ihre E-Mail-Adresse",
+    "email_placeholder": "ihre@e-mail.de",
     "submit": "Abonnieren",
     "submitting": "Anmelden…",
     "success": "Zur Liste hinzugefügt — der erste Artikel kommt bald.",
-    "error_generic": "Etwas ist schiefgelaufen. Bitte versuche es erneut."
+    "error_generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+  },
+  "footer": {
+    "rights": "Alle Rechte vorbehalten."
+  },
+  "blog": {
+    "label": "Blog",
+    "title": "Notizen zum Bauen, zu KI und zum Einkauf.",
+    "subtitle": "Ausführliche Gedanken dazu, woran ich arbeite, was ich auf die harte Tour gelernt habe und was ich beim nächsten Mal anders machen würde.",
+    "empty": "Noch keine Beiträge — bitte schauen Sie bald wieder vorbei.",
+    "read_post": "Beitrag lesen",
+    "all_posts": "Alle Beiträge"
+  },
+  "notfound": {
+    "error_label": "Fehler · 404",
+    "title": "Diese Seite hat sich im Garten verirrt 🌿",
+    "text": "Vielleicht liegt sie unter einem Tomatenblatt, vielleicht hat sie ein Schmetterling weggetragen. So oder so — bringen wir Sie zu etwas Nützlichem zurück.",
+    "back_home": "Zurück zur Startseite",
+    "read_blog": "Zum Blog"
+  },
+  "meta": {
+    "home_title": "Patrik Přikryl – AI Project Manager · Škoda Auto",
+    "home_description": "AI Project Manager bei Škoda Auto. Intelligenter Einkauf durch Automatisierung, KI-Werkzeuge und digitale Transformation.",
+    "blog_title": "Blog — Patrik Přikryl",
+    "blog_description": "Notizen zu KI, Einkauf, Nebenprojekten und dem, was ich beim Bauen lerne.",
+    "gardenpin_title": "GardenPin — Case Study | Patrik Přikryl",
+    "gardenpin_description": "Ein Wochenendprojekt: wie GardenPin von einer Moleskine-Skizze zu einer funktionierenden Gartenplanungs-App mit Pflanzempfehlungen, Offline-Modus und einem selbstgebauten Canvas-Raster wurde.",
+    "terminal_title": "Terminal — patrikprikryl.com",
+    "terminal_description": "patrik@portfolio:~$ — geben Sie 'help' für eine Befehlsliste ein.",
+    "notfound_title": "404 — Im Garten verirrt | Patrik Přikryl",
+    "notfound_description": "Diese Seite hat sich in den Garten verirrt. Wir bringen Sie zurück.",
+    "og_alt": "Patrik Přikryl – AI Project Manager · Škoda Auto"
   }
 }

@@ -1,9 +1,11 @@
 {
   "nav": {
+    "home": "Domů",
     "about": "O mně",
     "projects": "Projekty",
     "awards": "Ocenění",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "blog": "Blog"
   },
   "hero": {
     "name_last": "Přikryl",
@@ -42,7 +44,8 @@
     "hobby_title": "Hobby projekty",
     "hobby_subtitle": "Věci, které stavím ve volném čase — zkoumám nápady, učím se nové technologie a vydávám je čistě pro radost.",
     "hobby_badge": "Hobby",
-    "in_progress_badge": "Rozpracováno"
+    "in_progress_badge": "Rozpracováno",
+    "back_to_projects": "Zpět na projekty"
   },
   "awards": {
     "label": "Uznání",
@@ -71,11 +74,26 @@
     "title": "Pojďme se spojit",
     "subtitle": "Otevřen spolupráci, příležitostem k přednáškám a zajímavým rozhovorům o AI a inovacích.",
     "name": "Jméno",
-    "email": "Email",
+    "email": "E-mail",
     "message": "Zpráva",
     "send": "Odeslat zprávu",
+    "sending": "Odesílám…",
     "success": "Děkuji! Brzy se ozvu.",
-    "linkedin_cta": "Spojit se na LinkedIn"
+    "linkedin_cta": "Spojit se na LinkedIn",
+    "placeholder_name": "Vaše jméno",
+    "placeholder_email": "vy@example.com",
+    "placeholder_message": "Vaše zpráva…",
+    "available": "Dostupný",
+    "available_text": "Otevřen přednáškám, AI spolupráci a inovacím v nákupu. Obvykle odpovídám do 24 hodin.",
+    "topics_label": "Dobrá témata k diskuzi",
+    "topics": [
+      "AI v nákupu",
+      "Automatizované vyjednávání",
+      "Digitální avatary",
+      "Přednášky",
+      "Hackathony"
+    ],
+    "error_generic": "Něco se nepovedlo. Zkuste to prosím znovu."
   },
   "cookie": {
     "text": "Tento web používá cookies pro analytiku. Žádná osobní data nejsou ukládána.",
@@ -97,7 +115,38 @@
     "email_placeholder": "vy@example.com",
     "submit": "Odebírat",
     "submitting": "Přihlašuji…",
-    "success": "Přidán do seznamu — první článek přijde brzy.",
+    "success": "Přidáno do seznamu — první článek přijde brzy.",
     "error_generic": "Něco se nepovedlo. Zkuste to prosím znovu."
+  },
+  "footer": {
+    "rights": "Všechna práva vyhrazena."
+  },
+  "blog": {
+    "label": "Blog",
+    "title": "Poznámky o stavění, AI a nákupu.",
+    "subtitle": "Delší úvahy o tom, na čem pracuji, co jsem se naučil tvrdou cestou a co bych příště udělal jinak.",
+    "empty": "Zatím žádné články — zkuste se vrátit později.",
+    "read_post": "Číst článek",
+    "all_posts": "Všechny články"
+  },
+  "notfound": {
+    "error_label": "Chyba · 404",
+    "title": "Tahle stránka se ztratila v zahradě 🌿",
+    "text": "Možná leží pod listem rajčete, možná ji odnesl motýl. Tak jako tak — pojďme vás dostat někam užitečnějšího.",
+    "back_home": "Zpět na úvod",
+    "read_blog": "Číst blog"
+  },
+  "meta": {
+    "home_title": "Patrik Přikryl – AI Project Manager · Škoda Auto",
+    "home_description": "AI Project Manager ve Škodě Auto. Posouvám nákup vpřed pomocí automatizace, AI nástrojů a digitální transformace.",
+    "blog_title": "Blog — Patrik Přikryl",
+    "blog_description": "Poznámky o AI, nákupu, vedlejších projektech a tom, co se učím při stavění.",
+    "gardenpin_title": "GardenPin — případová studie | Patrik Přikryl",
+    "gardenpin_description": "Víkendový projekt: jak GardenPin vyrostl ze skici v Moleskinu do funkční aplikace pro plánování zahrady — s doporučeními pro pěstování, offline režimem a vlastním canvas mřížkou.",
+    "terminal_title": "Terminál — patrikprikryl.com",
+    "terminal_description": "patrik@portfolio:~$ — napište 'help' pro seznam příkazů.",
+    "notfound_title": "404 — Ztraceno v zahradě | Patrik Přikryl",
+    "notfound_description": "Tahle stránka se zatoulala do zahrady. Vrátíme vás zpět.",
+    "og_alt": "Patrik Přikryl – AI Project Manager · Škoda Auto"
   }
 }

@@ -1,18 +1,55 @@
 import Link from 'next/link';
-import { setRequestLocale } from 'next-intl/server';
+import { setRequestLocale, getTranslations } from 'next-intl/server';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import NetworkCanvas from '@/components/NetworkCanvas';
 import GardenPinCaseStudy from '@/components/GardenPinCaseStudy';
 
-export const metadata = {
-  title: 'GardenPin — Case Study | Patrik Přikryl',
-  description:
-    'A weekend build: how GardenPin grew from a Moleskine sketch into a working garden-planning app with companion-planting recommendations, offline mode, and a hand-rolled canvas grid.',
-};
+const SITE_URL = 'https://patrikprikryl.com';
 
-export default function GardenPinCaseStudyPage({ params: { locale } }) {
+export async function generateMetadata({ params: { locale } }) {
+  const t = await getTranslations({ locale, namespace: 'meta' });
+  const path = locale === 'en' ? '/projects/gardenpin' : `/${locale}/projects/gardenpin`;
+  return {
+    title: t('gardenpin_title'),
+    description: t('gardenpin_description'),
+    alternates: {
+      canonical: path,
+      languages: {
+        en: '/projects/gardenpin',
+        cs: '/cs/projects/gardenpin',
+        de: '/de/projects/gardenpin',
+      },
+    },
+    openGraph: {
+      title: t('gardenpin_title'),
+      description: t('gardenpin_description'),
+      url: `${SITE_URL}${path}`,
+      siteName: 'Patrik Přikryl',
+      type: 'article',
+      locale: locale === 'cs' ? 'cs_CZ' : locale === 'de' ? 'de_DE' : 'en_US',
+      images: [
+        {
+          url: '/og-image.png',
+          width: 1200,
+          height: 630,
+          type: 'image/png',
+          alt: 'GardenPin — companion-planting garden planner',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('gardenpin_title'),
+      description: t('gardenpin_description'),
+      images: ['/og-image.png'],
+    },
+  };
+}
+
+export default async function GardenPinCaseStudyPage({ params: { locale } }) {
   setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: 'projects' });
 
   return (
     <>
@@ -28,7 +65,7 @@ export default function GardenPinCaseStudyPage({ params: { locale } }) {
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            Back to projects
+            {t('back_to_projects')}
           </Link>
 
           <GardenPinCaseStudy />

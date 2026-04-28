@@ -38,10 +38,10 @@ export default function Contact() {
         setSubmitted(true);
         reset();
       } else {
-        setError('Something went wrong. Please try again.');
+        setError(t('error_generic'));
       }
     } catch {
-      setError('Something went wrong. Please try again.');
+      setError(t('error_generic'));
     } finally {
       setSubmitting(false);
     }
@@ -91,7 +91,7 @@ export default function Contact() {
                     className={`w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1C1C1C] border text-[#111111] dark:text-[#F0F0F0] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1A56DB]/50 focus:border-[#1A56DB] transition-all ${
                       errors.name ? 'border-red-400' : 'border-gray-200 dark:border-gray-700'
                     }`}
-                    placeholder="Your name"
+                    placeholder={t('placeholder_name')}
                   />
                 </div>
 
@@ -106,7 +106,7 @@ export default function Contact() {
                     className={`w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1C1C1C] border text-[#111111] dark:text-[#F0F0F0] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1A56DB]/50 focus:border-[#1A56DB] transition-all ${
                       errors.email ? 'border-red-400' : 'border-gray-200 dark:border-gray-700'
                     }`}
-                    placeholder="your@email.com"
+                    placeholder={t('placeholder_email')}
                   />
                 </div>
 
@@ -121,7 +121,7 @@ export default function Contact() {
                     className={`w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1C1C1C] border text-[#111111] dark:text-[#F0F0F0] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1A56DB]/50 focus:border-[#1A56DB] transition-all resize-none ${
                       errors.message ? 'border-red-400' : 'border-gray-200 dark:border-gray-700'
                     }`}
-                    placeholder="Your message..."
+                    placeholder={t('placeholder_message')}
                   />
                 </div>
 
@@ -141,7 +141,7 @@ export default function Contact() {
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                         </svg>
-                        Sending...
+                        {t('sending')}
                       </>
                     ) : (
                       t('send')
@@ -196,18 +196,18 @@ export default function Contact() {
             <div className="p-5 rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-[#141414]">
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Available</span>
+                <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">{t('available')}</span>
               </div>
               <p className="text-sm text-[#6B7280] dark:text-gray-400 leading-relaxed">
-                Open to speaking engagements, AI collaboration, and procurement innovation projects. Typically responds within 24 hours.
+                {t('available_text')}
               </p>
             </div>
 
             {/* Topics */}
             <div className="p-5 rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-[#141414]">
-              <p className="text-xs font-semibold tracking-wider uppercase text-[#6B7280] mb-3">Good topics to discuss</p>
+              <p className="text-xs font-semibold tracking-wider uppercase text-[#6B7280] mb-3">{t('topics_label')}</p>
               <div className="flex flex-wrap gap-2">
-                {['AI in Procurement', 'Automated Negotiation', 'Digital Avatars', 'Speaking', 'Hackathons'].map(tag => (
+                {t.raw('topics').map(tag => (
                   <span key={tag} className="text-xs font-medium px-3 py-1.5 rounded-full bg-gray-50 dark:bg-gray-800 text-[#6B7280] dark:text-gray-400">
                     {tag}
                   </span>

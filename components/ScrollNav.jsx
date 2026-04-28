@@ -11,7 +11,7 @@ export default function ScrollNav() {
   const ts = useTranslations('skills');
 
   const sections = [
-    { id: 'hero',       label: 'Home' },
+    { id: 'hero',       label: tn('home') },
     { id: 'projects',   label: tn('projects') },
     { id: 'awards',     label: tn('awards') },
     { id: 'beliefs',    label: tb('label') },

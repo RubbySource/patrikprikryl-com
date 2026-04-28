@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server';
+import { setRequestLocale, getTranslations } from 'next-intl/server';
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import StatsBar from '@/components/StatsBar';
@@ -15,6 +15,48 @@ import CookieBanner from '@/components/CookieBanner';
 import BackToTop from '@/components/BackToTop';
 import ScrollNav from '@/components/ScrollNav';
 import NetworkCanvas from '@/components/NetworkCanvas';
+
+const SITE_URL = 'https://patrikprikryl.com';
+
+export async function generateMetadata({ params: { locale } }) {
+  const t = await getTranslations({ locale, namespace: 'meta' });
+  const path = locale === 'en' ? '/' : `/${locale}`;
+  return {
+    title: t('home_title'),
+    description: t('home_description'),
+    alternates: {
+      canonical: path,
+      languages: {
+        en: '/',
+        cs: '/cs',
+        de: '/de',
+      },
+    },
+    openGraph: {
+      title: t('home_title'),
+      description: t('home_description'),
+      url: `${SITE_URL}${path}`,
+      siteName: 'Patrik Přikryl',
+      type: 'website',
+      locale: locale === 'cs' ? 'cs_CZ' : locale === 'de' ? 'de_DE' : 'en_US',
+      images: [
+        {
+          url: '/og-image.png',
+          width: 1200,
+          height: 630,
+          type: 'image/png',
+          alt: t('og_alt'),
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('home_title'),
+      description: t('home_description'),
+      images: ['/og-image.png'],
+    },
+  };
+}
 
 export default function Home({ params: { locale } }) {
   setRequestLocale(locale);

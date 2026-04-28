@@ -1,11 +1,13 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { setRequestLocale } from 'next-intl/server';
+import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import NetworkCanvas from '@/components/NetworkCanvas';
 import { getAllPosts, getPostBySlug } from '@/lib/blog';
+
+const SITE_URL = 'https://patrikprikryl.com';
 
 export function generateStaticParams() {
   const locales = ['en', 'cs', 'de'];
@@ -15,25 +17,59 @@ export function generateStaticParams() {
   );
 }
 
-export function generateMetadata({ params: { slug } }) {
+export async function generateMetadata({ params: { locale, slug } }) {
   const post = getPostBySlug(slug);
   if (!post) return {};
+
+  const path = locale === 'en' ? `/blog/${slug}` : `/${locale}/blog/${slug}`;
+  const title = `${post.title} — Patrik Přikryl`;
+  const description = post.excerpt;
+
   return {
-    title: `${post.title} — Patrik Přikryl`,
-    description: post.excerpt,
+    title,
+    description,
+    alternates: {
+      canonical: path,
+      languages: {
+        en: `/blog/${slug}`,
+        cs: `/cs/blog/${slug}`,
+        de: `/de/blog/${slug}`,
+      },
+    },
     openGraph: {
       title: post.title,
-      description: post.excerpt,
+      description,
+      url: `${SITE_URL}${path}`,
+      siteName: 'Patrik Přikryl',
       type: 'article',
       publishedTime: post.date,
+      locale: locale === 'cs' ? 'cs_CZ' : locale === 'de' ? 'de_DE' : 'en_US',
+      authors: ['Patrik Přikryl'],
+      tags: post.tags,
+      images: [
+        {
+          url: '/og-image.png',
+          width: 1200,
+          height: 630,
+          type: 'image/png',
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description,
+      images: ['/og-image.png'],
     },
   };
 }
 
-function formatDate(iso) {
+function formatDate(iso, locale) {
   if (!iso) return '';
+  const tag = locale === 'cs' ? 'cs-CZ' : locale === 'de' ? 'de-DE' : 'en-GB';
   try {
-    return new Date(iso).toLocaleDateString('en-GB', {
+    return new Date(iso).toLocaleDateString(tag, {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -94,8 +130,9 @@ const mdxComponents = {
   hr: () => <hr className="my-10 border-[var(--border)]" />,
 };
 
-export default function BlogPost({ params: { locale, slug } }) {
+export default async function BlogPost({ params: { locale, slug } }) {
   setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: 'blog' });
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
@@ -113,12 +150,12 @@ export default function BlogPost({ params: { locale, slug } }) {
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            All posts
+            {t('all_posts')}
           </Link>
 
           <header className="mb-10">
             <div className="flex items-center gap-3 text-xs font-medium text-[var(--muted)] mb-4">
-              <time dateTime={post.date}>{formatDate(post.date)}</time>
+              <time dateTime={post.date}>{formatDate(post.date, locale)}</time>
               <span aria-hidden>·</span>
               <span>{post.readingTime}</span>
             </div>

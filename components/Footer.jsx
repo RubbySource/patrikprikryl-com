@@ -7,6 +7,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
   const th = useTranslations('hero');
   const tn = useTranslations('nav');
+  const tf = useTranslations('footer');
   const locale = useLocale();
 
   const navLinks = [
@@ -21,7 +22,7 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           {/* Copyright */}
           <p className="text-sm text-[#6B7280]">
-            © {year} Patrik {th('name_last')}. All rights reserved.
+            © {year} Patrik {th('name_last')}. {tf('rights')}
           </p>
 
           {/* Nav links */}
