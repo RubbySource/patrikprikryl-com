@@ -5,6 +5,7 @@ import StatsBar from '@/components/StatsBar';
 import Projects from '@/components/Projects';
 import Awards from '@/components/Awards';
 import Beliefs from '@/components/Beliefs';
+import Skills from '@/components/Skills';
 import CoCreators from '@/components/CoCreators';
 import Contact from '@/components/Contact';
 import GetInTouch from '@/components/GetInTouch';
@@ -29,6 +30,7 @@ export default function Home({ params: { locale } }) {
         <Projects />
         <Awards />
         <Beliefs />
+        <Skills />
         <CoCreators />
         <Contact />
         <GetInTouch />

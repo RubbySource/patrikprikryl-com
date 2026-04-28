@@ -1,4 +1,4 @@
-import { blogPosts } from '@/data/blog';
+import { getAllPosts } from '@/lib/blog';
 
 const SITE_URL = 'https://patrikprikryl.com';
 const FEED_TITLE = 'Patrik Přikryl — Blog';
@@ -15,18 +15,13 @@ function escapeXml(value) {
     .replace(/'/g, '&apos;');
 }
 
-function pick(field, locale) {
-  if (!field) return '';
-  if (typeof field === 'string') return field;
-  return field[locale] ?? field[DEFAULT_LOCALE] ?? '';
-}
-
 function renderItem(post) {
-  const locale = DEFAULT_LOCALE;
-  const link = `${SITE_URL}/${locale}/blog/${post.slug}`;
-  const title = escapeXml(pick(post.title, locale));
-  const description = escapeXml(pick(post.description, locale));
-  const pubDate = new Date(post.date).toUTCString();
+  const link = `${SITE_URL}/${DEFAULT_LOCALE}/blog/${post.slug}`;
+  const title = escapeXml(post.title);
+  const description = escapeXml(post.excerpt || '');
+  const pubDate = post.date
+    ? new Date(post.date).toUTCString()
+    : new Date().toUTCString();
   return `    <item>
       <title>${title}</title>
       <link>${link}</link>
@@ -37,14 +32,12 @@ function renderItem(post) {
 }
 
 function buildFeed() {
-  const items = [...blogPosts]
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .map(renderItem)
-    .join('\n');
+  const posts = getAllPosts();
+  const items = posts.map(renderItem).join('\n');
 
   const lastBuildDate = (
-    blogPosts.length > 0
-      ? new Date(Math.max(...blogPosts.map((p) => new Date(p.date).getTime())))
+    posts.length > 0 && posts[0].date
+      ? new Date(posts[0].date)
       : new Date()
   ).toUTCString();
 

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { useRouter, usePathname } from 'next/navigation';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const PPLogo = ({ className }) => (
@@ -51,6 +52,9 @@ export default function Navigation() {
     { label: t('contact'), href: '#contact' },
   ];
 
+  const onBlog = pathname?.includes('/blog');
+  const blogHref = `/${locale}/blog`;
+
   const locales = ['en', 'cs', 'de'];
 
   const switchLocale = (newLocale) => {
@@ -66,8 +70,12 @@ export default function Navigation() {
   };
 
   const scrollTo = (href) => {
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (onBlog) {
+      router.push(`/${locale}/${href}`);
+    } else {
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
     setMenuOpen(false);
   };
 
@@ -98,6 +106,16 @@ export default function Navigation() {
               {item.label}
             </button>
           ))}
+          <Link
+            href={blogHref}
+            className={`text-sm font-medium transition-colors ${
+              onBlog
+                ? 'text-[#1A56DB]'
+                : 'text-[#6B7280] dark:text-gray-400 hover:text-[#111111] dark:hover:text-[#F0F0F0]'
+            }`}
+          >
+            Blog
+          </Link>
         </div>
 
         {/* Controls */}
@@ -175,6 +193,15 @@ export default function Navigation() {
                   {item.label}
                 </button>
               ))}
+              <Link
+                href={blogHref}
+                onClick={() => setMenuOpen(false)}
+                className={`text-left text-base font-medium transition-colors ${
+                  onBlog ? 'text-[#1A56DB]' : 'text-[#111111] dark:text-[#F0F0F0] hover:text-[#1A56DB]'
+                }`}
+              >
+                Blog
+              </Link>
               <div className="flex items-center gap-3 pt-2 border-t border-gray-200/30 dark:border-gray-700/30">
                 {locales.map((l) => (
                   <button
