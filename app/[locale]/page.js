@@ -35,4 +35,9 @@ export default function Home({ params: { locale } }) {
         <GetInTouch />
         <Footer />
         <CookieBanner />
-    
+        <BackToTop />
+        <ScrollNav />
+      </main>
+    </>
+  );
+}
