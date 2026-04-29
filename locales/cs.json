@@ -13,7 +13,8 @@
     "bio": "Jsem AI Project Manager ve Škodě Auto, kde prosazuji integraci umělé inteligence do nákupních procesů. Se 13 lety zkušeností v nákupu – z nichž 8+ let jsem vedl výběrová řízení v oblasti IT a zajišťoval nákup hardwaru – jsem si vybudoval pevné přesvědčení: budoucnost nákupu je automatizovaná, inteligentní a lidsky orientovaná. Věřím v optimismus, otevřenost a sílu propojování správných lidí.",
     "cta_projects": "Zobrazit projekty",
     "cta_linkedin": "Spojit se na LinkedIn",
-    "currently_building": "Aktuálně stavím GardenPin 🌱"
+    "currently_building": "Aktuálně stavím GardenPin 🌱",
+    "building_badge": "Aktuálně stavím GardenPin 🌱"
   },
   "stats": {
     "years": "Let v nákupu",
@@ -46,6 +47,13 @@
     "hobby_badge": "Hobby",
     "in_progress_badge": "Rozpracováno",
     "back_to_projects": "Zpět na projekty"
+  },
+  "hobby": {
+    "label": "Vedlejší projekty",
+    "title": "Hobby projekty",
+    "subtitle": "Věci, které stavím ve svém volném čase — zkoumám nápady, učím se nové technologie a posílám je do světa jen pro radost.",
+    "badge": "Hobby",
+    "in_progress": "Probíhá"
   },
   "awards": {
     "label": "Uznání",
@@ -105,6 +113,13 @@
     "title": "Pojďme spolu něco postavit.",
     "subtitle": "Otevřen AI spolupráci, příležitostem k přednáškám a zajímavým vedlejším projektům.",
     "email_cta": "Poslat e-mail",
+    "linkedin_cta": "Spojit se na LinkedIn"
+  },
+  "getintouch": {
+    "label": "Spojme se",
+    "title": "Pojďme společně něco vytvořit.",
+    "subtitle": "Otevřen AI spolupracím, přednáškám a zajímavým vedlejším projektům.",
+    "email_cta": "Napsat e-mail",
     "linkedin_cta": "Spojit se na LinkedIn"
   },
   "newsletter": {
