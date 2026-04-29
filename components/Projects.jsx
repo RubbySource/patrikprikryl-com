@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
@@ -30,6 +30,14 @@ function TechStackTags({ techStack }) {
 
 function ProjectScrollCard({ project, index, totalCount, t, locale }) {
   const ref = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -49,7 +57,7 @@ function ProjectScrollCard({ project, index, totalCount, t, locale }) {
       {/* Sticky container — stays in place while scroll drives the animation */}
       <div className="sticky top-0 h-screen overflow-hidden">
         <motion.div
-          style={{ scale, borderRadius, x, y, willChange: 'transform' }}
+          style={isMobile ? { willChange: 'auto' } : { scale, borderRadius, x, y, willChange: 'transform' }}
           className="absolute inset-0 project-card-mask"
         >
           {/* Background — image or gradient */}
