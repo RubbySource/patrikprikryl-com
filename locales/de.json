@@ -13,7 +13,8 @@
     "bio": "Ich bin AI Project Manager bei Škoda Auto und treibe die Integration von künstlicher Intelligenz in Beschaffungsprozesse voran. Mit 13 Jahren Erfahrung im Einkauf – davon 8+ Jahre in der Leitung von IT-Ausschreibungen und Hardware-Beschaffung – habe ich eine tiefe Überzeugung entwickelt: Die Zukunft des Einkaufs ist automatisiert, intelligent und menschenzentriert. Ich glaube an Optimismus, Offenheit und die Kraft, die richtigen Menschen zu vernetzen.",
     "cta_projects": "Projekte ansehen",
     "cta_linkedin": "Auf LinkedIn vernetzen",
-    "currently_building": "Aktuell baue ich GardenPin 🌱"
+    "currently_building": "Aktuell baue ich GardenPin 🌱",
+    "building_badge": "Aktuell baue ich GardenPin 🌱"
   },
   "stats": {
     "years": "Jahre im Einkauf",
@@ -46,6 +47,13 @@
     "hobby_badge": "Hobby",
     "in_progress_badge": "In Arbeit",
     "back_to_projects": "Zurück zu Projekten"
+  },
+  "hobby": {
+    "label": "Nebenprojekte",
+    "title": "Hobby-Projekte",
+    "subtitle": "Dinge, die ich in meiner Freizeit baue — Ideen erkunden, neue Technologien lernen und einfach aus Freude veröffentlichen.",
+    "badge": "Hobby",
+    "in_progress": "In Arbeit"
   },
   "awards": {
     "label": "Anerkennung",
@@ -106,6 +114,13 @@
     "subtitle": "Offen für KI-Kooperationen, Vortragsanfragen und spannende Nebenprojekte.",
     "email_cta": "E-Mail senden",
     "linkedin_cta": "Auf LinkedIn vernetzen"
+  },
+  "getintouch": {
+    "label": "Kontakt aufnehmen",
+    "title": "Lass uns gemeinsam etwas aufbauen.",
+    "subtitle": "Offen für KI-Kooperationen, Vorträge und interessante Nebenprojekte.",
+    "email_cta": "E-Mail senden",
+    "linkedin_cta": "LinkedIn verbinden"
   },
   "newsletter": {
     "label": "Newsletter",
