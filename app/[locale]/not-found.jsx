@@ -4,14 +4,34 @@ import NotFoundScene from '@/components/NotFoundScene';
 import Navigation from '@/components/Navigation';
 import NetworkCanvas from '@/components/NetworkCanvas';
 
+const SITE_URL = 'https://patrikprikryl.com';
+
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const locale = resolvedParams?.locale || 'en';
   const t = await getTranslations({ locale, namespace: 'meta' });
+  const path = locale === 'en' ? '/' : `/${locale}`;
   return {
     title: t('notfound_title'),
     description: t('notfound_description'),
     robots: { index: false, follow: true },
+    openGraph: {
+      title: t('notfound_title'),
+      description: t('notfound_description'),
+      url: `${SITE_URL}${path}`,
+      siteName: 'Patrik Přikryl',
+      type: 'website',
+      locale: locale === 'cs' ? 'cs_CZ' : locale === 'de' ? 'de_DE' : 'en_US',
+      images: [
+        {
+          url: '/og-default.svg',
+          width: 1200,
+          height: 630,
+          type: 'image/svg+xml',
+          alt: t('og_alt'),
+        },
+      ],
+    },
   };
 }
 

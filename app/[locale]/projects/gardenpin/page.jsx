@@ -31,19 +31,13 @@ export async function generateMetadata({ params }) {
       locale: locale === 'cs' ? 'cs_CZ' : locale === 'de' ? 'de_DE' : 'en_US',
       images: [
         {
-          url: '/og-image.png',
+          url: '/og-default.svg',
           width: 1200,
           height: 630,
-          type: 'image/png',
+          type: 'image/svg+xml',
           alt: 'GardenPin — companion-planting garden planner',
         },
       ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: t('gardenpin_title'),
-      description: t('gardenpin_description'),
-      images: ['/og-image.png'],
     },
   };
 }
