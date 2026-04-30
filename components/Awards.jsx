@@ -4,151 +4,169 @@ import { motion } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import { awards } from '@/data/awards';
 
-/* ── SVG icon components ─────────────────────────────────────────── */
+/* ── Award-level config ───────────────────────────────────────────── */
 
-function TrophyIcon({ uid }) {
-  const g = `trophy-g-${uid}`;
-  return (
-    <svg viewBox="0 0 40 44" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-11 h-12" aria-hidden="true">
-      <defs>
-        <linearGradient id={g} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stopColor="#FDE68A" />
-          <stop offset="55%"  stopColor="#F59E0B" />
-          <stop offset="100%" stopColor="#B45309" />
-        </linearGradient>
-      </defs>
-      {/* Cup body */}
-      <path d="M9 4h22v14c0 5.523-4.477 10-11 10S9 23.523 9 18V4z" fill={`url(#${g})`} />
-      {/* Left handle */}
-      <path d="M9 9H5a3 3 0 000 6h4" stroke={`url(#${g})`} strokeWidth="2.2" strokeLinecap="round" fill="none" />
-      {/* Right handle */}
-      <path d="M31 9h4a3 3 0 010 6h-4" stroke={`url(#${g})`} strokeWidth="2.2" strokeLinecap="round" fill="none" />
-      {/* Stem */}
-      <rect x="17" y="28" width="6" height="7" fill={`url(#${g})`} rx="1" />
-      {/* Base */}
-      <rect x="11" y="35" width="18" height="5" fill={`url(#${g})`} rx="2" />
-    </svg>
-  );
-}
-
-function StarIcon({ uid }) {
-  const g = `star-g-${uid}`;
-  return (
-    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-11 h-11" aria-hidden="true">
-      <defs>
-        <linearGradient id={g} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stopColor="#BAE6FD" />
-          <stop offset="55%"  stopColor="#38BDF8" />
-          <stop offset="100%" stopColor="#0369A1" />
-        </linearGradient>
-      </defs>
-      {/* 5-point star */}
-      <polygon
-        points="20,2 24,14 37,14 27,22 31,35 20,27 9,35 13,22 3,14 16,14"
-        fill={`url(#${g})`}
-      />
-    </svg>
-  );
-}
-
-function AwardIcon({ type, uid }) {
-  if (type === 'star') return <StarIcon uid={uid} />;
-  return <TrophyIcon uid={uid} />;
-}
+const LEVEL = {
+  trophy: {
+    dot:    '#B8962E',           // warm gold
+    border: 'border-[#B8962E]/60',
+    hoverBorder: 'hover:border-[#B8962E]',
+    badge:  'text-[#92720D] bg-[#FEF3C7] dark:text-[#FDE68A] dark:bg-[#78350F]/30',
+    label:  { en: 'Winner', cs: 'Vítěz', de: 'Gewinner' },
+  },
+  star: {
+    dot:    '#2563EB',
+    border: 'border-[#2563EB]/40',
+    hoverBorder: 'hover:border-[#2563EB]/80',
+    badge:  'text-[#1D4ED8] bg-[#EFF6FF] dark:text-[#93C5FD] dark:bg-[#1E3A5F]/30',
+    label:  { en: 'Finalist', cs: 'Finalista', de: 'Finalist' },
+  },
+};
 
 /* ── Card ─────────────────────────────────────────────────────────── */
 
 function AwardCard({ award, index, t, locale }) {
-  // Pick the right locale from a multilingual field object; fall back to 'en'
   const f = (field) => {
     if (!field) return null;
     if (typeof field === 'string') return field;
     return field[locale] ?? field.en;
   };
 
+  const level     = LEVEL[award.icon] ?? LEVEL.star;
+  const badgeText = level.label[locale] ?? level.label.en;
+
+  // Extract year from subtitle for the decorative element
+  const subtitleStr = f(award.subtitle) ?? '';
+  const yearMatch   = subtitleStr.match(/\b(20\d{2})\b/);
+  const year        = yearMatch ? yearMatch[1] : '';
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.5, delay: index * 0.12 }}
-      className="group relative bg-white dark:bg-[#141414] rounded-2xl p-7 border border-gray-100 dark:border-gray-800 hover:border-[#1A56DB]/30 dark:hover:border-[#1A56DB]/30 transition-[border-color,box-shadow] duration-300 hover:shadow-xl hover:shadow-blue-500/5"
+      transition={{ duration: 0.55, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      className={`
+        group relative flex flex-col overflow-hidden
+        bg-white dark:bg-[#111111]
+        rounded-2xl border ${level.border} ${level.hoverBorder}
+        transition-[border-color,box-shadow] duration-300
+        hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/30
+      `}
     >
-      {/* Icon */}
-      <div className="mb-5">
-        <AwardIcon type={award.icon} uid={String(index)} />
-      </div>
-
-      {/* Subtitle */}
-      <span className="text-xs font-semibold tracking-wider uppercase text-[#6B7280] mb-2 block">
-        {f(award.subtitle)}
-      </span>
-
-      {/* Title */}
-      <h3 className="font-display font-bold text-lg sm:text-xl text-[#111111] dark:text-[#F0F0F0] mb-2 leading-tight">
-        {f(award.title)}
-      </h3>
-
-      {/* Project name */}
-      {award.project && (
-        <p className="text-sm font-semibold text-[#1A56DB] mb-3">
-          {f(award.project)}
-        </p>
+      {/* Decorative year — large muted background text */}
+      {year && (
+        <span
+          aria-hidden="true"
+          className="absolute -top-3 right-4 font-display font-black text-[80px] leading-none select-none pointer-events-none text-black/[0.035] dark:text-white/[0.04]"
+        >
+          {year}
+        </span>
       )}
 
-      {/* Description */}
-      <p className="text-sm text-[#6B7280] dark:text-gray-400 leading-relaxed mb-3">
-        {f(award.description)}
-      </p>
+      <div className="relative flex flex-col flex-1 p-7">
 
-      {/* Role */}
-      {award.role && (
-        <p className="text-xs text-[#6B7280] dark:text-gray-500">
-          <span className="font-semibold">{t('role_label')}:</span> {f(award.role)}
-        </p>
-      )}
+        {/* Top row — org + status badge */}
+        <div className="flex items-start justify-between gap-3 mb-5">
+          <div>
+            <span className="block text-[11px] font-bold tracking-[0.12em] uppercase text-[#6B7280] dark:text-gray-500">
+              {/* Org name only (first segment before ·) */}
+              {subtitleStr.split('·')[0].trim()}
+            </span>
+            <span className="block text-[11px] tracking-wide text-[#9CA3AF] dark:text-gray-600 mt-0.5">
+              {/* Rest: · March 2024 · 21st edition */}
+              {subtitleStr.split('·').slice(1).join('·').trim()}
+            </span>
+          </div>
 
-      {/* Quote for Negobot awards */}
-      {award.quote && (
-        <div className="mt-5 pt-5 border-t border-gray-100 dark:border-gray-800">
-          <blockquote className="text-sm italic text-[#6B7280] dark:text-gray-400 leading-relaxed">
-            &ldquo;{award.quote}&rdquo;
-          </blockquote>
-        </div>
-      )}
-
-      {/* Negobot label + CACIO link */}
-      {award.isNegobot && (
-        <div className="mt-4 flex flex-wrap items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-[#6B7280] bg-gray-50 dark:bg-gray-800 px-2.5 py-1.5 rounded-full">
-            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-            {t('internal_project')}
+          <span className={`shrink-0 inline-flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full ${level.badge}`}>
+            <span
+              className="w-1.5 h-1.5 rounded-full"
+              style={{ backgroundColor: level.dot }}
+            />
+            {badgeText}
           </span>
-          {award.url && (
-            <a
-              href={award.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs font-semibold text-[#1A56DB] hover:text-[#1340B0] transition-colors"
-            >
-              {t('more_info')}
-            </a>
-          )}
         </div>
-      )}
+
+        {/* Award title */}
+        <h3 className="font-display font-bold text-[1.15rem] sm:text-xl leading-snug text-[#111111] dark:text-[#F0F0F0] mb-3">
+          {f(award.title)}
+        </h3>
+
+        {/* Project chip */}
+        {award.project && (
+          <span
+            className="inline-block self-start text-xs font-semibold tracking-wide px-2.5 py-1 rounded-md mb-4"
+            style={{ color: level.dot, background: `${level.dot}14` }}
+          >
+            {f(award.project)}
+          </span>
+        )}
+
+        {/* Description */}
+        <p className="text-sm text-[#6B7280] dark:text-gray-400 leading-relaxed">
+          {f(award.description)}
+        </p>
+
+        {/* Role */}
+        {award.role && (
+          <p className="mt-2 text-xs text-[#9CA3AF] dark:text-gray-500">
+            <span className="font-semibold text-[#6B7280] dark:text-gray-400">{t('role_label')}: </span>
+            {f(award.role)}
+          </p>
+        )}
+
+        {/* Quote */}
+        {award.quote && (
+          <div className="mt-5 pt-5 border-t border-gray-100 dark:border-gray-800/80">
+            <blockquote className="text-sm italic text-[#6B7280] dark:text-gray-400 leading-relaxed before:content-['“'] after:content-['”'] before:not-italic after:not-italic before:text-[#9CA3AF] after:text-[#9CA3AF]">
+              {award.quote}
+            </blockquote>
+          </div>
+        )}
+
+        {/* Spacer pushes footer to bottom */}
+        <div className="flex-1" />
+
+        {/* Footer — internal badge + link */}
+        {(award.isNegobot || award.url) && (
+          <div className="mt-5 pt-4 border-t border-gray-100 dark:border-gray-800/80 flex flex-wrap items-center gap-3">
+            {award.isNegobot && (
+              <span className="text-[10px] font-semibold tracking-widest uppercase text-[#9CA3AF] dark:text-gray-600">
+                {t('internal_project')} @ Škoda Auto
+              </span>
+            )}
+            {award.url && (
+              <a
+                href={award.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-auto inline-flex items-center gap-1 text-xs font-semibold text-[#6B7280] dark:text-gray-400 hover:text-[#111111] dark:hover:text-white transition-colors"
+              >
+                {t('more_info')}
+                <svg className="w-3 h-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                  <path d="M2.5 9.5l7-7M9.5 9V2.5H3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+            )}
+          </div>
+        )}
+      </div>
     </motion.div>
   );
 }
 
+/* ── Section ──────────────────────────────────────────────────────── */
+
 export default function Awards() {
-  const t = useTranslations('awards');
+  const t      = useTranslations('awards');
   const locale = useLocale();
 
   return (
     <section id="awards" className="section-padding">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -164,9 +182,16 @@ export default function Awards() {
           </h2>
         </motion.div>
 
+        {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {awards.map((award, index) => (
-            <AwardCard key={index} award={award} index={index} t={t} locale={locale} />
+            <AwardCard
+              key={index}
+              award={award}
+              index={index}
+              t={t}
+              locale={locale}
+            />
           ))}
         </div>
       </div>
