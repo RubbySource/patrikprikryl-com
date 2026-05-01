@@ -6,8 +6,6 @@ import { useInView } from 'react-intersection-observer';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 
-const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID || 'xnjgpwbd';
-
 export default function Contact() {
   const t = useTranslations('contact');
   const [submitted, setSubmitted] = useState(false);
@@ -26,19 +24,22 @@ export default function Contact() {
     setSubmitting(true);
     setError(null);
     try {
-      const endpoint = `https://formspree.io/f/${FORMSPREE_ID}`;
-
-      const response = await fetch(endpoint, {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          message: data.message,
+        }),
       });
 
       if (response.ok) {
         setSubmitted(true);
         reset();
       } else {
-        setError(t('error_generic'));
+        const payload = await response.json().catch(() => null);
+        setError(payload?.error || t('error_generic'));
       }
     } catch {
       setError(t('error_generic'));
