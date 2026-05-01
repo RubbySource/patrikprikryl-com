@@ -1,6 +1,6 @@
 import { getAllPosts } from '@/lib/blog';
 
-const BASE_URL = 'https://patrikprikryl.com';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://patrikprikryl.com';
 const LOCALES = ['en', 'cs', 'de'];
 
 export default function sitemap() {
