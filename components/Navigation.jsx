@@ -210,7 +210,7 @@ export default function Navigation() {
                     className={`text-sm font-medium px-2 py-1 rounded transition-colors ${
                       locale === l
                         ? 'text-[#1A56DB] bg-blue-50 dark:bg-blue-900/20'
-                        : 'text-[#6B7280] hover:text-[#111111] dark:hover:text-[#F0F0F0]'
+                        : 'text-[#6B7280] dark:text-gray-400 hover:text-[#111111] dark:hover:text-[#F0F0F0]'
                     }`}
                   >
                     {l.toUpperCase()}

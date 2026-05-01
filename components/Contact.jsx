@@ -185,9 +185,9 @@ export default function Contact() {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-semibold text-[#111111] dark:text-[#F0F0F0] text-sm">LinkedIn</p>
-                <p className="text-xs text-[#6B7280] truncate">linkedin.com/in/patrikprikryl</p>
+                <p className="text-xs text-[#6B7280] dark:text-gray-400 truncate">linkedin.com/in/patrikprikryl</p>
               </div>
-              <svg className="w-4 h-4 text-[#6B7280] group-hover:text-[#1A56DB] transition-colors flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 text-[#6B7280] dark:text-gray-400 group-hover:text-[#1A56DB] dark:group-hover:text-[#1A56DB] transition-colors flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </a>
@@ -205,7 +205,7 @@ export default function Contact() {
 
             {/* Topics */}
             <div className="p-5 rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-[#141414]">
-              <p className="text-xs font-semibold tracking-wider uppercase text-[#6B7280] mb-3">{t('topics_label')}</p>
+              <p className="text-xs font-semibold tracking-wider uppercase text-[#6B7280] dark:text-gray-400 mb-3">{t('topics_label')}</p>
               <div className="flex flex-wrap gap-2">
                 {t.raw('topics').map(tag => (
                   <span key={tag} className="text-xs font-medium px-3 py-1.5 rounded-full bg-gray-50 dark:bg-gray-800 text-[#6B7280] dark:text-gray-400">
