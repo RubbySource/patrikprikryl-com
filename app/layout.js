@@ -13,22 +13,15 @@ export const metadata = {
     siteName: 'Patrik Přikryl',
     images: [
       {
-        url: '/og-image.png',
+        url: '/og-default.svg',
         width: 1200,
         height: 630,
-        type: 'image/png',
+        type: 'image/svg+xml',
         alt: 'Patrik Přikryl – AI Project Manager · Škoda Auto',
       },
     ],
     locale: 'en_US',
     type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Patrik Přikryl – AI Project Manager',
-    description:
-      'AI Project Manager at Škoda Auto. Driving intelligent procurement through automation, AI tools, and digital transformation.',
-    images: ['/og-image.png'],
   },
 };
 

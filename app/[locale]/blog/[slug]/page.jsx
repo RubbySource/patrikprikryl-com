@@ -49,19 +49,12 @@ export async function generateMetadata({ params }) {
       tags: post.tags,
       images: [
         {
-          url: '/og-image.png',
+          url: post.thumbnail || '/og-default.svg',
           width: 1200,
           height: 630,
-          type: 'image/png',
           alt: post.title,
         },
       ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.title,
-      description,
-      images: ['/og-image.png'],
     },
   };
 }
