@@ -60,7 +60,7 @@ export default function Hero() {
             <motion.h1
               variants={item}
               className="font-bold text-[clamp(3rem,8vw,7rem)] leading-[0.9] tracking-[-0.03em] text-[#111111] dark:text-[#F0F0F0] mb-6"
-              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-plus-jakarta-sans), 'Plus Jakarta Sans', sans-serif" }}
             >
               Patrik
               <br />

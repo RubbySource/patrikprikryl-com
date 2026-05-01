@@ -9,8 +9,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Sora', 'DM Sans', 'sans-serif'],
-        body: ['Inter', 'sans-serif'],
+        display: ['var(--font-sora)', 'Sora', 'DM Sans', 'sans-serif'],
+        body: ['var(--font-inter)', 'Inter', 'sans-serif'],
       },
       colors: {
         accent: {
