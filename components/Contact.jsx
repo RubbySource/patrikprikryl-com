@@ -88,7 +88,7 @@ export default function Contact() {
                     id="name"
                     type="text"
                     {...register('name', { required: true })}
-                    className={`w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1C1C1C] border text-[#111111] dark:text-[#F0F0F0] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1A56DB]/50 focus:border-[#1A56DB] transition-all ${
+                    className={`w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1C1C1C] border text-[#111111] dark:text-[#F0F0F0] placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1A56DB]/50 focus:border-[#1A56DB] transition-all ${
                       errors.name ? 'border-red-400' : 'border-gray-200 dark:border-gray-700'
                     }`}
                     placeholder={t('placeholder_name')}
@@ -103,7 +103,7 @@ export default function Contact() {
                     id="email"
                     type="email"
                     {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
-                    className={`w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1C1C1C] border text-[#111111] dark:text-[#F0F0F0] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1A56DB]/50 focus:border-[#1A56DB] transition-all ${
+                    className={`w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1C1C1C] border text-[#111111] dark:text-[#F0F0F0] placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1A56DB]/50 focus:border-[#1A56DB] transition-all ${
                       errors.email ? 'border-red-400' : 'border-gray-200 dark:border-gray-700'
                     }`}
                     placeholder={t('placeholder_email')}
@@ -118,7 +118,7 @@ export default function Contact() {
                     id="message"
                     rows={5}
                     {...register('message', { required: true })}
-                    className={`w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1C1C1C] border text-[#111111] dark:text-[#F0F0F0] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1A56DB]/50 focus:border-[#1A56DB] transition-all resize-none ${
+                    className={`w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1C1C1C] border text-[#111111] dark:text-[#F0F0F0] placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1A56DB]/50 focus:border-[#1A56DB] transition-all resize-none ${
                       errors.message ? 'border-red-400' : 'border-gray-200 dark:border-gray-700'
                     }`}
                     placeholder={t('placeholder_message')}

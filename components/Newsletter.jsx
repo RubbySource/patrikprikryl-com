@@ -84,7 +84,7 @@ export default function Newsletter() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={t('email_placeholder')}
                   disabled={status === 'loading'}
-                  className="flex-1 px-5 py-3.5 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#0A0A0A] text-[#111111] dark:text-[#F0F0F0] placeholder:text-gray-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition disabled:opacity-60"
+                  className="flex-1 px-5 py-3.5 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#0A0A0A] text-[#111111] dark:text-[#F0F0F0] placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition disabled:opacity-60"
                 />
                 <button
                   type="submit"

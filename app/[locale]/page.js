@@ -11,10 +11,7 @@ import Contact from '@/components/Contact';
 import GetInTouch from '@/components/GetInTouch';
 import Newsletter from '@/components/Newsletter';
 import Footer from '@/components/Footer';
-import CookieBanner from '@/components/CookieBanner';
-import BackToTop from '@/components/BackToTop';
-import ScrollNav from '@/components/ScrollNav';
-import NetworkCanvas from '@/components/NetworkCanvas';
+import DeferredOverlays from '@/components/DeferredOverlays';
 
 const SITE_URL = 'https://patrikprikryl.com';
 
@@ -58,9 +55,6 @@ export default async function Home({ params }) {
   setRequestLocale(locale);
   return (
     <>
-      {/* Global network background — fixed, behind all content */}
-      <NetworkCanvas />
-
       <main className="relative z-[1] min-h-screen text-[#111111] dark:text-[#F0F0F0]">
         <Navigation />
         <Hero />
@@ -74,10 +68,9 @@ export default async function Home({ params }) {
         <GetInTouch />
         <Newsletter />
         <Footer />
-        <CookieBanner />
-        <BackToTop />
-        <ScrollNav />
       </main>
+      {/* Deferred — canvas background + non-critical overlays load after hydration */}
+      <DeferredOverlays />
     </>
   );
 }
