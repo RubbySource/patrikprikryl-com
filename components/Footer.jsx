@@ -21,7 +21,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           {/* Copyright */}
-          <p className="text-sm text-[#6B7280]">
+          <p className="text-sm text-[#6B7280] dark:text-gray-400">
             © {year} Patrik {th('name_last')}. {tf('rights')}
           </p>
 
@@ -35,7 +35,7 @@ export default function Footer() {
                   e.preventDefault();
                   document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="text-sm text-[#6B7280] hover:text-[#1A56DB] transition-colors"
+                className="text-sm text-[#6B7280] dark:text-gray-400 hover:text-[#1A56DB] dark:hover:text-[#1A56DB] transition-colors"
               >
                 {tn(key)}
               </a>
@@ -48,7 +48,7 @@ export default function Footer() {
               href="https://www.linkedin.com/in/patrikprikryl"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#6B7280] hover:text-[#1A56DB] transition-colors"
+              className="text-[#6B7280] dark:text-gray-400 hover:text-[#1A56DB] dark:hover:text-[#1A56DB] transition-colors"
               aria-label="LinkedIn"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

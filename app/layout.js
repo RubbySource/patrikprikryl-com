@@ -1,5 +1,6 @@
 import { Inter, Sora, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
+import Analytics from '@/components/Analytics';
 
 const inter = Inter({
   subsets: ['latin', 'latin-ext'],
@@ -98,7 +99,10 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

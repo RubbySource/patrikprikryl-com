@@ -52,7 +52,7 @@ function PersonCard({ person, index, globalIndex, locale }) {
               href={person.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 text-[#6B7280] hover:text-[#1A56DB] transition-colors"
+              className="flex-shrink-0 text-[#6B7280] dark:text-gray-400 hover:text-[#1A56DB] dark:hover:text-[#1A56DB] transition-colors"
               aria-label={`${person.name} on LinkedIn`}
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -93,7 +93,7 @@ export default function CoCreators() {
 
         {/* Collaborators */}
         <div className="mb-12">
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-[#6B7280] mb-6">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-[#6B7280] dark:text-gray-400 mb-6">
             {t('collaborators_title')}
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -105,7 +105,7 @@ export default function CoCreators() {
 
         {/* University Collaboration */}
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-[#6B7280] mb-6">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-[#6B7280] dark:text-gray-400 mb-6">
             {t('university_title')}
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

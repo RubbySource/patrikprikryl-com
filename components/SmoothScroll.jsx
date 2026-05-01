@@ -5,7 +5,7 @@ import Lenis from 'lenis';
 
 export default function SmoothScroll({ children }) {
   useEffect(() => {
-    // Zakáže browser scroll restoration — Lenis ji řídí sám
+    // Disable browser scroll restoration — Lenis manages it
     if (typeof window !== 'undefined') {
       history.scrollRestoration = 'manual';
       window.scrollTo(0, 0);
