@@ -35,9 +35,30 @@ export const viewport = {
 
 export const metadata = {
   metadataBase: new URL('https://patrikprikryl.com'),
-  title: 'Patrik Přikryl – AI Project Manager',
+  title: {
+    default: 'Patrik Přikryl – AI Project Manager',
+    template: '%s | Patrik Přikryl',
+  },
   description:
     'AI Project Manager at Škoda Auto. Driving intelligent procurement through automation, AI tools, and digital transformation.',
+  keywords: [
+    'AI Project Manager',
+    'Patrik Přikryl',
+    'Škoda Auto',
+    'AI procurement',
+    'automated negotiation',
+    'digital transformation',
+    'connected car',
+    'GardenPin',
+  ],
+  authors: [{ name: 'Patrik Přikryl', url: 'https://patrikprikryl.com' }],
+  creator: 'Patrik Přikryl',
+  publisher: 'Patrik Přikryl',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
     title: 'Patrik Přikryl – AI Project Manager',
     description:
@@ -46,24 +67,43 @@ export const metadata = {
     siteName: 'Patrik Přikryl',
     images: [
       {
-        url: '/og-default.svg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
-        type: 'image/svg+xml',
+        type: 'image/png',
         alt: 'Patrik Přikryl – AI Project Manager · Škoda Auto',
       },
     ],
     locale: 'en_US',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Patrik Přikryl – AI Project Manager',
+    description:
+      'AI Project Manager at Škoda Auto. Driving intelligent procurement through automation and AI.',
+    images: ['/og-image.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
-const jsonLd = {
+const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Patrik Přikryl',
   jobTitle: 'AI Project Manager',
   description: 'AI Project Manager at Škoda Auto with 13+ years in procurement. Pioneering AI-powered negotiation tools and digital transformation in automotive purchasing.',
+  image: 'https://patrikprikryl.com/patrik.jpg',
   worksFor: {
     '@type': 'Organization',
     name: 'Škoda Auto',
@@ -72,6 +112,7 @@ const jsonLd = {
   url: 'https://patrikprikryl.com',
   sameAs: [
     'https://www.linkedin.com/in/patrikprikryl',
+    'https://github.com/RubbySource',
   ],
   knowsAbout: [
     'Artificial Intelligence',
@@ -87,6 +128,15 @@ const jsonLd = {
   ],
 };
 
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Patrik Přikryl',
+  url: 'https://patrikprikryl.com',
+  inLanguage: ['en', 'cs', 'de'],
+  author: { '@type': 'Person', name: 'Patrik Přikryl' },
+};
+
 export default function RootLayout({ children }) {
   return (
     <html
@@ -94,9 +144,15 @@ export default function RootLayout({ children }) {
       className={`${inter.variable} ${sora.variable} ${plusJakartaSans.variable}`}
     >
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
       <body>

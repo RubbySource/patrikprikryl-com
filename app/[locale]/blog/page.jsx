@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
   const t = await getTranslations({ locale, namespace: 'meta' });
   const path = locale === 'en' ? '/blog' : `/${locale}/blog`;
   return {
-    title: t('blog_title'),
+    title: { absolute: t('blog_title') },
     description: t('blog_description'),
     alternates: {
       canonical: path,
@@ -31,13 +31,19 @@ export async function generateMetadata({ params }) {
       locale: locale === 'cs' ? 'cs_CZ' : locale === 'de' ? 'de_DE' : 'en_US',
       images: [
         {
-          url: '/og-default.svg',
+          url: '/og-image.png',
           width: 1200,
           height: 630,
-          type: 'image/svg+xml',
+          type: 'image/png',
           alt: t('og_alt'),
         },
       ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('blog_title'),
+      description: t('blog_description'),
+      images: ['/og-image.png'],
     },
   };
 }

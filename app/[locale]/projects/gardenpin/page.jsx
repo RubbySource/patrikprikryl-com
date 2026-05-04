@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
   const t = await getTranslations({ locale, namespace: 'meta' });
   const path = locale === 'en' ? '/projects/gardenpin' : `/${locale}/projects/gardenpin`;
   return {
-    title: t('gardenpin_title'),
+    title: { absolute: t('gardenpin_title') },
     description: t('gardenpin_description'),
     alternates: {
       canonical: path,
@@ -31,13 +31,19 @@ export async function generateMetadata({ params }) {
       locale: locale === 'cs' ? 'cs_CZ' : locale === 'de' ? 'de_DE' : 'en_US',
       images: [
         {
-          url: '/og-default.svg',
+          url: '/og-image.png',
           width: 1200,
           height: 630,
-          type: 'image/svg+xml',
+          type: 'image/png',
           alt: 'GardenPin — companion-planting garden planner',
         },
       ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('gardenpin_title'),
+      description: t('gardenpin_description'),
+      images: ['/og-image.png'],
     },
   };
 }

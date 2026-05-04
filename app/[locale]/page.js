@@ -12,6 +12,7 @@ import GetInTouch from '@/components/GetInTouch';
 import Newsletter from '@/components/Newsletter';
 import Footer from '@/components/Footer';
 import DeferredOverlays from '@/components/DeferredOverlays';
+import { projects, hobbyProjects } from '@/data/projects';
 
 const SITE_URL = 'https://patrikprikryl.com';
 
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }) {
   const t = await getTranslations({ locale, namespace: 'meta' });
   const path = locale === 'en' ? '/' : `/${locale}`;
   return {
-    title: t('home_title'),
+    title: { absolute: t('home_title') },
     description: t('home_description'),
     alternates: {
       canonical: path,
@@ -39,22 +40,53 @@ export async function generateMetadata({ params }) {
       locale: locale === 'cs' ? 'cs_CZ' : locale === 'de' ? 'de_DE' : 'en_US',
       images: [
         {
-          url: '/og-default.svg',
+          url: '/og-image.png',
           width: 1200,
           height: 630,
-          type: 'image/svg+xml',
+          type: 'image/png',
           alt: t('og_alt'),
         },
       ],
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('home_title'),
+      description: t('home_description'),
+      images: ['/og-image.png'],
+    },
+  };
+}
+
+function buildPortfolioJsonLd(locale) {
+  const all = [...projects, ...hobbyProjects];
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Patrik Přikryl — Projects & Initiatives',
+    itemListElement: all.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'CreativeWork',
+        name: p.title[locale] ?? p.title.en,
+        description: p.description[locale] ?? p.description.en,
+        url: p.url ?? `${SITE_URL}/${locale}#projects`,
+        keywords: (p.techStack ?? []).join(', '),
+      },
+    })),
   };
 }
 
 export default async function Home({ params }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const portfolioJsonLd = buildPortfolioJsonLd(locale);
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(portfolioJsonLd) }}
+      />
       <main className="relative z-[1] min-h-screen text-[#111111] dark:text-[#F0F0F0]">
         <Navigation />
         <Hero />
