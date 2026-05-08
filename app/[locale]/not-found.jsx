@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
   const t = await getTranslations({ locale, namespace: 'meta' });
   const path = locale === 'en' ? '/' : `/${locale}`;
   return {
-    title: t('notfound_title'),
+    title: { absolute: t('notfound_title') },
     description: t('notfound_description'),
     robots: { index: false, follow: true },
     openGraph: {
@@ -24,10 +24,10 @@ export async function generateMetadata({ params }) {
       locale: locale === 'cs' ? 'cs_CZ' : locale === 'de' ? 'de_DE' : 'en_US',
       images: [
         {
-          url: '/og-default.svg',
+          url: '/og-image.png',
           width: 1200,
           height: 630,
-          type: 'image/svg+xml',
+          type: 'image/png',
           alt: t('og_alt'),
         },
       ],

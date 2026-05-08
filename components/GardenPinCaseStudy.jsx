@@ -63,26 +63,26 @@ const FEATURES = [
   {
     title: 'Companion-planting graph',
     body:
-      '84-plant catalogue with companion / antagonist edges encoded as a 612-row sparse adjacency table. Drag-and-drop scoring picks tiles where neighbours boost growth and avoid known antagonists.',
+      '278-plant catalogue with companion / antagonist edges encoded as a sparse adjacency table. Drag-and-drop scoring picks tiles where neighbours boost growth and avoid known antagonists.',
     icon: '🌱',
   },
   {
-    title: 'Hand-rolled canvas grid',
+    title: 'Interactive map + canvas grid',
     body:
       '~140 lines of vanilla canvas: pan via pointer events, pinch-zoom around the cursor, plants render as coloured circles + emoji. No charting library, no map tiles, no SVG.',
-    icon: '🎨',
+    icon: '🗺️',
+  },
+  {
+    title: 'iCal export to iOS calendar',
+    body:
+      'Sowing, watering and harvest tasks ship as a one-tap subscribable .ics feed. Add it once on your iPhone and reminders appear next to the rest of your calendar — no extra app to open.',
+    icon: '📅',
   },
   {
     title: 'Offline-first by default',
     body:
       'All user data lives in localStorage. A 32-character device ID lets you opt in to single-endpoint sync. No accounts, no passwords, no third-party trackers.',
     icon: '📡',
-  },
-  {
-    title: 'Reminders without a backend job',
-    body:
-      'Sowing/watering/harvest events derived from plant data on the client. Browser Notification API fires within a 24-hour window. Anything past that is recomputed at next app open.',
-    icon: '⏰',
   },
 ];
 
@@ -115,11 +115,11 @@ const TIMELINE = [
 
 const METRICS = [
   { label: 'Hours from start to deploy', value: '48' },
-  { label: 'Plants in catalogue', value: '84' },
-  { label: 'Companion / antagonist edges', value: '612' },
+  { label: 'Plants in catalogue', value: '278' },
+  { label: 'Companion / antagonist edges', value: '1,800+' },
   { label: 'Lines of canvas code', value: '~140' },
   { label: 'External map / charting libs', value: '0' },
-  { label: 'Days I’ve opened the app since', value: 'every one' },
+  { label: 'iCal feed for iOS calendar', value: '✓' },
 ];
 
 const LESSONS = [
