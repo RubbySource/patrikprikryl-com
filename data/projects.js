@@ -124,29 +124,4 @@ export const hobbyProjects = [
     techStack: ["React", "Node.js", "SQLite", "Chart.js"],
     currentlyBuilding: true,
   },
-  {
-    title: {
-      en: "QR Menu",
-      cs: "QR Jídelníček",
-      de: "QR-Speisekarte",
-    },
-    description: {
-      en: "SaaS for restaurants — digital menus behind a single QR code, instant updates, allergen filters and multi-language support. Print once, edit forever.",
-      cs: "SaaS pro restaurace — digitální menu pod jedním QR kódem, okamžité aktualizace, filtry alergenů a vícejazyčná podpora. Vytisknete jednou, upravujete navždy.",
-      de: "SaaS für Restaurants — digitale Speisekarten hinter einem einzigen QR-Code, sofortige Updates, Allergen-Filter und Mehrsprachigkeit. Einmal drucken, ewig bearbeiten.",
-    },
-    tag: {
-      en: "SaaS · Restaurants",
-      cs: "SaaS · Restaurace",
-      de: "SaaS · Gastronomie",
-    },
-    url: null,
-    featured: false,
-    image: null,
-    bgFrom: "#1F1308",
-    bgTo: "#7A4A1A",
-    category: "hobby",
-    techStack: ["React", "Node.js", "SQLite", "QR"],
-    currentlyBuilding: true,
-  },
 ];
