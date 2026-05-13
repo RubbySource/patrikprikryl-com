@@ -5,21 +5,17 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import NetworkCanvas from '@/components/NetworkCanvas';
-import { getAllPosts, getPostBySlug } from '@/lib/blog';
+import { getPostBySlug, getAllStaticParams } from '@/lib/blog';
 
 const SITE_URL = 'https://patrikprikryl.com';
 
 export function generateStaticParams() {
-  const locales = ['en', 'cs', 'de'];
-  const posts = getAllPosts();
-  return locales.flatMap((locale) =>
-    posts.map((post) => ({ locale, slug: post.slug }))
-  );
+  return getAllStaticParams();
 }
 
 export async function generateMetadata({ params }) {
   const { locale, slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = getPostBySlug(slug, locale);
   if (!post) return {};
 
   const path = locale === 'en' ? `/blog/${slug}` : `/${locale}/blog/${slug}`;
@@ -128,7 +124,7 @@ export default async function BlogPost({ params }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'blog' });
-  const post = getPostBySlug(slug);
+  const post = getPostBySlug(slug, locale);
   if (!post) notFound();
 
   return (

@@ -60,7 +60,7 @@ export default async function BlogIndex({ params }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'blog' });
-  const posts = getAllPosts();
+  const posts = getAllPosts(locale);
 
   return (
     <>
@@ -136,5 +136,4 @@ export default async function BlogIndex({ params }) {
         <Footer />
       </main>
     </>
-  );
-}
+ 
