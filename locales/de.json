@@ -67,9 +67,35 @@
     "title": "Was ich glaube"
   },
   "skills": {
-    "label": "Fähigkeiten",
-    "title": "Wo ich stark bin, wo ich noch lerne.",
-    "subtitle": "Ehrliche Selbsteinschätzung — keine Lebenslauf-Schönfärberei. Die Balken zeigen, wie sicher ich in jedem Bereich produktive Arbeit liefere."
+    "label": "Fokus",
+    "title": "Worauf ich mich konzentriere.",
+    "subtitle": "Sechs Bereiche, in denen ich arbeite, baue und Wert schaffe — von Unternehmens-KI bis zu Wochenend-Nebenprojekten.",
+    "areas": {
+      "ai_integration": {
+        "name": "KI-Integration",
+        "description": "LLMs und agentenbasierte Workflows in den Unternehmenseinkauf bringen."
+      },
+      "product_development": {
+        "name": "Produktentwicklung",
+        "description": "Ideen in fertige Produkte verwandeln — vom Entwurf bis zur Veröffentlichung."
+      },
+      "procurement_strategy": {
+        "name": "Beschaffungsstrategie",
+        "description": "13+ Jahre Beschaffung von IT, Hardware und Connected-Car-Diensten."
+      },
+      "digital_transformation": {
+        "name": "Digitale Transformation",
+        "description": "Brücke zwischen Geschäftszielen und der Technologie, die sie umsetzt."
+      },
+      "speaking": {
+        "name": "Vorträge & Evangelisation",
+        "description": "Vorträge bei Branchenveranstaltungen, Universitäten und Innovations-Hackathons."
+      },
+      "side_projects": {
+        "name": "Nebenprojekte",
+        "description": "Tools für eigene Probleme bauen — GardenPin, Health Analyzer."
+      }
+    }
   },
   "cocreators": {
     "label": "Netzwerk",
