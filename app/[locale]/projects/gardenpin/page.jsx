@@ -7,6 +7,11 @@ import GardenPinCaseStudy from '@/components/GardenPinCaseStudy';
 
 const SITE_URL = 'https://patrikprikryl.com';
 
+const OG_LOCALES = { en: 'en_US', cs: 'cs_CZ', de: 'de_DE' };
+const ogLocaleFor = (l) => OG_LOCALES[l] ?? 'en_US';
+const alternateOgLocales = (l) =>
+  Object.entries(OG_LOCALES).filter(([c]) => c !== l).map(([, tag]) => tag);
+
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
@@ -28,7 +33,8 @@ export async function generateMetadata({ params }) {
       url: `${SITE_URL}${path}`,
       siteName: 'Patrik Přikryl',
       type: 'article',
-      locale: locale === 'cs' ? 'cs_CZ' : locale === 'de' ? 'de_DE' : 'en_US',
+      locale: ogLocaleFor(locale),
+      alternateLocale: alternateOgLocales(locale),
       images: [
         {
           url: '/og-image.png',

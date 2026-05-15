@@ -9,6 +9,11 @@ import { getAllPosts, getPostBySlug } from '@/lib/blog';
 
 const SITE_URL = 'https://patrikprikryl.com';
 
+const OG_LOCALES = { en: 'en_US', cs: 'cs_CZ', de: 'de_DE' };
+const ogLocaleFor = (l) => OG_LOCALES[l] ?? 'en_US';
+const alternateOgLocales = (l) =>
+  Object.entries(OG_LOCALES).filter(([c]) => c !== l).map(([, tag]) => tag);
+
 export function generateStaticParams() {
   const locales = ['en', 'cs', 'de'];
   const posts = getAllPosts();
@@ -44,7 +49,8 @@ export async function generateMetadata({ params }) {
       siteName: 'Patrik Přikryl',
       type: 'article',
       publishedTime: post.date,
-      locale: locale === 'cs' ? 'cs_CZ' : locale === 'de' ? 'de_DE' : 'en_US',
+      locale: ogLocaleFor(locale),
+      alternateLocale: alternateOgLocales(locale),
       authors: ['Patrik Přikryl'],
       tags: post.tags,
       images: [
