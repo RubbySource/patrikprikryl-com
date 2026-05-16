@@ -4,6 +4,31 @@ import NotFoundScene from '@/components/NotFoundScene';
 export const metadata = {
   title: '404 — Lost in the garden | Patrik Přikryl',
   description: "This page wandered off into the garden. Let's get you back.",
+  robots: { index: false, follow: true },
+  openGraph: {
+    title: '404 — Lost in the garden | Patrik Přikryl',
+    description: "This page wandered off into the garden. Let's get you back.",
+    url: 'https://patrikprikryl.com/',
+    siteName: 'Patrik Přikryl',
+    type: 'website',
+    locale: 'en_US',
+    alternateLocale: ['cs_CZ', 'de_DE'],
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        type: 'image/png',
+        alt: 'Patrik Přikryl – AI Project Manager · Škoda Auto',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '404 — Lost in the garden | Patrik Přikryl',
+    description: "This page wandered off into the garden. Let's get you back.",
+    images: ['/og-image.png'],
+  },
 };
 
 export default function NotFound() {

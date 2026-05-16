@@ -67,9 +67,35 @@
     "title": "What I Believe"
   },
   "skills": {
-    "label": "Skills",
-    "title": "Where I'm strong, where I'm still learning.",
-    "subtitle": "Honest self-assessment — not CV embellishment. The bars below reflect how confident I am shipping production work in each area."
+    "label": "Focus",
+    "title": "Where I focus.",
+    "subtitle": "Six areas where I work, build, and bring value — from enterprise AI to weekend side projects.",
+    "areas": {
+      "ai_integration": {
+        "name": "AI Integration",
+        "description": "Bringing LLMs and agentic workflows into enterprise procurement."
+      },
+      "product_development": {
+        "name": "Product Development",
+        "description": "Turning ideas into shipped products — from sketch to release."
+      },
+      "procurement_strategy": {
+        "name": "Procurement Strategy",
+        "description": "13+ years sourcing IT, hardware, and connected car services."
+      },
+      "digital_transformation": {
+        "name": "Digital Transformation",
+        "description": "Bridging business goals and the technology that makes them real."
+      },
+      "speaking": {
+        "name": "Speaking & Evangelism",
+        "description": "Talks at industry events, universities, and innovation hackathons."
+      },
+      "side_projects": {
+        "name": "Side Projects",
+        "description": "Building tools for problems I have myself — GardenPin, Health Analyzer."
+      }
+    }
   },
   "cocreators": {
     "label": "Network",

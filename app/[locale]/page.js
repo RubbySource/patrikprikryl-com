@@ -16,6 +16,18 @@ import { projects, hobbyProjects } from '@/data/projects';
 
 const SITE_URL = 'https://patrikprikryl.com';
 
+const OG_LOCALES = { en: 'en_US', cs: 'cs_CZ', de: 'de_DE' };
+
+function ogLocaleFor(locale) {
+  return OG_LOCALES[locale] ?? 'en_US';
+}
+
+function alternateOgLocales(locale) {
+  return Object.entries(OG_LOCALES)
+    .filter(([code]) => code !== locale)
+    .map(([, tag]) => tag);
+}
+
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
@@ -37,7 +49,8 @@ export async function generateMetadata({ params }) {
       url: `${SITE_URL}${path}`,
       siteName: 'Patrik Přikryl',
       type: 'website',
-      locale: locale === 'cs' ? 'cs_CZ' : locale === 'de' ? 'de_DE' : 'en_US',
+      locale: ogLocaleFor(locale),
+      alternateLocale: alternateOgLocales(locale),
       images: [
         {
           url: '/og-image.png',
