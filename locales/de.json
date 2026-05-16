@@ -170,6 +170,15 @@
     "back_home": "Zurück zur Startseite",
     "read_blog": "Zum Blog"
   },
+  "error500": {
+    "error_label": "Fehler · 500",
+    "title": "Auf unserer Seite ist etwas schiefgelaufen.",
+    "text": "Ein unerwarteter Fehler hat ein paar Drähte gelöst. Sie können es erneut versuchen, zur Startseite zurückkehren oder mir schreiben, falls das Problem bestehen bleibt.",
+    "try_again": "Erneut versuchen",
+    "back_home": "Zurück zur Startseite",
+    "contact": "Kontakt aufnehmen",
+    "digest_label": "Fehler-ID"
+  },
   "meta": {
     "home_title": "Patrik Přikryl – AI Project Manager · Škoda Auto",
     "home_description": "AI Project Manager bei Škoda Auto. Intelligenter Einkauf durch Automatisierung, KI-Werkzeuge und digitale Transformation.",
