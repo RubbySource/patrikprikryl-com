@@ -13,6 +13,8 @@ import Newsletter from '@/components/Newsletter';
 import Footer from '@/components/Footer';
 import DeferredOverlays from '@/components/DeferredOverlays';
 import { projects, hobbyProjects } from '@/data/projects';
+import StructuredData from '@/components/seo/StructuredData';
+import { websiteSchema, portfolioSchema } from '@/components/seo/schemas';
 
 const SITE_URL = 'https://patrikprikryl.com';
 
@@ -70,35 +72,14 @@ export async function generateMetadata({ params }) {
   };
 }
 
-function buildPortfolioJsonLd(locale) {
-  const all = [...projects, ...hobbyProjects];
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: 'Patrik Přikryl — Projects & Initiatives',
-    itemListElement: all.map((p, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      item: {
-        '@type': 'CreativeWork',
-        name: p.title[locale] ?? p.title.en,
-        description: p.description[locale] ?? p.description.en,
-        url: p.url ?? `${SITE_URL}/${locale}#projects`,
-        keywords: (p.techStack ?? []).join(', '),
-      },
-    })),
-  };
-}
-
 export default async function Home({ params }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const portfolioJsonLd = buildPortfolioJsonLd(locale);
+  const allProjects = [...projects, ...hobbyProjects];
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(portfolioJsonLd) }}
+      <StructuredData
+        data={[websiteSchema(locale), portfolioSchema(locale, allProjects)]}
       />
       <main className="relative z-[1] min-h-screen text-[#111111] dark:text-[#F0F0F0]">
         <Navigation />
