@@ -144,6 +144,15 @@
     "back_home": "Back to homepage",
     "read_blog": "Read the blog"
   },
+  "error500": {
+    "error_label": "Error · 500",
+    "title": "Something broke on our side.",
+    "text": "An unexpected error pulled the wires loose. You can try again, head home, or drop me a line if it keeps happening.",
+    "try_again": "Try again",
+    "back_home": "Back to homepage",
+    "contact": "Get in touch",
+    "digest_label": "Error ID"
+  },
   "meta": {
     "home_title": "Patrik Přikryl – AI Project Manager · Škoda Auto",
     "home_description": "AI Project Manager at Škoda Auto. Driving intelligent procurement through automation, AI tools, and digital transformation.",

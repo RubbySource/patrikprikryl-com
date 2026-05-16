@@ -144,6 +144,15 @@
     "back_home": "Zpět na úvod",
     "read_blog": "Číst blog"
   },
+  "error500": {
+    "error_label": "Chyba · 500",
+    "title": "Něco se na naší straně rozbilo.",
+    "text": "Neočekávaná chyba uvolnila pár drátků. Můžete to zkusit znovu, vrátit se na úvod, nebo mi napsat, kdyby se to opakovalo.",
+    "try_again": "Zkusit znovu",
+    "back_home": "Zpět na úvod",
+    "contact": "Napsat mi",
+    "digest_label": "ID chyby"
+  },
   "meta": {
     "home_title": "Patrik Přikryl – AI Project Manager · Škoda Auto",
     "home_description": "AI Project Manager ve Škodě Auto. Posouvám nákup vpřed pomocí automatizace, AI nástrojů a digitální transformace.",
