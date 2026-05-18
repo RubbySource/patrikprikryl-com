@@ -127,7 +127,16 @@
       "Přednášky",
       "Hackathony"
     ],
-    "error_generic": "Něco se nepovedlo. Zkuste to prosím znovu."
+    "error_generic": "Něco se nepovedlo. Zkuste to prosím znovu.",
+    "errors": {
+      "invalid_body": "Formulář nebyl správně odeslán. Obnovte stránku a zkuste to znovu.",
+      "missing_name": "Prosím, zadejte své jméno.",
+      "invalid_email": "Prosím, zadejte platnou e-mailovou adresu.",
+      "missing_message": "Prosím, napište zprávu.",
+      "rate_limited": "Příliš mnoho pokusů. Zkuste to prosím za chvíli.",
+      "send_failed": "Zprávu se nepodařilo odeslat. Zkuste to prosím znovu.",
+      "not_configured": "Formulář není momentálně k dispozici. Napište mi prosím přes LinkedIn."
+    }
   },
   "cookie": {
     "text": "Tento web používá cookies pro analytiku. Žádná osobní data nejsou ukládána.",

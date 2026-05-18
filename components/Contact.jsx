@@ -31,6 +31,7 @@ export default function Contact() {
           name: data.name,
           email: data.email,
           message: data.message,
+          website: data.website || '',
         }),
       });
 
@@ -39,7 +40,17 @@ export default function Contact() {
         reset();
       } else {
         const payload = await response.json().catch(() => null);
-        setError(payload?.error || t('error_generic'));
+        const code = payload?.code;
+        const knownCodes = new Set([
+          'invalid_body',
+          'missing_name',
+          'invalid_email',
+          'missing_message',
+          'rate_limited',
+          'send_failed',
+          'not_configured',
+        ]);
+        setError(knownCodes.has(code) ? t(`errors.${code}`) : t('error_generic'));
       }
     } catch {
       setError(t('error_generic'));
@@ -80,7 +91,19 @@ export default function Contact() {
                 </p>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
+                {/* Honeypot — invisible to humans, bots fill it. */}
+                <div aria-hidden="true" className="absolute left-[-9999px] top-auto w-px h-px overflow-hidden" style={{ visibility: 'hidden' }}>
+                  <label htmlFor="website">Website</label>
+                  <input
+                    id="website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    {...register('website')}
+                  />
+                </div>
+
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-[#111111] dark:text-[#F0F0F0] mb-1.5">
                     {t('name')}

@@ -88,19 +88,23 @@ function buildHtml({ name, email, message }) {
 }
 
 export async function POST(request) {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    return NextResponse.json(
-      { error: 'Contact form is not configured yet.' },
-      { status: 503 },
-    );
-  }
-
   let body;
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
+    return NextResponse.json({ code: 'invalid_body' }, { status: 400 });
+  }
+
+  // Honeypot — bots fill every visible field. If `website` is non-empty,
+  // silently return success without sending anything.
+  const honeypot = typeof body?.website === 'string' ? body.website.trim() : '';
+  if (honeypot.length > 0) {
+    return NextResponse.json({ ok: true });
+  }
+
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    return NextResponse.json({ code: 'not_configured' }, { status: 503 });
   }
 
   const name = typeof body?.name === 'string' ? body.name.trim() : '';
@@ -108,20 +112,20 @@ export async function POST(request) {
   const message = typeof body?.message === 'string' ? body.message.trim() : '';
 
   if (name.length < 1 || name.length > 200) {
-    return NextResponse.json({ error: 'Please enter your name.' }, { status: 400 });
+    return NextResponse.json({ code: 'missing_name' }, { status: 400 });
   }
   if (!EMAIL_RE.test(email) || email.length > 320) {
-    return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
+    return NextResponse.json({ code: 'invalid_email' }, { status: 400 });
   }
   if (message.length < 1 || message.length > 5000) {
-    return NextResponse.json({ error: 'Please enter a message.' }, { status: 400 });
+    return NextResponse.json({ code: 'missing_message' }, { status: 400 });
   }
 
   const ip = getClientIp(request);
   const limit = checkRateLimit(ip);
   if (!limit.allowed) {
     return NextResponse.json(
-      { error: 'Too many submissions. Please try again later.' },
+      { code: 'rate_limited', retryAfterSec: limit.retryAfterSec },
       { status: 429, headers: { 'Retry-After': String(limit.retryAfterSec) } },
     );
   }
@@ -139,7 +143,7 @@ export async function POST(request) {
   });
 
   if (sendError) {
-    return NextResponse.json({ error: 'Could not send your message. Please try again.' }, { status: 502 });
+    return NextResponse.json({ code: 'send_failed' }, { status: 502 });
   }
 
   return NextResponse.json({ ok: true });

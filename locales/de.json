@@ -127,7 +127,16 @@
       "Vorträge",
       "Hackathons"
     ],
-    "error_generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+    "error_generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+    "errors": {
+      "invalid_body": "Das Formular wurde nicht korrekt gesendet. Bitte laden Sie die Seite neu.",
+      "missing_name": "Bitte geben Sie Ihren Namen ein.",
+      "invalid_email": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      "missing_message": "Bitte schreiben Sie eine Nachricht.",
+      "rate_limited": "Zu viele Versuche. Bitte versuchen Sie es später erneut.",
+      "send_failed": "Ihre Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
+      "not_configured": "Das Formular ist gerade nicht verfügbar — bitte kontaktieren Sie mich über LinkedIn."
+    }
   },
   "cookie": {
     "text": "Diese Website verwendet Cookies für Analysen. Es werden keine persönlichen Daten gespeichert.",

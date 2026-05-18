@@ -127,7 +127,16 @@
       "Speaking",
       "Hackathons"
     ],
-    "error_generic": "Something went wrong. Please try again."
+    "error_generic": "Something went wrong. Please try again.",
+    "errors": {
+      "invalid_body": "The form wasn't submitted correctly. Please refresh and try again.",
+      "missing_name": "Please enter your name.",
+      "invalid_email": "Please enter a valid email address.",
+      "missing_message": "Please write a message.",
+      "rate_limited": "Too many attempts. Please try again later.",
+      "send_failed": "Could not send your message. Please try again.",
+      "not_configured": "The form isn't available right now — please reach out on LinkedIn."
+    }
   },
   "cookie": {
     "text": "This site uses cookies for analytics. No personal data is stored.",
