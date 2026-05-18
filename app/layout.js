@@ -1,6 +1,7 @@
 import { Inter, Sora, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import Analytics from '@/components/Analytics';
+import MotionProvider from '@/components/MotionProvider';
 import StructuredData from '@/components/seo/StructuredData';
 import { personSchema } from '@/components/seo/schemas';
 
@@ -111,7 +112,7 @@ export default function RootLayout({ children }) {
         <StructuredData data={personSchema()} />
       </head>
       <body>
-        {children}
+        <MotionProvider>{children}</MotionProvider>
         <Analytics />
       </body>
     </html>

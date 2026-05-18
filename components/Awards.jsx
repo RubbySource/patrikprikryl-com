@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import { awards } from '@/data/awards';
 
