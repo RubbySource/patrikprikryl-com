@@ -1,25 +1,27 @@
 import { getAllPostsForLocale } from '@/lib/blog';
 
 const SITE_URL = 'https://patrikprikryl.com';
-const LOCALES = ['en', 'cs', 'de'];
 
-const LANG_TAG = { en: 'en-US', cs: 'cs-CZ', de: 'de-DE' };
-
-const TITLES = {
-  en: 'Patrik Přikryl — Blog',
-  cs: 'Patrik Přikryl — Blog',
-  de: 'Patrik Přikryl — Blog',
+const FEED_META = {
+  en: {
+    title: 'Patrik Přikryl — Blog',
+    description: 'Notes on AI in procurement, side projects, and what I am building.',
+    language: 'en',
+    path: '/blog',
+  },
+  cs: {
+    title: 'Patrik Přikryl — Blog',
+    description: 'Poznámky o AI v procurement, vedlejších projektech a co stavím.',
+    language: 'cs',
+    path: '/cs/blog',
+  },
+  de: {
+    title: 'Patrik Přikryl — Blog',
+    description: 'Notizen zu KI im Einkauf, Nebenprojekten und was ich baue.',
+    language: 'de',
+    path: '/de/blog',
+  },
 };
-
-const DESCRIPTIONS = {
-  en: 'Notes on AI in procurement, side projects, and what I am building.',
-  cs: 'Poznámky o AI v nákupu, vedlejších projektech a tom, co stavím.',
-  de: 'Notizen zu KI im Einkauf, Nebenprojekten und dem, was ich baue.',
-};
-
-export function generateStaticParams() {
-  return LOCALES.map((locale) => ({ locale }));
-}
 
 function escapeXml(value) {
   return String(value)
@@ -30,8 +32,8 @@ function escapeXml(value) {
     .replace(/'/g, '&apos;');
 }
 
-function renderItem(post, locale) {
-  const link = `${SITE_URL}/${locale}/blog/${post.slug}`;
+function renderItem(post, locale, blogPath) {
+  const link = `${SITE_URL}${blogPath}/${post.slug}`;
   const title = escapeXml(post.title);
   const description = escapeXml(post.excerpt || '');
   const pubDate = post.date
@@ -47,8 +49,9 @@ function renderItem(post, locale) {
 }
 
 function buildFeed(locale) {
+  const meta = FEED_META[locale] ?? FEED_META.en;
   const posts = getAllPostsForLocale(locale);
-  const items = posts.map((p) => renderItem(p, locale)).join('\n');
+  const items = posts.map((p) => renderItem(p, locale, meta.path)).join('\n');
 
   const lastBuildDate = (
     posts.length > 0 && posts[0].date
@@ -56,19 +59,15 @@ function buildFeed(locale) {
       : new Date()
   ).toUTCString();
 
-  const feedUrl = `${SITE_URL}/${locale}/blog/feed.xml`;
-  const channelLink = `${SITE_URL}/${locale}/blog`;
-  const title = TITLES[locale] || TITLES.en;
-  const description = DESCRIPTIONS[locale] || DESCRIPTIONS.en;
-  const language = LANG_TAG[locale] || 'en-US';
+  const feedUrl = `${SITE_URL}${meta.path}/feed.xml`;
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>${escapeXml(title)}</title>
-    <link>${channelLink}</link>
-    <description>${escapeXml(description)}</description>
-    <language>${language}</language>
+    <title>${escapeXml(meta.title)}</title>
+    <link>${SITE_URL}${meta.path}</link>
+    <description>${escapeXml(meta.description)}</description>
+    <language>${meta.language}</language>
     <lastBuildDate>${lastBuildDate}</lastBuildDate>
     <atom:link href="${feedUrl}" rel="self" type="application/rss+xml" />
 ${items}
@@ -79,11 +78,8 @@ ${items}
 
 export const dynamic = 'force-static';
 
-export async function GET(_request, { params }) {
+export async function GET(request, { params }) {
   const { locale } = await params;
-  if (!LOCALES.includes(locale)) {
-    return new Response('Not found', { status: 404 });
-  }
   return new Response(buildFeed(locale), {
     headers: {
       'Content-Type': 'application/xml; charset=utf-8',

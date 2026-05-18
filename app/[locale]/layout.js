@@ -8,11 +8,7 @@ import TerminalShortcut from '@/components/TerminalShortcut';
 
 const locales = ['en', 'cs', 'de'];
 
-const FEED_TITLES = {
-  en: 'Patrik Přikryl — Blog (EN)',
-  cs: 'Patrik Přikryl — Blog (CS)',
-  de: 'Patrik Přikryl — Blog (DE)',
-};
+const SITE_URL = 'https://patrikprikryl.com';
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -20,15 +16,11 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  if (!locales.includes(locale)) return {};
-
-  const feedHref = `/${locale}/blog/feed.xml`;
+  const blogPath = locale === 'en' ? '/blog' : `/${locale}/blog`;
   return {
     alternates: {
       types: {
-        'application/rss+xml': [
-          { url: feedHref, title: FEED_TITLES[locale] },
-        ],
+        'application/rss+xml': `${SITE_URL}${blogPath}/feed.xml`,
       },
     },
   };
