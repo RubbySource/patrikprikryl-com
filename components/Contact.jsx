@@ -31,6 +31,7 @@ export default function Contact() {
           name: data.name,
           email: data.email,
           message: data.message,
+          company: data.company,
         }),
       });
 
@@ -81,6 +82,28 @@ export default function Contact() {
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                {/* Honeypot — hidden from humans, often filled by bots. Server silently
+                    drops the submission when this field is non-empty. */}
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: 'absolute',
+                    left: '-10000px',
+                    width: '1px',
+                    height: '1px',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <label htmlFor="company">Company (leave blank)</label>
+                  <input
+                    id="company"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    {...register('company')}
+                  />
+                </div>
+
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-[#111111] dark:text-[#F0F0F0] mb-1.5">
                     {t('name')}

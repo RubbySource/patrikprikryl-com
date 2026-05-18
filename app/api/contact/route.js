@@ -103,6 +103,13 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
   }
 
+  // Honeypot — a non-empty `company` field means a bot filled the hidden input.
+  // Return a 200 so the bot thinks it succeeded; never email and never rate-limit.
+  const honeypot = typeof body?.company === 'string' ? body.company.trim() : '';
+  if (honeypot.length > 0) {
+    return NextResponse.json({ ok: true });
+  }
+
   const name = typeof body?.name === 'string' ? body.name.trim() : '';
   const email = typeof body?.email === 'string' ? body.email.trim().toLowerCase() : '';
   const message = typeof body?.message === 'string' ? body.message.trim() : '';
