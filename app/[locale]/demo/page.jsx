@@ -130,6 +130,51 @@ function ProjectCard({ emoji, name, nameEn, desc, status }) {
   );
 }
 
+/* ─── Floating LinkedIn QR ───────────────────────────────────────── */
+function FloatingQR() {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <a
+      href="https://www.linkedin.com/in/patrikprikryl"
+      target="_blank"
+      rel="noopener noreferrer"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        position: 'fixed',
+        bottom: '1.25rem',
+        right: '1.25rem',
+        zIndex: 9999,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '0.3rem',
+        background: 'rgba(7,8,13,0.88)',
+        border: '1px solid rgba(255,255,255,0.1)',
+        borderRadius: '14px',
+        padding: '0.6rem 0.6rem 0.4rem',
+        backdropFilter: 'blur(12px)',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+        textDecoration: 'none',
+        opacity: hovered ? 1 : 0.72,
+        transform: hovered ? 'scale(1.05)' : 'scale(1)',
+        transition: 'opacity 0.2s ease, transform 0.2s ease',
+        touchAction: 'manipulation',
+      }}
+      aria-label="Connect on LinkedIn"
+    >
+      <img
+        src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https://www.linkedin.com/in/patrikprikryl&bgcolor=07080D&color=60A5FA&qzone=1&format=png"
+        alt="LinkedIn QR code"
+        width={80}
+        height={80}
+        style={{ borderRadius: '8px', display: 'block' }}
+      />
+      <span style={{ fontSize: '0.55rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#60A5FA' }}>LinkedIn</span>
+    </a>
+  );
+}
+
 /* ═══════════════════════════════════════════════════════════════════
    PAGE
 ═══════════════════════════════════════════════════════════════════ */
@@ -145,6 +190,9 @@ export default function DemoPage() {
 
       {/* Static gradient — no animation, no lag */}
       <div style={{ position: 'fixed', inset: 0, background: 'radial-gradient(ellipse 120% 45% at 50% 0%, rgba(20,50,180,0.16) 0%, transparent 60%)', pointerEvents: 'none', zIndex: 0 }} />
+
+      {/* Floating QR → LinkedIn */}
+      <FloatingQR />
 
       <div style={{ position: 'relative', zIndex: 1 }}>
 
@@ -325,6 +373,32 @@ export default function DemoPage() {
           </div>
         </Scene>
 
+        {/* ═══ GARDENPIN ON DEVICE ══════════════════════════════════ */}
+        <Scene center>
+          <p style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#374151', marginBottom: '1.25rem' }}>Running on a real iPhone</p>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{
+              position: 'relative', borderRadius: '44px', padding: '10px',
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              boxShadow: '0 24px 80px rgba(0,0,0,0.6)',
+              maxWidth: '280px', width: '100%',
+            }}>
+              <img
+                src="/demo/gardenpin-ios.jpg"
+                alt="GardenPin running on iPhone"
+                loading="lazy"
+                style={{ width: '100%', borderRadius: '36px', display: 'block' }}
+              />
+              <div style={{ position: 'absolute', top: '18px', left: '50%', transform: 'translateX(-50%)', width: '90px', height: '28px', background: '#07080D', borderRadius: '14px' }} />
+            </div>
+          </div>
+          <p style={{ fontSize: 'clamp(0.85rem, 1.8vw, 0.95rem)', color: '#4B5563', marginTop: '1.5rem', lineHeight: 1.6 }}>
+            GardenPin — my actual garden, pinned on a satellite map.<br/>
+            Built autonomously. iOS redesign in progress.
+          </p>
+        </Scene>
+
         <Rule />
 
         {/* ═══ THE NEVER-ENDING LOOP ════════════════════════════════ */}
@@ -355,16 +429,26 @@ export default function DemoPage() {
 
         <Rule />
 
-        {/* ═══ THE DEMO IS THE DEMO ════════════════════════════════ */}
+        {/* ═══ LINKEDIN CTA ════════════════════════════════════════ */}
         <Scene center>
           <p style={{ fontSize: 'clamp(2rem, 6vw, 4rem)', fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1.15, color: '#D1D5DB', marginBottom: '1.5rem' }}>
-            You&apos;re looking at<br />
-            <span style={{ color: '#F9FAFB' }}>the demo</span>
-            <span style={{ color: '#60A5FA' }}>.</span>
+            Want the<br />
+            <span style={{ color: '#60A5FA' }}>setup</span>
+            <span style={{ color: '#F9FAFB' }}>?</span>
           </p>
-          <p style={{ fontSize: 'clamp(1rem, 2.2vw, 1.2rem)', color: '#4B5563', lineHeight: 1.75, maxWidth: '540px', margin: '0 auto' }}>
-            This page was written last night. Described to Claude from my phone. No Figma. No design meetings. No CSS debugging at 2am. Just a message, a commit notification, and a Vercel deploy.
+          <p style={{ fontSize: 'clamp(1rem, 2.2vw, 1.2rem)', color: '#6B7280', lineHeight: 1.8, maxWidth: '560px', margin: '0 auto 2.5rem' }}>
+            Connect with me on LinkedIn.<br />
+            <strong style={{ color: '#E5E7EB' }}>Vince</strong> — not me, Vince — will share how to bypass approvals in Dispatch to run as autonomously as possible.
           </p>
+          <a
+            href="https://www.linkedin.com/in/patrikprikryl"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', background: '#0A66C2', color: '#fff', padding: '1rem 2rem', borderRadius: '14px', fontWeight: 800, fontSize: '1rem', textDecoration: 'none', boxShadow: '0 4px 24px rgba(10,102,194,0.35)' }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            linkedin.com/in/patrikprikryl
+          </a>
         </Scene>
 
         <Rule />
