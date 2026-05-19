@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const container = {
   hidden: { opacity: 0 },
@@ -91,6 +92,13 @@ export default function Hero() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </button>
+              <Link
+                href="/demo"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0A0A0A] dark:bg-[#F0F0F0] text-white dark:text-[#0A0A0A] font-semibold text-sm hover:opacity-80 active:scale-95 transition-all duration-200"
+              >
+                <span>🎯</span>
+                Live Demo
+              </Link>
               <a
                 href="https://www.linkedin.com/in/patrikprikryl"
                 target="_blank"
