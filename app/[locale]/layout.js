@@ -8,8 +8,22 @@ import TerminalShortcut from '@/components/TerminalShortcut';
 
 const locales = ['en', 'cs', 'de'];
 
+const SITE_URL = 'https://patrikprikryl.com';
+
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
+  const blogPath = locale === 'en' ? '/blog' : `/${locale}/blog`;
+  return {
+    alternates: {
+      types: {
+        'application/rss+xml': `${SITE_URL}${blogPath}/feed.xml`,
+      },
+    },
+  };
 }
 
 export default async function LocaleLayout({ children, params }) {
