@@ -106,9 +106,9 @@ export const hobbyProjects = [
       de: "Gesundheits-Analyzer",
     },
     description: {
-      en: "Personal health tracker — daily entries on sleep, energy, mood and symptoms, with trend charts that surface patterns before they become problems.",
-      cs: "Osobní zdravotní tracker — denní záznamy o spánku, energii, náladě a symptomech, s grafy trendů, které odhalí vzorce dřív, než se z nich stanou problémy.",
-      de: "Persönlicher Gesundheits-Tracker — tägliche Einträge zu Schlaf, Energie, Stimmung und Symptomen, mit Trend-Diagrammen, die Muster sichtbar machen, bevor sie zum Problem werden.",
+      en: "Private offline health tracker — upload lab results and let AI flag what falls outside the normal range. Your data stays on your device.",
+      cs: "Soukromý offline health tracker — nahrát laboratorní výsledky, AI rozebere co je mimo normu. Tvá data zůstávají na tvém zařízení.",
+      de: "Privater Offline-Gesundheitstracker — Laborergebnisse hochladen, KI analysiert, was außerhalb der Norm liegt. Deine Daten bleiben auf deinem Gerät.",
     },
     tag: {
       en: "Side Project · Health Tech",
@@ -118,10 +118,10 @@ export const hobbyProjects = [
     url: null,
     featured: false,
     image: null,
+    icon: "health",
     bgFrom: "#1A0E1F",
     bgTo: "#7A2E5C",
     category: "hobby",
-    techStack: ["React", "Node.js", "SQLite", "Chart.js"],
     currentlyBuilding: true,
   },
 ];

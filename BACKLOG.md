@@ -17,7 +17,8 @@
 
 - [ ] Animace projektu na hover — při najetí myší na project card zobrazit krátkou animaci nebo screenshot appky. Použít Framer Motion nebo CSS transition. Vizuálně zajímavé pro showcase účel.
 
-- [ ] Projekty sekce — přidat Zdravotní analyzátor jako druhou kartu. Popis: "Soukromý offline health tracker — nahrát laboratorní výsledky, AI rozebere co je mimo normu." Bez tech stacku. Screenshot nebo ikona.
+- [x] Projekty sekce — Zdravotní analyzátor jako druhá karta — hotovo 2026-05-20
+  - Health Analyzer už v `data/projects.js` existoval na 2. pozici v `hobbyProjects`. Popis přepsán dle backlogu: "Soukromý offline health tracker — nahrát laboratorní výsledky, AI rozebere co je mimo normu. Tvá data zůstávají na tvém zařízení." (i18n cs/en/de). `techStack` odstraněn (dle backlogu "Bez tech stacku"). Přidáno `icon: "health"` pole; nová komponenta `ProjectIcon` v `Projects.jsx` (rozšiřitelná, switch by `name`) renderuje EKG-line SVG (heart-pulse / lab waveform) jako dekorativní pozadí v rohu karty s opacity 6% — funguje jako "ikona" bez screenshotu.
 
 - [ ] Blog post CZ — jeden česky psaný post o tom jak Patrik používá AI v procurement (Škoda Auto kontext). Claude napíše draft, Patrik schválí. Uložit jako content/blog/cs/ai-v-procurement.mdx.
 

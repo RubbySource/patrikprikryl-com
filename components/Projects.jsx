@@ -21,6 +21,26 @@ function TechStackTags({ techStack }) {
   );
 }
 
+function ProjectIcon({ name, className = 'w-12 h-12' }) {
+  if (name === 'health') {
+    return (
+      <svg
+        className={className}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M3 12h3l2-5 4 10 2-7 2 4h5" />
+      </svg>
+    );
+  }
+  return null;
+}
+
 function ProjectCard({ project, index, totalCount, t, locale }) {
   return (
     <motion.div
@@ -112,6 +132,16 @@ function HobbyProjectCard({ project, index, locale, t }) {
     >
       {/* Subtle overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+
+      {/* Decorative icon (when no image) */}
+      {project.icon && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-4 -right-4 text-white/[0.06]"
+        >
+          <ProjectIcon name={project.icon} className="w-44 h-44" />
+        </div>
+      )}
 
       <div className="relative z-10 p-7 sm:p-8 flex flex-col gap-4 min-h-[280px]">
         {/* Top badges */}
