@@ -48,7 +48,8 @@ function ProjectCard({ project, index, totalCount, t, locale }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="relative overflow-hidden rounded-3xl mx-4 sm:mx-6 lg:mx-8 my-6 min-h-[70vh] sm:min-h-[80vh]"
+      whileHover={{ y: -4, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
+      className="group relative overflow-hidden rounded-3xl mx-4 sm:mx-6 lg:mx-8 my-6 min-h-[70vh] sm:min-h-[80vh] transition-shadow duration-500 hover:shadow-[0_30px_80px_-20px_rgba(0,0,0,0.55)]"
     >
       {/* Background — image or gradient */}
       {project.image ? (
@@ -56,17 +57,25 @@ function ProjectCard({ project, index, totalCount, t, locale }) {
           src={project.image}
           alt={project.title[locale] ?? project.title.en}
           fill
-          className="object-cover"
+          className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
           sizes="100vw"
         />
       ) : (
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
           style={{
             background: `linear-gradient(145deg, ${project.bgFrom} 0%, ${project.bgTo} 100%)`,
           }}
         />
       )}
+
+      {/* Hover sheen — diagonal shimmer that sweeps once on hover */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+      >
+        <div className="absolute inset-y-0 -left-[40%] w-[40%] -skew-x-12 bg-gradient-to-r from-transparent via-white/[0.07] to-transparent translate-x-0 group-hover:translate-x-[260%] transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)]" />
+      </div>
 
       {/* Gradient overlay for text legibility */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
@@ -127,17 +136,26 @@ function HobbyProjectCard({ project, index, locale, t }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: index * 0.1 }}
-      className="relative rounded-2xl overflow-hidden border border-emerald-900/40"
+      whileHover={{ y: -6, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
+      className="group relative rounded-2xl overflow-hidden border border-emerald-900/40 transition-[box-shadow,border-color] duration-500 hover:border-emerald-500/60 hover:shadow-[0_20px_60px_-15px_rgba(16,185,129,0.35)]"
       style={{ background: `linear-gradient(145deg, ${project.bgFrom} 0%, ${project.bgTo} 100%)` }}
     >
       {/* Subtle overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
+      {/* Hover sheen — diagonal shimmer that sweeps once on hover */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+      >
+        <div className="absolute inset-y-0 -left-[40%] w-[40%] -skew-x-12 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent translate-x-0 group-hover:translate-x-[260%] transition-transform duration-[1300ms] ease-[cubic-bezier(0.22,1,0.36,1)]" />
+      </div>
+
       {/* Decorative icon (when no image) */}
       {project.icon && (
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-4 -right-4 text-white/[0.06]"
+          className="pointer-events-none absolute -top-4 -right-4 text-white/[0.06] group-hover:text-white/[0.12] transition-colors duration-500"
         >
           <ProjectIcon name={project.icon} className="w-44 h-44" />
         </div>
@@ -172,7 +190,7 @@ function HobbyProjectCard({ project, index, locale, t }) {
         </span>
 
         {/* Title */}
-        <h3 className="font-display font-bold text-3xl sm:text-4xl text-white leading-tight">
+        <h3 className="font-display font-bold text-3xl sm:text-4xl text-white leading-tight transition-transform duration-500 group-hover:translate-x-1">
           {project.title[locale] ?? project.title.en}
         </h3>
 
