@@ -28,20 +28,23 @@ function ProjectCard({ project, index, totalCount, t, locale }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="relative overflow-hidden rounded-3xl mx-4 sm:mx-6 lg:mx-8 my-6 min-h-[70vh] sm:min-h-[80vh]"
+      whileHover={{ scale: 1.005 }}
+      className="group relative overflow-hidden rounded-3xl mx-4 sm:mx-6 lg:mx-8 my-6 min-h-[70vh] sm:min-h-[80vh] transition-shadow duration-500 hover:shadow-[0_30px_80px_-20px_rgba(26,86,219,0.5)]"
     >
-      {/* Background — image or gradient */}
+      {/* Background — image or gradient (with subtle zoom on hover) */}
       {project.image ? (
-        <Image
-          src={project.image}
-          alt={project.title[locale] ?? project.title.en}
-          fill
-          className="object-cover"
-          sizes="100vw"
-        />
+        <div className="absolute inset-0 overflow-hidden">
+          <Image
+            src={project.image}
+            alt={project.title[locale] ?? project.title.en}
+            fill
+            className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+            sizes="100vw"
+          />
+        </div>
       ) : (
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
           style={{
             background: `linear-gradient(145deg, ${project.bgFrom} 0%, ${project.bgTo} 100%)`,
           }}
@@ -107,11 +110,21 @@ function HobbyProjectCard({ project, index, locale, t }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: index * 0.1 }}
-      className="relative rounded-2xl overflow-hidden border border-emerald-900/40"
+      whileHover={{ y: -6, scale: 1.015 }}
+      className="group relative rounded-2xl overflow-hidden border border-emerald-900/40 transition-[border-color,box-shadow] duration-500 hover:border-emerald-500/60 hover:shadow-[0_20px_50px_-15px_rgba(16,185,129,0.45)]"
       style={{ background: `linear-gradient(145deg, ${project.bgFrom} 0%, ${project.bgTo} 100%)` }}
     >
       {/* Subtle overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent transition-opacity duration-500 group-hover:opacity-60" />
+
+      {/* Animated glow on hover */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          background: 'radial-gradient(60% 50% at 50% 0%, rgba(16,185,129,0.18), transparent 70%)',
+        }}
+      />
 
       <div className="relative z-10 p-7 sm:p-8 flex flex-col gap-4 min-h-[280px]">
         {/* Top badges */}
