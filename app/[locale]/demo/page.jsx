@@ -48,7 +48,7 @@ function CountUp({ target, suffix = '', duration = 1400 }) {
   );
 }
 
-/* ─── Typewriter ─────────────────────────────────────────────────── */
+/* ─── Typewriter — rAF-based to avoid scroll jank ───────────────── */
 function Typewriter({ lines, speed = 28 }) {
   const [ref, v] = useReveal(0.2);
   const [text, setText] = useState('');
@@ -56,12 +56,18 @@ function Typewriter({ lines, speed = 28 }) {
   useEffect(() => {
     if (!v) return;
     let i = 0;
-    const id = setInterval(() => {
-      setText(full.slice(0, i + 1));
-      i++;
-      if (i >= full.length) clearInterval(id);
-    }, speed);
-    return () => clearInterval(id);
+    let last = 0;
+    let raf;
+    const step = (ts) => {
+      if (ts - last >= speed) {
+        last = ts;
+        i++;
+        setText(full.slice(0, i));
+      }
+      if (i < full.length) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
   }, [v, full, speed]);
   return (
     <div ref={ref} style={{ fontFamily: "'Courier New', Courier, monospace", fontSize: 'clamp(0.8rem, 1.8vw, 1rem)', lineHeight: 1.8, color: '#34D399', background: '#0a0f0a', borderRadius: '12px', padding: '1.5rem 2rem', border: '1px solid rgba(52,211,153,0.2)', whiteSpace: 'pre', overflowX: 'auto' }}>
@@ -153,24 +159,25 @@ function FloatingQR() {
         border: '1px solid rgba(255,255,255,0.1)',
         borderRadius: '14px',
         padding: '0.6rem 0.6rem 0.4rem',
-        backdropFilter: 'blur(12px)',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+        background: '#0d0f16',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.6)',
         textDecoration: 'none',
-        opacity: hovered ? 1 : 0.72,
-        transform: hovered ? 'scale(1.05)' : 'scale(1)',
+        opacity: hovered ? 1 : 0.65,
+        transform: hovered ? 'scale(1.04)' : 'scale(1)',
         transition: 'opacity 0.2s ease, transform 0.2s ease',
         touchAction: 'manipulation',
+        willChange: 'transform',
       }}
       aria-label="Connect on LinkedIn"
     >
       <img
-        src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https://www.linkedin.com/in/patrikprikryl&bgcolor=07080D&color=60A5FA&qzone=1&format=png"
+        src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://www.linkedin.com/in/patrikprikryl&bgcolor=0d0f16&color=60A5FA&qzone=1&format=png"
         alt="LinkedIn QR code"
-        width={80}
-        height={80}
-        style={{ borderRadius: '8px', display: 'block' }}
+        width={58}
+        height={58}
+        style={{ borderRadius: '6px', display: 'block' }}
       />
-      <span style={{ fontSize: '0.55rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#60A5FA' }}>LinkedIn</span>
+      <span style={{ fontSize: '0.5rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#60A5FA' }}>LinkedIn</span>
     </a>
   );
 }
@@ -208,17 +215,20 @@ export default function DemoPage() {
             🎯 Agents in Action Night Prague #3 · May 20, 2026
           </div>
 
-          <h1 style={{ fontSize: 'clamp(3.5rem, 13vw, 8.5rem)', fontWeight: 900, lineHeight: 0.92, letterSpacing: '-0.045em', marginBottom: '2.5rem', background: 'linear-gradient(160deg, #ffffff 0%, #b3c6ff 50%, #60A5FA 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            Building<br /><span style={{ fontSize: '0.68em', opacity: 0.85 }}>with an AI dev</span><br /><span style={{ fontSize: '0.5em', opacity: 0.6 }}>from my phone</span>
+          <h1 style={{ fontSize: 'clamp(3rem, 12vw, 7.5rem)', fontWeight: 900, lineHeight: 0.95, letterSpacing: '-0.045em', marginBottom: '1.5rem', background: 'linear-gradient(160deg, #ffffff 0%, #b3c6ff 50%, #60A5FA 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            You don&apos;t<br />need IT.
           </h1>
+          <p style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)', color: '#4B5563', fontWeight: 600, letterSpacing: '-0.01em', marginBottom: '2.5rem', maxWidth: '520px' }}>
+            You need agents. This is what it looks like when a non-developer runs an autonomous dev team from his phone.
+          </p>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', justifyContent: 'center' }}>
-            <div style={{ width: '56px', height: '56px', borderRadius: '50%', overflow: 'hidden', border: '2px solid rgba(255,255,255,0.12)', flexShrink: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', justifyContent: 'center' }}>
+            <div style={{ width: '80px', height: '80px', borderRadius: '50%', overflow: 'hidden', border: '2px solid rgba(255,255,255,0.14)', flexShrink: 0, boxShadow: '0 0 0 6px rgba(96,165,250,0.07)' }}>
               <img src="/patrik.jpg" alt="Patrik" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
             </div>
             <div style={{ textAlign: 'left' }}>
-              <div style={{ fontWeight: 800, fontSize: '1rem', color: '#E5E7EB' }}>Patrik Přikryl</div>
-              <div style={{ fontSize: '0.78rem', color: '#4B5563', lineHeight: 1.45 }}>AI Project Manager · Škoda Auto Procurement<br />covering AI strategy for Volkswagen Group</div>
+              <div style={{ fontWeight: 800, fontSize: '1.05rem', color: '#E5E7EB' }}>Patrik Přikryl</div>
+              <div style={{ fontSize: '0.78rem', color: '#4B5563', lineHeight: 1.5 }}>AI Project Manager · Škoda Auto Procurement<br />covering AI strategy for Volkswagen Group</div>
             </div>
           </div>
 
@@ -287,13 +297,21 @@ export default function DemoPage() {
         />
 
         <Scene center>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', maxWidth: '560px', margin: '0 auto' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', maxWidth: '560px', margin: '0 auto 3rem' }}>
             {[{ v: '24/7', l: 'Uptime' }, { v: '0', l: 'Confirm dialogs' }, { v: '1', l: 'Firexball' }].map(({ v: val, l }) => (
               <div key={l} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '14px', padding: '1.25rem 0.75rem', textAlign: 'center' }}>
                 <div style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', fontWeight: 900, letterSpacing: '-0.04em', color: '#F9FAFB' }}>{val}</div>
                 <div style={{ fontSize: '0.67rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#374151', marginTop: '0.35rem' }}>{l}</div>
               </div>
             ))}
+          </div>
+          {/* How Vince was acquired */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
+            <p style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#374151' }}>How I found him</p>
+            <div style={{ borderRadius: '16px', overflow: 'hidden', maxWidth: '280px', width: '100%', border: '1px solid rgba(255,255,255,0.07)', boxShadow: '0 12px 40px rgba(0,0,0,0.5)' }}>
+              <img src="/demo/vince-marketplace.jpg" alt="Dell OptiPlex 5090 on Facebook Marketplace — 5700 Kč" loading="lazy" style={{ width: '100%', display: 'block' }} />
+            </div>
+            <p style={{ fontSize: '0.82rem', color: '#374151', lineHeight: 1.5 }}>5 700 Kč on Facebook Marketplace.<br/>Best hire I&apos;ve ever made.</p>
           </div>
         </Scene>
 
@@ -360,6 +378,16 @@ export default function DemoPage() {
           <p style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#374151', marginBottom: '1.25rem' }}>Running in parallel</p>
           <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: '2.5rem' }}>The Projects</h2>
           <ProjectCard emoji="📌" name="GardenPin" desc="Garden planning tracker — prune the apple trees, repot tomatoes. React + Express + SQLite. iOS-style redesign dispatched from a commute." status="building" />
+          {/* GardenPin screenshot inline */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', padding: '1rem 1.5rem', marginBottom: '0.875rem', background: 'rgba(255,255,255,0.015)', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.05)' }}>
+            <div style={{ flexShrink: 0, borderRadius: '22px', overflow: 'hidden', width: '72px', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 4px 16px rgba(0,0,0,0.4)' }}>
+              <img src="/demo/gardenpin-ios.jpg" alt="GardenPin on iPhone" loading="lazy" style={{ width: '100%', display: 'block' }} />
+            </div>
+            <p style={{ fontSize: '0.82rem', color: '#4B5563', lineHeight: 1.55, margin: 0 }}>
+              My actual garden, pinned on a satellite map. Running on a real iPhone.<br/>
+              <span style={{ color: '#374151' }}>iOS redesign in progress — dispatched from a commute.</span>
+            </p>
+          </div>
           <ProjectCard emoji="🩺" name="Zdravotní Analyzátor" nameEn="Health Analyzer" desc="Private offline health tracker. Upload lab results, local Ollama AI on the same Dell explains what's outside normal range. No cloud, no data leaks." status="building" />
           <ProjectCard emoji="📱" name="QR Jídelníček" nameEn="QR Menu" desc="Digital menu platform for restaurants. Scan → see the menu. Admin dashboard, analytics, Stripe. There's a QR code on the screen behind the presenter at that meetup photo above." status="building" />
           <ProjectCard emoji="🌐" name="patrikprikryl.com" desc="This site. Built and maintained entirely by Claude. Including this page — written last night, deployed before the talk." status="live" />
@@ -371,32 +399,6 @@ export default function DemoPage() {
               <p style={{ fontSize: '0.85rem', color: '#6B7280', margin: '0.2rem 0 0', lineHeight: 1.5 }}>One of these ships as a native app. Probably GardenPin.</p>
             </div>
           </div>
-        </Scene>
-
-        {/* ═══ GARDENPIN ON DEVICE ══════════════════════════════════ */}
-        <Scene center>
-          <p style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#374151', marginBottom: '1.25rem' }}>Running on a real iPhone</p>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div style={{
-              position: 'relative', borderRadius: '44px', padding: '10px',
-              background: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              boxShadow: '0 24px 80px rgba(0,0,0,0.6)',
-              maxWidth: '280px', width: '100%',
-            }}>
-              <img
-                src="/demo/gardenpin-ios.jpg"
-                alt="GardenPin running on iPhone"
-                loading="lazy"
-                style={{ width: '100%', borderRadius: '36px', display: 'block' }}
-              />
-              <div style={{ position: 'absolute', top: '18px', left: '50%', transform: 'translateX(-50%)', width: '90px', height: '28px', background: '#07080D', borderRadius: '14px' }} />
-            </div>
-          </div>
-          <p style={{ fontSize: 'clamp(0.85rem, 1.8vw, 0.95rem)', color: '#4B5563', marginTop: '1.5rem', lineHeight: 1.6 }}>
-            GardenPin — my actual garden, pinned on a satellite map.<br/>
-            Built autonomously. iOS redesign in progress.
-          </p>
         </Scene>
 
         <Rule />
@@ -453,23 +455,37 @@ export default function DemoPage() {
 
         <Rule />
 
-        {/* ═══ PROPHECY ════════════════════════════════════════════ */}
-        <Scene>
-          <p style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#374151', marginBottom: '1.25rem' }}>What I believe</p>
-          <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 900, letterSpacing: '-0.03em', color: '#60A5FA', marginBottom: '2.5rem' }}>The Prophecy</h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            {[
-              { icon: '🏭', text: "Agents enter enterprises — not as tools, as colleagues with tasks, deadlines, accountability." },
-              { icon: '🚗', text: "Škoda Auto. VW Group. 40,000 people. Millions of procurement decisions per year. This is where it pays off at scale." },
-              { icon: '🔐', text: "The bottleneck won't be the AI — it'll be getting legal to sign off on the first agentic workflow. (Working on that too.)" },
-              { icon: '⏳', text: "The people learning to work with agents now will design those corporate workflows in 3 years." },
-            ].map(({ icon, text }) => (
-              <div key={icon} style={{ display: 'flex', gap: '1.1rem', alignItems: 'flex-start', padding: '1.1rem 1.4rem', borderRadius: '14px', background: 'rgba(96,165,250,0.04)', border: '1px solid rgba(96,165,250,0.1)' }}>
-                <span style={{ fontSize: '1.2rem', flexShrink: 0, marginTop: '0.1rem' }}>{icon}</span>
-                <p style={{ color: '#9CA3AF', lineHeight: 1.7, margin: 0, fontSize: 'clamp(0.9rem, 1.8vw, 1rem)' }}>{text}</p>
-              </div>
-            ))}
+        {/* ═══ PROPHECY — zkrácená ══════════════════════════════════ */}
+        <Scene center>
+          <p style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#374151', marginBottom: '2rem' }}>The question I can&apos;t stop thinking about</p>
+          {/* Building/server graphic */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2.5rem' }}>
+            <div style={{ position: 'relative', width: '120px', height: '120px' }}>
+              <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
+                <rect x="15" y="30" width="90" height="75" rx="4" fill="rgba(96,165,250,0.07)" stroke="rgba(96,165,250,0.25)" strokeWidth="1.5"/>
+                <rect x="25" y="15" width="70" height="20" rx="3" fill="rgba(96,165,250,0.1)" stroke="rgba(96,165,250,0.3)" strokeWidth="1.5"/>
+                <rect x="30" y="50" width="16" height="12" rx="2" fill="rgba(96,165,250,0.2)"/>
+                <rect x="52" y="50" width="16" height="12" rx="2" fill="rgba(96,165,250,0.2)"/>
+                <rect x="74" y="50" width="16" height="12" rx="2" fill="rgba(96,165,250,0.2)"/>
+                <rect x="30" y="70" width="16" height="12" rx="2" fill="rgba(96,165,250,0.15)"/>
+                <rect x="52" y="70" width="16" height="12" rx="2" fill="rgba(96,165,250,0.15)"/>
+                <rect x="74" y="70" width="16" height="12" rx="2" fill="rgba(96,165,250,0.15)"/>
+                <rect x="47" y="90" width="26" height="15" rx="2" fill="rgba(96,165,250,0.12)" stroke="rgba(96,165,250,0.2)" strokeWidth="1"/>
+                {/* lock icon overlay */}
+                <circle cx="97" cy="33" r="16" fill="#07080D" stroke="rgba(245,158,11,0.4)" strokeWidth="1.5"/>
+                <rect x="91" y="33" width="12" height="9" rx="1.5" fill="rgba(245,158,11,0.25)" stroke="rgba(245,158,11,0.6)" strokeWidth="1"/>
+                <path d="M93 33 v-3 a4 4 0 0 1 8 0 v3" stroke="rgba(245,158,11,0.7)" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+                <circle cx="97" cy="37.5" r="1.5" fill="#F59E0B"/>
+              </svg>
+            </div>
           </div>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 5vw, 3rem)', fontWeight: 900, letterSpacing: '-0.03em', color: '#F9FAFB', lineHeight: 1.2, maxWidth: '640px', margin: '0 auto 1.5rem' }}>
+            Will autonomous agents ever get past the firewall?
+          </h2>
+          <p style={{ fontSize: 'clamp(1rem, 2vw, 1.15rem)', color: '#6B7280', lineHeight: 1.8, maxWidth: '540px', margin: '0 auto' }}>
+            I&apos;m genuinely curious when — and if — we&apos;ll be able to let autonomous agents loose on legacy systems in corporate environments. Škoda Auto. VW Group. Millions of procurement decisions per year. The potential is obvious. The legal and compliance journey is&hellip; <em style={{ color: '#4B5563' }}>interesting</em>.
+          </p>
+          <p style={{ fontSize: '0.85rem', color: '#374151', marginTop: '1.5rem' }}>Working on finding out. From the inside.</p>
         </Scene>
 
         <Rule />
