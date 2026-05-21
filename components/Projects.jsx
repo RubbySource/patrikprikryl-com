@@ -26,9 +26,10 @@ function ProjectCard({ project, index, totalCount, t, locale }) {
     <motion.div
       initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.008 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="relative overflow-hidden rounded-3xl mx-4 sm:mx-6 lg:mx-8 my-6 min-h-[70vh] sm:min-h-[80vh]"
+      className="group relative overflow-hidden rounded-3xl mx-4 sm:mx-6 lg:mx-8 my-6 min-h-[70vh] sm:min-h-[80vh] will-change-transform"
     >
       {/* Background — image or gradient */}
       {project.image ? (
@@ -36,12 +37,12 @@ function ProjectCard({ project, index, totalCount, t, locale }) {
           src={project.image}
           alt={project.title[locale] ?? project.title.en}
           fill
-          className="object-cover"
+          className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
           sizes="100vw"
         />
       ) : (
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
           style={{
             background: `linear-gradient(145deg, ${project.bgFrom} 0%, ${project.bgTo} 100%)`,
           }}
@@ -49,10 +50,13 @@ function ProjectCard({ project, index, totalCount, t, locale }) {
       )}
 
       {/* Gradient overlay for text legibility */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 transition-opacity duration-500 group-hover:from-black/80 group-hover:via-black/30" />
+
+      {/* Hover-only soft glow accent */}
+      <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.08),transparent_70%)]" />
 
       {/* Content */}
-      <div className="absolute inset-0 flex flex-col p-8 sm:p-12 lg:p-16">
+      <div className="absolute inset-0 z-10 flex flex-col p-8 sm:p-12 lg:p-16">
 
         {/* Top row — card counter + badges */}
         <div className="flex items-start justify-between flex-shrink-0">
@@ -100,18 +104,40 @@ function ProjectCard({ project, index, totalCount, t, locale }) {
   );
 }
 
+function ProjectIcon({ kind }) {
+  if (kind === 'health') {
+    return (
+      <svg className="w-12 h-12 text-pink-200/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.75 12h3l2-5 4 10 2-5h5.5" />
+      </svg>
+    );
+  }
+  return null;
+}
+
 function HobbyProjectCard({ project, index, locale, t }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -6, scale: 1.02 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: index * 0.1 }}
-      className="relative rounded-2xl overflow-hidden border border-emerald-900/40"
+      className="group relative rounded-2xl overflow-hidden border border-emerald-900/40 transition-[border-color,box-shadow] duration-500 hover:border-emerald-500/60 hover:shadow-[0_20px_60px_-15px_rgba(16,185,129,0.35)] will-change-transform"
       style={{ background: `linear-gradient(145deg, ${project.bgFrom} 0%, ${project.bgTo} 100%)` }}
     >
       {/* Subtle overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+
+      {/* Hover-only soft glow */}
+      <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.10),transparent_60%)]" />
+
+      {/* Decorative project icon (top-right) */}
+      {project.icon && (
+        <div className="pointer-events-none absolute top-5 right-5 opacity-30 group-hover:opacity-60 transition-opacity duration-500">
+          <ProjectIcon kind={project.icon} />
+        </div>
+      )}
 
       <div className="relative z-10 p-7 sm:p-8 flex flex-col gap-4 min-h-[280px]">
         {/* Top badges */}
@@ -142,12 +168,12 @@ function HobbyProjectCard({ project, index, locale, t }) {
         </span>
 
         {/* Title */}
-        <h3 className="font-display font-bold text-3xl sm:text-4xl text-white leading-tight">
+        <h3 className="font-display font-bold text-3xl sm:text-4xl text-white leading-tight transition-transform duration-500 group-hover:translate-x-0.5">
           {project.title[locale] ?? project.title.en}
         </h3>
 
         {/* Description */}
-        <p className="text-sm text-white/70 leading-relaxed flex-1">
+        <p className="text-sm text-white/70 leading-relaxed flex-1 transition-colors duration-500 group-hover:text-white/85">
           {project.description[locale] ?? project.description.en}
         </p>
 
