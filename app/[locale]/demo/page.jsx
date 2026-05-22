@@ -216,10 +216,10 @@ export default function DemoPage() {
           </div>
 
           <h1 style={{ fontSize: 'clamp(3rem, 12vw, 7.5rem)', fontWeight: 900, lineHeight: 0.95, letterSpacing: '-0.045em', marginBottom: '1.5rem', background: 'linear-gradient(160deg, #ffffff 0%, #b3c6ff 50%, #60A5FA 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            You don&apos;t<br />need IT.
+            How to double<br />yourself. 24/7.
           </h1>
           <p style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)', color: '#4B5563', fontWeight: 600, letterSpacing: '-0.01em', marginBottom: '2.5rem', maxWidth: '520px' }}>
-            You need agents. This is what it looks like when a non-developer runs an autonomous dev team from his phone.
+            The ultimate phone setup — for people with zero free time, zero IT background, and way too many ideas.
           </p>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', justifyContent: 'center' }}>
@@ -287,6 +287,24 @@ export default function DemoPage() {
 
         <Rule />
 
+        {/* ═══ VINCE — story: VPS vs home box ══════════════════════ */}
+        <Scene>
+          <p style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#374151', marginBottom: '1.25rem' }}>The hardware decision</p>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 5vw, 3rem)', fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1.15, marginBottom: '1.5rem' }}>VPS or a box<br />under the desk?</h2>
+          <p style={{ fontSize: 'clamp(1rem, 2vw, 1.15rem)', color: '#9CA3AF', lineHeight: 1.75, maxWidth: '580px', marginBottom: '1.5rem' }}>
+            I almost rented a cloud server. DigitalOcean, Hetzner, the usual. Then I stopped. I love hardware. I always have — there&apos;s something about owning the metal. Knowing exactly what&apos;s running. Being able to upgrade it, expand it, build on top of it in ways a VPS will never let you. Cloud is someone else&apos;s computer. Then I found this listing.
+          </p>
+          <div style={{ borderRadius: '18px', overflow: 'hidden', maxWidth: '340px', width: '100%', border: '1px solid rgba(255,255,255,0.07)', boxShadow: '0 16px 48px rgba(0,0,0,0.6)', marginBottom: '1.5rem' }}>
+            <img src="/demo/vince-marketplace.jpg" alt="Dell OptiPlex 5090 on Facebook Marketplace — 5700 Kč" loading="lazy" style={{ width: '100%', display: 'block' }} />
+          </div>
+          <p style={{ fontSize: 'clamp(1rem, 2vw, 1.15rem)', color: '#D1D5DB', fontWeight: 700, lineHeight: 1.5 }}>
+            5 700 Kč. One-time. Physically mine.
+          </p>
+          <p style={{ fontSize: '0.9rem', color: '#4B5563', lineHeight: 1.6, marginTop: '0.5rem' }}>
+            No monthly bill. No rate limits. First thing I did was upgrade the RAM — 8 GB to 32 GB. Just because I could.
+          </p>
+        </Scene>
+
         {/* ═══ VINCE — full bleed hero moment ══════════════════════ */}
         <PhotoReveal
           src="/demo/vince.jpg"
@@ -297,21 +315,13 @@ export default function DemoPage() {
         />
 
         <Scene center>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', maxWidth: '560px', margin: '0 auto 3rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', maxWidth: '560px', margin: '0 auto' }}>
             {[{ v: '24/7', l: 'Uptime' }, { v: '0', l: 'Confirm dialogs' }, { v: '1', l: 'Firexball' }].map(({ v: val, l }) => (
               <div key={l} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '14px', padding: '1.25rem 0.75rem', textAlign: 'center' }}>
                 <div style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', fontWeight: 900, letterSpacing: '-0.04em', color: '#F9FAFB' }}>{val}</div>
                 <div style={{ fontSize: '0.67rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#374151', marginTop: '0.35rem' }}>{l}</div>
               </div>
             ))}
-          </div>
-          {/* How Vince was acquired */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
-            <p style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#374151' }}>How I found him</p>
-            <div style={{ borderRadius: '16px', overflow: 'hidden', maxWidth: '280px', width: '100%', border: '1px solid rgba(255,255,255,0.07)', boxShadow: '0 12px 40px rgba(0,0,0,0.5)' }}>
-              <img src="/demo/vince-marketplace.jpg" alt="Dell OptiPlex 5090 on Facebook Marketplace — 5700 Kč" loading="lazy" style={{ width: '100%', display: 'block' }} />
-            </div>
-            <p style={{ fontSize: '0.82rem', color: '#374151', lineHeight: 1.5 }}>5 700 Kč on Facebook Marketplace.<br/>Best hire I&apos;ve ever made.</p>
           </div>
         </Scene>
 
@@ -338,6 +348,49 @@ export default function DemoPage() {
           ]} />
           <p style={{ fontSize: '0.85rem', color: '#4B5563', marginTop: '1rem', lineHeight: 1.6 }}>
             This is a real session from two days ago. I typed that first line from my phone during a standup meeting.
+          </p>
+        </Scene>
+
+        <Rule />
+
+        {/* ═══ 3 STEPS ══════════════════════════════════════════════ */}
+        <Scene center>
+          <p style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#374151', marginBottom: '1.25rem' }}>How it actually works</p>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 5vw, 3rem)', fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1.15, marginBottom: '3rem' }}>Three steps.<br />That&apos;s it.</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem', maxWidth: '800px', margin: '0 auto', textAlign: 'left' }}>
+            {[
+              {
+                step: '01',
+                icon: '📱',
+                title: 'Text from your phone',
+                desc: 'One message. "Add feature X to GardenPin." From the sofa, the car, the kids\' sports practice. Doesn\'t matter where.',
+                color: '#60A5FA',
+              },
+              {
+                step: '02',
+                icon: '🖥️',
+                title: 'Vince picks it up',
+                desc: 'Claude Code reads the project context, writes the code, runs the build, commits — while you\'re doing something else entirely.',
+                color: '#A78BFA',
+              },
+              {
+                step: '03',
+                icon: '✅',
+                title: 'It\'s done',
+                desc: 'PR ready. Deployed to Vercel. Or a health analysis sitting in your inbox. You show up to review, not to build.',
+                color: '#34D399',
+              },
+            ].map(({ step, icon, title, desc, color }) => (
+              <div key={step} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '20px', padding: '2rem 1.75rem', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: '1.25rem', right: '1.5rem', fontSize: '0.65rem', fontWeight: 900, letterSpacing: '0.12em', color: 'rgba(255,255,255,0.07)' }}>{step}</div>
+                <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>{icon}</div>
+                <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: color, marginBottom: '0.75rem', letterSpacing: '-0.01em' }}>{title}</h3>
+                <p style={{ fontSize: '0.88rem', color: '#4B5563', lineHeight: 1.7 }}>{desc}</p>
+              </div>
+            ))}
+          </div>
+          <p style={{ fontSize: '0.82rem', color: '#374151', marginTop: '2.5rem', lineHeight: 1.6, maxWidth: '480px', margin: '2.5rem auto 0' }}>
+            No IDE. No terminal. No deployment pipeline to babysit.<br />Just a phone and a very obedient server.
           </p>
         </Scene>
 
@@ -373,18 +426,45 @@ export default function DemoPage() {
 
         <Rule />
 
+        {/* ═══ CES PRESENTATION ═══════════════════════════════════ */}
+        <PhotoReveal
+          src="/demo/ces-presentation.jpg"
+          alt="Patrik presenting CES 2026 report to 400 people"
+          caption="400 people in the room."
+          subcaption="Physical AI · CES 2026. Boston Dynamics, Figure, Tesla Optimus — on the floor, right there."
+          overlay="linear-gradient(to bottom, rgba(7,8,13,0.15) 0%, rgba(7,8,13,0.0) 30%, rgba(7,8,13,0.75) 100%)"
+        />
+
+        <Scene>
+          <p style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#374151', marginBottom: '1.25rem' }}>It&apos;s not just code</p>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 5vw, 3rem)', fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1.15, marginBottom: '1.5rem' }}>
+            &ldquo;Build me a presentation<br />from the CES report.&rdquo;
+          </h2>
+          <p style={{ fontSize: 'clamp(1rem, 2vw, 1.15rem)', color: '#9CA3AF', lineHeight: 1.75, maxWidth: '580px', marginBottom: '1rem' }}>
+            I sent Claude the CES 2026 briefing materials. Asked it to turn them into a presentation. It picked the most compelling angle — Physical AI you can physically touch — structured the narrative, chose the quotes, designed the flow.
+          </p>
+          <p style={{ fontSize: 'clamp(1rem, 2vw, 1.15rem)', color: '#9CA3AF', lineHeight: 1.75, maxWidth: '580px' }}>
+            I walked on stage with it. 400 people in the audience.
+          </p>
+          <p style={{ fontSize: '0.88rem', color: '#374151', marginTop: '1.25rem', lineHeight: 1.6 }}>
+            The agents don&apos;t just write code. They write your Monday morning report, your board deck, your CES debrief.
+          </p>
+        </Scene>
+
+        <Rule />
+
         {/* ═══ PROJECTS ════════════════════════════════════════════ */}
         <Scene>
           <p style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#374151', marginBottom: '1.25rem' }}>Running in parallel</p>
           <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: '2.5rem' }}>The Projects</h2>
           <ProjectCard emoji="📌" name="GardenPin" desc="Garden planning tracker — prune the apple trees, repot tomatoes. React + Express + SQLite. iOS-style redesign dispatched from a commute." status="building" />
-          {/* GardenPin screenshot inline */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', padding: '1rem 1.5rem', marginBottom: '0.875rem', background: 'rgba(255,255,255,0.015)', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.05)' }}>
-            <div style={{ flexShrink: 0, borderRadius: '22px', overflow: 'hidden', width: '72px', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 4px 16px rgba(0,0,0,0.4)' }}>
+          {/* GardenPin screenshot inline — bigger */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', padding: '1.25rem 1.5rem', marginBottom: '0.875rem', background: 'rgba(255,255,255,0.015)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
+            <div style={{ flexShrink: 0, borderRadius: '22px', overflow: 'hidden', width: '160px', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 8px 28px rgba(0,0,0,0.55)' }}>
               <img src="/demo/gardenpin-ios.jpg" alt="GardenPin on iPhone" loading="lazy" style={{ width: '100%', display: 'block' }} />
             </div>
-            <p style={{ fontSize: '0.82rem', color: '#4B5563', lineHeight: 1.55, margin: 0 }}>
-              My actual garden, pinned on a satellite map. Running on a real iPhone.<br/>
+            <p style={{ fontSize: '0.9rem', color: '#4B5563', lineHeight: 1.6, margin: 0 }}>
+              My actual garden, pinned on a satellite map. Running on a real iPhone.<br/><br/>
               <span style={{ color: '#374151' }}>iOS redesign in progress — dispatched from a commute.</span>
             </p>
           </div>

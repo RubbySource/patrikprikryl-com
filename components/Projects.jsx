@@ -21,38 +21,88 @@ function TechStackTags({ techStack }) {
   );
 }
 
+const projectCardEase = [0.22, 1, 0.36, 1];
+
+const projectCardHoverVariants = {
+  rest: {},
+  hover: {},
+};
+
+const projectMediaVariants = {
+  rest: { scale: 1 },
+  hover: { scale: 1.06, transition: { duration: 0.9, ease: projectCardEase } },
+};
+
+const projectOverlayVariants = {
+  rest: { opacity: 1 },
+  hover: { opacity: 0.55, transition: { duration: 0.5, ease: projectCardEase } },
+};
+
+const projectGlowVariants = {
+  rest: { opacity: 0 },
+  hover: { opacity: 1, transition: { duration: 0.5, ease: projectCardEase } },
+};
+
+const projectContentVariants = {
+  rest: { y: 0 },
+  hover: { y: -6, transition: { duration: 0.6, ease: projectCardEase } },
+};
+
 function ProjectCard({ project, index, totalCount, t, locale }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="relative overflow-hidden rounded-3xl mx-4 sm:mx-6 lg:mx-8 my-6 min-h-[70vh] sm:min-h-[80vh]"
+      transition={{ duration: 0.6, ease: projectCardEase }}
+      variants={projectCardHoverVariants}
+      whileHover="hover"
+      animate="rest"
+      className="group relative overflow-hidden rounded-3xl mx-4 sm:mx-6 lg:mx-8 my-6 min-h-[70vh] sm:min-h-[80vh] cursor-default will-change-transform"
     >
-      {/* Background — image or gradient */}
-      {project.image ? (
-        <Image
-          src={project.image}
-          alt={project.title[locale] ?? project.title.en}
-          fill
-          className="object-cover"
-          sizes="100vw"
-        />
-      ) : (
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `linear-gradient(145deg, ${project.bgFrom} 0%, ${project.bgTo} 100%)`,
-          }}
-        />
-      )}
+      {/* Background — image or gradient (scales on hover) */}
+      <motion.div className="absolute inset-0" variants={projectMediaVariants}>
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt={project.title[locale] ?? project.title.en}
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
+        ) : (
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(145deg, ${project.bgFrom} 0%, ${project.bgTo} 100%)`,
+            }}
+          />
+        )}
+      </motion.div>
 
-      {/* Gradient overlay for text legibility */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
+      {/* Gradient overlay for text legibility — fades a touch on hover */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 pointer-events-none"
+        variants={projectOverlayVariants}
+      />
+
+      {/* Accent glow that appears on hover */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        variants={projectGlowVariants}
+        style={{
+          background: `radial-gradient(circle at 50% 60%, ${project.bgTo}55 0%, transparent 70%)`,
+        }}
+      />
+
+      {/* Inner ring outline on hover */}
+      <div className="absolute inset-0 rounded-3xl ring-0 ring-white/0 group-hover:ring-1 group-hover:ring-white/15 transition-[box-shadow,ring] duration-500 pointer-events-none" />
 
       {/* Content */}
-      <div className="absolute inset-0 flex flex-col p-8 sm:p-12 lg:p-16">
+      <motion.div
+        className="absolute inset-0 flex flex-col p-8 sm:p-12 lg:p-16"
+        variants={projectContentVariants}
+      >
 
         {/* Top row — card counter + badges */}
         <div className="flex items-start justify-between flex-shrink-0">
@@ -95,10 +145,28 @@ function ProjectCard({ project, index, totalCount, t, locale }) {
           <TechStackTags techStack={project.techStack} />
         </div>
 
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
+
+const hobbyCardHoverVariants = {
+  rest: {
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.45, ease: projectCardEase },
+  },
+  hover: {
+    y: -8,
+    scale: 1.02,
+    transition: { duration: 0.45, ease: projectCardEase },
+  },
+};
+
+const hobbyGlowVariants = {
+  rest: { opacity: 0 },
+  hover: { opacity: 1, transition: { duration: 0.4, ease: projectCardEase } },
+};
 
 function HobbyProjectCard({ project, index, locale, t }) {
   return (
@@ -106,12 +174,24 @@ function HobbyProjectCard({ project, index, locale, t }) {
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: index * 0.1 }}
-      className="relative rounded-2xl overflow-hidden border border-emerald-900/40"
+      transition={{ duration: 0.55, ease: projectCardEase, delay: index * 0.1 }}
+      variants={hobbyCardHoverVariants}
+      whileHover="hover"
+      animate="rest"
+      className="group relative rounded-2xl overflow-hidden border border-emerald-900/40 hover:border-emerald-500/40 transition-colors duration-300 will-change-transform shadow-lg shadow-black/20 hover:shadow-2xl hover:shadow-emerald-900/30"
       style={{ background: `linear-gradient(145deg, ${project.bgFrom} 0%, ${project.bgTo} 100%)` }}
     >
       {/* Subtle overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+
+      {/* Hover accent glow */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        variants={hobbyGlowVariants}
+        style={{
+          background: `radial-gradient(circle at 50% 0%, ${project.bgTo}77 0%, transparent 60%)`,
+        }}
+      />
 
       <div className="relative z-10 p-7 sm:p-8 flex flex-col gap-4 min-h-[280px]">
         {/* Top badges */}
