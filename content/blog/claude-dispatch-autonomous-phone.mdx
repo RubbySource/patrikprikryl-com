@@ -1,0 +1,88 @@
+---
+title: "How I Set Up Claude Dispatch to Work Autonomously From My Phone"
+date: "2026-05-23"
+excerpt: "Real talk on getting Claude Dispatch and Cowork to ship code while I sleep — a scheduled PO agent reads BACKLOG.md every hour, hands work to parallel code sessions, and I wake up to feature branches ready to review."
+tags: ["Claude", "Dispatch", "Cowork", "Automation", "Productivity"]
+thumbnail: "/projects/negotiation.jpg"
+---
+
+For most of last year my AI workflow was the same loop: open laptop, prompt Claude, watch it work, close laptop. Useful but bounded by my attention. If I was on the train, on a run, asleep — nothing was happening. The AI was waiting for me.
+
+That changed about three weeks ago. I rewired the loop so that Claude works against my backlog whether I'm there or not. By the time I sit down with my morning coffee, there are usually two or three feature branches waiting for review on projects I haven't touched in days. This is how I set it up.
+
+## Why I wanted AI that works while I'm offline
+
+I run two side projects — [GardenPin](/projects), my weekend garden planning app, and a local-LLM health analyzer for my running data. Both are exactly the kind of project where momentum dies in the gaps between sessions. I'd open the repo, remember what I was halfway through, lose 20 minutes context-switching, and then have to stop because the rest of my day was already booked.
+
+The unlock isn't "AI that codes faster." I already have that. The unlock is "AI that picks up the next thing on its own." A junior engineer who reads the backlog Monday morning without being asked is more valuable than a senior who needs a meeting to start.
+
+So that became the goal: a setup where the prioritised list lives in the repo, an agent reads it on a schedule, and code sessions spin up in parallel to actually do the work.
+
+## What Cowork and Dispatch actually are
+
+Anthropic shipped two things that, when combined, make this possible:
+
+- **Cowork** is the orchestration layer. It manages multiple Claude Code sessions, gives each one its own git worktree so they don't collide, and exposes them through a single interface. You can run five sessions at once on the same repo without any of them stomping on each other's files.
+- **Dispatch** is the supervisor. It reads work items from somewhere (a backlog file, a routine, a webhook), decides what to do with them, and hands them off to Cowork sessions. It also reads the outputs and decides whether the work is done or needs another pass.
+
+The mental model that finally clicked for me: **Dispatch is a project manager and Cowork is the team of developers**. Dispatch doesn't write code; it routes work and reads results. Cowork does the actual edits and runs the actual tests.
+
+## The architecture, in one paragraph
+
+A scheduled task fires every hour and invokes a "PO agent" — a Claude routine I prompt-engineered to behave like a product owner. It reads `BACKLOG.md` from each of my project repos, picks the top one or two items that look ready to start, and emits a structured plan: which repo, which task, what success looks like. Dispatch reads that plan and spawns Cowork code sessions, one per task, each on its own branch in its own worktree. The sessions write code, run the test suite, and push to a feature branch when green. By morning there are draft PRs sitting in GitHub for me to review.
+
+## Setting up the PO agent as a scheduled task
+
+The PO agent is the brain of the system. It's not writing code — it's reading the backlog and deciding what's ready. Mine has roughly this charter:
+
+- Read `BACKLOG.md` at the top of every repo it owns
+- Skip anything marked `[blocked]`, `[design]`, or with unresolved questions
+- Pick the next 1–3 items that have clear acceptance criteria and no missing context
+- For each one, produce a one-paragraph plan: what files to touch, what tests to expect, what NOT to change
+
+In the Claude mobile app, scheduled tasks live under the routines tab. I created one called "PO sweep" that runs every hour and points at the PO agent prompt. The trick that took me a few tries: the routine needs to write its output somewhere Dispatch can read. I have mine write to a small file (`.cowork/inbox.jsonl`) that Dispatch tails.
+
+A practical note that saved me hours: keep the PO agent **stateless**. Don't try to maintain context between runs. The backlog file is the source of truth. If the agent can't figure out what to do from the current state of the repo plus `BACKLOG.md`, no amount of memory will help — fix the backlog.
+
+## How Dispatch picks up and parallelises
+
+Dispatch watches the inbox and, when a plan arrives, spawns a Cowork session for each task. Each session gets:
+
+- A fresh worktree at `.claude/worktrees/{generated-name}`
+- A prompt seeded from the PO agent's plan
+- Permission to run tests and push to a feature branch (not main)
+
+The parallelism is the part that surprised me. When I dropped four backlog items into the queue one evening, four sessions ran simultaneously, each in its own worktree, none of them aware of the others. Three of the four pushed clean branches. The fourth got stuck on a flaky test and stopped — which is exactly what I wanted. Better a halted session than a broken push.
+
+## What waking up to this is actually like
+
+The first morning it worked end-to-end I had three branches waiting on GardenPin: a fix for a date-formatting bug in the reminder logic, a small refactor of the canvas zoom handler, and a brand new feature (hover state on planted tiles) that I'd written into the backlog as a "nice to have" two weeks earlier.
+
+I reviewed them on my phone in the Claude app's Dispatch tab during coffee. Two were merge-ready. One needed a small tweak that I sent back as a follow-up prompt. By 09:00 I'd shipped three improvements without opening my laptop.
+
+The local-LLM health project got similar treatment. Overnight, a session implemented the weekly-summary export I'd been putting off, complete with tests. I would never have prioritised it over real work — but a backlog item that sits there forever is exactly the kind of thing autonomous agents are good for.
+
+## Driving it from the phone
+
+The mobile workflow is what makes this stick. The Claude app's Dispatch tab shows me:
+
+- Sessions in flight (with live status)
+- Sessions waiting on input (I tap, type a one-line answer, they continue)
+- Branches pushed and ready for review
+- Anything that errored, with the last 20 lines of output
+
+I review the diff in GitHub mobile, tap merge, done. The whole thing fits into the gaps in my day — train ride, lunch, the ten minutes before a call.
+
+## The two real projects this is running on
+
+**GardenPin**: The PO agent owns a backlog of small UX improvements and bug reports I'd never get around to. Overnight builds have shipped a dozen of them in three weeks. The agent is particularly good at the boring stuff — accessibility passes, mobile breakpoints, empty-state polish — that I'd happily skip on a weekend.
+
+**Local health analyzer**: Different shape of work, same setup. The backlog is mostly "analyse X this way" tasks against my running data. Overnight, a session runs the analysis, writes up the result as a markdown report, and commits it. I read the report on my phone the next morning and decide whether the insight is real.
+
+## What I'd tell someone starting today
+
+Start with the backlog, not the agent. A good `BACKLOG.md` — one task per item, clear acceptance criteria, no buried assumptions — is doing 80% of the work. The agent is the easy part.
+
+And keep the loop tight at first. One repo, one scheduled task, one item per run. Watch what it does for a week before you let it run four in parallel. The point isn't to maximise throughput on day one — it's to build trust that the AI is actually reading the backlog you wrote, not hallucinating tasks you didn't.
+
+Three weeks in, I trust mine. The branches in GitHub every morning are the proof.
