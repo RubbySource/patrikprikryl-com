@@ -16,12 +16,17 @@ export default function Newsletter() {
     setError('');
     setStatus('loading');
     try {
-      const res = await fetch('/api/newsletter', {
+      const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
       const data = await res.json().catch(() => ({}));
+      if (res.status === 409) {
+        // Already subscribed — treat as success so we don't shame the user.
+        setStatus('success');
+        return;
+      }
       if (!res.ok) throw new Error(data?.error || t('error_generic'));
       setStatus('success');
     } catch (err) {
