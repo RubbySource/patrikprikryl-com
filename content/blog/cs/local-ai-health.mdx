@@ -1,0 +1,49 @@
+---
+title: "Proč jsem postavil lokální analyzátor zdraví místo placení za API"
+date: "2026-03-28"
+excerpt: "Účet 30 € měsíčně za OpenAI API pro side project, který občas analyzoval moje běžecká data, mi přišel absurdní. Tady je, jak jsem to nahradil lokálním Ollama modelem a získal lepší výsledky."
+tags: ["Lokální LLM", "Ollama", "Soukromí", "Side Project"]
+thumbnail: "/projects/negotiation.jpg"
+---
+
+Trackuju každý běh. Tempo, srdeční tep, kadence, počasí, jak jsem v noci spal. Po roce jsem měl v Postgres tabulce 240 běhů a vágní podezření, že v datech je něco, co by mi řeklo, proč se některé týdny cítím skvěle a jiné jako by mě přejela tramvaj.
+
+Postavil jsem rychlý Next.js dashboard. Přidal jsem volání OpenAI: "shrň tenhle týden v kontextu předchozích šesti". Účet za první měsíc: 31 €. Za druhý měsíc, když jsem víc experimentoval: 44 €.
+
+Pro projekt, který používám maximálně dvakrát týdně, je to absurdní.
+
+## Co mě donutilo zastavit
+
+Tři věci:
+
+1. **Data jsou citlivá.** Spánek, tep, zóna srdeční frekvence — nechci to posílat do třetí strany "v případě, že to bude užitečné na nedělní vyhodnocení".
+2. **Náklady škálují špatně.** Čím víc dat mám, tím delší prompt, tím vyšší účet. Lineární scaling pro hobby projekt mi vadí.
+3. **Kvalita byla průměrná.** Generické odpovědi typu "zkuste více spánku" — věci, které by ti řekla jakákoli běžecká aplikace.
+
+## Ollama lokálně
+
+Nainstaloval jsem Ollama na svůj M2 MacBook Air. Stáhl jsem si `llama3.1:8b`. Trvalo to 15 minut. Pak jsem nahradil OpenAI volání v `analyze.js` jedním fetch dotazem na `localhost:11434/api/generate`.
+
+První pokus byl pomalejší než OpenAI (čekáno) a kvalita byla horší (taky čekáno). Ale měl jsem dvě výhody: byl zdarma a běžel offline.
+
+## Co skutečně zlepšilo kvalitu
+
+Místo trápení s většími modely jsem zlepšil **prompt a kontext**:
+
+- **Strukturoval jsem vstup.** Místo "tady je 7 dnů dat, řekni mi co si o tom myslíš" jsem poslal markdown tabulku s ukazateli proti 4týdennímu klouzavému průměru.
+- **Definoval jsem výstup.** Požádal jsem o tři sekce: "Co stojí za pozornost", "Co ignorovat" a "Otázka, kterou bys měl tento týden zodpovědět".
+- **Few-shot z mých vlastních dat.** Vzal jsem 5 týdnů, které jsem ručně označil ("byl jsem nemocný", "skvělý týden", "ploché"), a dal je do promptu jako příklady.
+
+Po těchto změnách lokální 8B model dával **lepší** výstupy než moje původní GPT-4 volání, protože jsem konečně promptu věnoval pozornost.
+
+## Co jsem se naučil
+
+- **API náklady jsou často kouřová clona.** Špatný prompt s drahým modelem dává podobné výsledky jako špatný prompt s laciným.
+- **Lokální modely jsou víc než dost pro 90 % toho, co side projekty potřebují.** Llama 3.1 8B dělá shrnutí, klasifikaci, jednoduché uvažování — to je 80 % side-project usecases.
+- **Soukromí jako default je správný default.** Když mi citlivá data nemusí opustit notebook, neměla by.
+
+## Co dál
+
+Začal jsem s Ollama experimentovat pro další projekty: shrnutí týdenních deníků, kategorizace finančních transakcí, draftování e-mailových odpovědí. Žádný z nich nepotřebuje cloud LLM. Pro projekty, které **opravdu** potřebují schopnost frontier modelu (např. reasoning přes velké code-bases), jdu na Claude — ale s vědomou volbou, ne defaultem.
+
+Pokud máš side project, který volá OpenAI a používáš ho méně než jednou denně, doporučuju strávit hodinu se zkoušením Ollama. Pravděpodobně to bude stačit.

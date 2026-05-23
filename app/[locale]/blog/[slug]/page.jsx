@@ -5,7 +5,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import NetworkCanvas from '@/components/NetworkCanvas';
-import { getAllPosts, getPostBySlug } from '@/lib/blog';
+import { getAllPostsForLocale, getPostBySlug } from '@/lib/blog';
 
 const SITE_URL = 'https://patrikprikryl.com';
 
@@ -16,15 +16,14 @@ const alternateOgLocales = (l) =>
 
 export function generateStaticParams() {
   const locales = ['en', 'cs', 'de'];
-  const posts = getAllPosts();
   return locales.flatMap((locale) =>
-    posts.map((post) => ({ locale, slug: post.slug }))
+    getAllPostsForLocale(locale).map((post) => ({ locale, slug: post.slug }))
   );
 }
 
 export async function generateMetadata({ params }) {
   const { locale, slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = getPostBySlug(slug, locale);
   if (!post) return {};
 
   const path = locale === 'en' ? `/blog/${slug}` : `/${locale}/blog/${slug}`;
@@ -39,16 +38,21 @@ export async function generateMetadata({ params }) {
       post.tags?.[0] || 'Blog',
     )}`;
 
+  // Only cross-link locales where this slug actually exists — translated
+  // posts can have different slugs and aren't tracked as alternates here.
+  const languages = {};
+  for (const l of ['en', 'cs', 'de']) {
+    if (getPostBySlug(slug, l)) {
+      languages[l] = l === 'en' ? `/blog/${slug}` : `/${l}/blog/${slug}`;
+    }
+  }
+
   return {
     title,
     description,
     alternates: {
       canonical: path,
-      languages: {
-        en: `/blog/${slug}`,
-        cs: `/cs/blog/${slug}`,
-        de: `/de/blog/${slug}`,
-      },
+      ...(Object.keys(languages).length > 1 ? { languages } : {}),
     },
     openGraph: {
       title: post.title,
@@ -148,7 +152,7 @@ export default async function BlogPost({ params }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'blog' });
-  const post = getPostBySlug(slug);
+  const post = getPostBySlug(slug, locale);
   if (!post) notFound();
 
   return (
@@ -159,7 +163,7 @@ export default async function BlogPost({ params }) {
 
         <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
           <Link
-            href={`/${locale}/blog`}
+            href={locale === 'en' ? '/blog' : `/${locale}/blog`}
             className="inline-flex items-center gap-1 text-sm font-medium text-[var(--muted)] hover:text-[#1A56DB] transition-colors mb-8"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

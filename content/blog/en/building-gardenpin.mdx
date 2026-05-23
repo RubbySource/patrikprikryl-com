@@ -1,0 +1,150 @@
+---
+title: "Building GardenPin: a weekend garden-planning app"
+date: "2026-04-12"
+excerpt: "How I went from sketches on a napkin to a working garden planning app in 48 hours — and why I picked Next.js, SQLite and a hand-rolled tile map over the obvious React Native + Mapbox stack."
+tags: ["Next.js", "SQLite", "Side Project", "Weekend Build"]
+thumbnail: "/projects/events.jpg"
+---
+
+I have a small balcony, three raised beds, and an unreasonable opinion that companion planting matters. Every spring I draw a layout in a Moleskine, lose it by July, and rebuild from memory the next year. This was the year that ended.
+
+The premise was simple: a phone-friendly app where I could pin plants on a top-down map of my beds, see companion-planting recommendations, and get reminders for watering, sowing, and harvest windows. I gave myself a Friday-to-Sunday weekend.
+
+## What I actually shipped
+
+By Sunday evening GardenPin had:
+
+- A drag-to-pan, pinch-to-zoom canvas representing each bed as a grid
+- A library of 84 vegetables and herbs with companion / antagonist tags
+- Reminders pulled from sowing dates and zone (mine: Czech Zone 7a)
+- LocalStorage offline mode and a single sync endpoint backed by SQLite
+- A dark-mode UI because I do most of my planning at night
+
+That last part is half-joke, half-truth. Garden apps that assume bright daylight viewing are useless when you're sitting on the couch at 22:00 thinking about whether basil really hates rue.
+
+## The first wrong turn
+
+I started Friday evening with the obvious stack: React Native + Expo + Mapbox. I burned three hours on iOS simulator certificates and gave up on a Mapbox tile API key that needed a credit-card-backed billing account.
+
+The lesson: for a 48-hour build, **friction is the enemy**. I dropped React Native, dropped Mapbox, and started over with what I knew best — Next.js as a single-page web app. Any phone with a browser is now my target platform.
+
+## The architecture, in one paragraph
+
+A Next.js 14 app router project. The map is plain HTML5 canvas — I don't need real geographic projections, just an XY grid per bed. SQLite via `better-sqlite3` for the plant catalogue, exposed through a `/api/plants` route. User-level data (their beds, their pinned plants) lives in `localStorage` and is opt-in synced to the server. No accounts in v1; you get a 32-character device ID stored in a cookie.
+
+## The companion-planting graph
+
+This was the only piece where I had to think. The catalogue of vegetables had 84 entries, each with a list of companions, antagonists, and neutrals. I encoded it as a sparse adjacency table:
+
+```sql
+CREATE TABLE relations (
+  plant_a INTEGER NOT NULL,
+  plant_b INTEGER NOT NULL,
+  kind    TEXT CHECK (kind IN ('companion', 'antagonist')) NOT NULL,
+  PRIMARY KEY (plant_a, plant_b, kind),
+  FOREIGN KEY (plant_a) REFERENCES plants(id),
+  FOREIGN KEY (plant_b) REFERENCES plants(id)
+);
+```
+
+The lookup is symmetric — basil being a companion to tomato implies tomato being a companion to basil — so I insert both directions on seed and never have to think about ordering at query time. The whole table fits in 612 rows.
+
+The recommendation engine, when you drag a new plant onto the canvas, scores neighbouring tiles:
+
+```js
+function scoreTile(plantId, neighbours) {
+  let score = 0;
+  for (const n of neighbours) {
+    const rel = relations.get([plantId, n.plantId].sort().join(':'));
+    if (rel === 'companion') score += 1;
+    if (rel === 'antagonist') score -= 2;
+  }
+  return score;
+}
+```
+
+Antagonists weigh twice as much as companions because real-world consequences of bad pairings (stunted growth, pest attraction) outweigh the marginal benefit of good ones. That weighting came from a 30-minute Saturday morning detour into r/permaculture posts.
+
+## The canvas grid
+
+I almost reached for a canvas library. I'm glad I didn't. The whole map is ~140 lines of vanilla canvas code:
+
+```js
+function drawBed(ctx, bed, plants, transform) {
+  const { x, y, scale } = transform;
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(scale, scale);
+
+  // Soil background
+  ctx.fillStyle = '#3d2817';
+  ctx.fillRect(0, 0, bed.width, bed.height);
+
+  // Grid lines
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+  ctx.lineWidth = 1 / scale;
+  for (let i = 0; i <= bed.width; i += GRID) {
+    ctx.beginPath();
+    ctx.moveTo(i, 0);
+    ctx.lineTo(i, bed.height);
+    ctx.stroke();
+  }
+
+  // Plants as colored circles + emoji
+  for (const p of plants) {
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.arc(p.x + GRID/2, p.y + GRID/2, GRID/2.3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.font = `${GRID*0.7}px serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(p.emoji, p.x + GRID/2, p.y + GRID/2);
+  }
+
+  ctx.restore();
+}
+```
+
+Pan and zoom are pointer events handled directly on the canvas — `pointerdown`, `pointermove`, `pointerup`, plus a wheel handler that scales around the cursor position. Two-finger pinch on touch devices works because the browser fires the same pointer events.
+
+## Reminders without a backend job
+
+I didn't want to run a cron worker. The reminders are pure derivations from your plant data: "tomato planted on April 18 → first watering reminder April 19, transplant reminder May 30, harvest window starts July 25." I generate them on the client at app load and feed them into the browser's Notification API:
+
+```js
+async function scheduleReminders(plants) {
+  if (Notification.permission !== 'granted') return;
+
+  for (const p of plants) {
+    const events = computeEvents(p);
+    for (const e of events) {
+      const delay = e.date - Date.now();
+      if (delay > 0 && delay < 24 * 60 * 60 * 1000) {
+        setTimeout(
+          () => new Notification(e.title, { body: e.body }),
+          delay
+        );
+      }
+    }
+  }
+}
+```
+
+The 24-hour limit is intentional. `setTimeout` past a day is unreliable — the tab gets killed, the user closes the browser, the OS sleeps. Anything further out is recomputed the next time the app opens. This is good enough for a hobby app and avoids running any persistent server.
+
+## What I'd do differently
+
+Three things I'd change if I started over:
+
+1. **Skip TypeScript for the spike.** I lost an hour fighting types around `pointer-events` polyfills. Plain JavaScript would've shipped a working canvas faster, and I could add types after the prototype proved itself.
+
+2. **Don't use SQLite for the catalogue.** A static JSON file would have been simpler, faster to deploy, and indistinguishable from a tiny end user's perspective. SQLite earns its keep when you have user-level mutations, and v1 doesn't have those.
+
+3. **Build the data first.** I started with the canvas and discovered halfway through Saturday that my plant data was incomplete. A weekend build doesn't have time for two passes. Curate the data first, then build the visualisation that needs it.
+
+## The metric that matters
+
+I check GardenPin every morning with my coffee. That is the metric. Not retention, not DAU, not a chart in a dashboard — the test of a personal tool is whether you actually use it.
+
+It's been three weeks. I've used it every day. The basil and rue are nowhere near each other.

@@ -1,4 +1,5 @@
 import { Inter, Sora, Plus_Jakarta_Sans } from 'next/font/google';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import Analytics from '@/components/Analytics';
 import StructuredData from '@/components/seo/StructuredData';
@@ -113,6 +114,7 @@ export default function RootLayout({ children }) {
       <body>
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

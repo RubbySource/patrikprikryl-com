@@ -1,0 +1,50 @@
+---
+title: "Stavím GardenPin: víkendová appka na plánování zahrady"
+date: "2026-04-12"
+excerpt: "Jak jsem za 48 hodin přešel od skic na ubrousku k funkční appce pro plánování zahrady — a proč jsem zvolil Next.js, SQLite a vlastní tile mapu místo očividné kombinace React Native + Mapbox."
+tags: ["Next.js", "SQLite", "Side Project", "Víkendový build"]
+thumbnail: "/projects/events.jpg"
+---
+
+Mám malý balkon, tři vyvýšené záhony a nepřiměřeně silný názor, že na společenském osazení rostlin záleží. Každé jaro si nakreslím layout do Moleskinu, do července ho ztratím a další rok ho rekonstruuji po paměti. Letos to skončilo.
+
+Premisa byla jednoduchá: appka přátelská k mobilu, kde můžu připínat rostliny na pohled shora na záhony, vidět doporučení pro společenskou výsadbu a dostávat připomínky na zálivku, výsev a sklizeň. Dal jsem si na to víkend od pátku do neděle.
+
+## Co jsem reálně dodal
+
+V neděli večer GardenPin uměl:
+
+- Plátno s drag-to-pan a pinch-to-zoom, kde každý záhon je mřížka
+- Knihovnu 84 zelenin a bylinek se značkami "kamarád / nepřítel"
+- Připomínky tahané z dat výsevu a klimatické zóny (moje: Česko 7a)
+- Offline režim přes LocalStorage a jediný sync endpoint na SQLite
+
+Není to dokonalé, ale je to **moje** a nezaplatím nikomu měsíční předplatné.
+
+## Proč Next.js, ne React Native
+
+Klasická volba pro "phone-friendly" appku je React Native. Skoro jsem do toho šel. Ale:
+
+- **Distribuce.** Nechci se prát se store reviews na 48hodinový projekt.
+- **Offline.** PWA + Service Worker dnes zvládne 90 % toho, co potřebuju.
+- **Stack, který znám.** Next.js + Tailwind tlačím každý týden. Žádná křivka učení.
+
+Trade-off: nemám haptic feedback ani nativní mapové gesture. Pro plánování zahrady na balkoně to ustojí.
+
+## SQLite, ne Supabase
+
+Tady jsem skoro selhal. Můj výchozí instinkt je Supabase pro cokoliv, co potřebuje persistentní data. Ale pro single-user side project je Supabase overkill — extra konfigurace, řešení autentizace, RLS politiky. Lokální SQLite soubor + pár hand-rolled migrací mi dal vše, co potřebuji, za 15 minut.
+
+Pokud někdy GardenPin uvidí druhého uživatele, přejdu. Do té doby — `better-sqlite3` a SQL soubor v `/data`.
+
+## Co bych udělal jinak
+
+- **Brzy ošetřit timezone.** Strávil jsem 2 hodiny laděním "proč připomínka na výsev hlásí špatný den"; v 80 % případů jde o UTC vs. Europe/Prague.
+- **Datový model rostlin předem.** Začal jsem s plochou tabulkou; do nedělního večera jsem řešil many-to-many tabulku pro vztahy společenské výsadby. Mělo to být první, ne poslední.
+- **Bez animací v MVP.** Přidal jsem hezký pin-drop efekt přes Framer Motion v sobotu v noci. Není to špatné, ale stálo to 45 minut a uživatel (já) si toho zatím nevšiml.
+
+## Co dál
+
+GardenPin teď žije na můj domácí síti. Příští víkend přidám fotku-záznam ("co dnes vykvetlo") a možná export do PDF, abych měl něco offline na konec sezóny. Pokud to vydrží do října, vážně zvážím veřejnou verzi.
+
+Side projekty mají žít na vlastní podmínky. Tenhle prošel testem víkendu — což je víc, než dokážu říct o většině věcí, které jsem začal a nedokončil v posledních dvanácti měsících.

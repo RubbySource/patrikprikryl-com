@@ -3,7 +3,7 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import NetworkCanvas from '@/components/NetworkCanvas';
-import { getAllPosts } from '@/lib/blog';
+import { getAllPostsForLocale } from '@/lib/blog';
 
 const SITE_URL = 'https://patrikprikryl.com';
 
@@ -77,7 +77,8 @@ export default async function BlogIndex({ params }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'blog' });
-  const posts = getAllPosts();
+  const posts = getAllPostsForLocale(locale);
+  const blogPath = locale === 'en' ? '/blog' : `/${locale}/blog`;
 
   return (
     <>
@@ -104,7 +105,7 @@ export default async function BlogIndex({ params }) {
             {posts.map((post) => (
               <Link
                 key={post.slug}
-                href={`/${locale}/blog/${post.slug}`}
+                href={`${blogPath}/${post.slug}`}
                 className="block group rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6 sm:p-8 hover:border-[#1A56DB]/40 hover:shadow-lg hover:shadow-[#1A56DB]/5 transition-all"
               >
                 <div className="flex items-center gap-3 text-xs font-medium text-[var(--muted)] mb-3">

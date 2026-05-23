@@ -1,10 +1,9 @@
-import { getAllPosts } from '@/lib/blog';
+import { getAllPostsForLocale } from '@/lib/blog';
 
 const SITE_URL = 'https://patrikprikryl.com';
 const FEED_TITLE = 'Patrik Přikryl — Blog';
 const FEED_DESCRIPTION =
   'Notes on AI in procurement, side projects, and what I am building.';
-const DEFAULT_LOCALE = 'en';
 
 function escapeXml(value) {
   return String(value)
@@ -16,7 +15,7 @@ function escapeXml(value) {
 }
 
 function renderItem(post) {
-  const link = `${SITE_URL}/${DEFAULT_LOCALE}/blog/${post.slug}`;
+  const link = `${SITE_URL}/blog/${post.slug}`;
   const title = escapeXml(post.title);
   const description = escapeXml(post.excerpt || '');
   const pubDate = post.date
@@ -32,7 +31,7 @@ function renderItem(post) {
 }
 
 function buildFeed() {
-  const posts = getAllPosts();
+  const posts = getAllPostsForLocale('en');
   const items = posts.map(renderItem).join('\n');
 
   const lastBuildDate = (

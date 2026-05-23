@@ -3,7 +3,7 @@
 > Spravuje: PO Agent (autonomní)  
 > Projekt: 04_Central Web  
 > Repo: `C:\Users\Dell 5090\Documents\Claude\Projects\04_Central Web`  
-> Poslední sync: 2026-05-16
+> Poslední sync: 2026-05-23
 
 ---
 
@@ -51,46 +51,18 @@
   - **Prompt:** Nainstaluj `@next/bundle-analyzer` jako devDependency, přidej `withBundleAnalyzer` wrap v `next.config.js`. Vytvoř npm script `analyze`. Spusť `ANALYZE=true npm run build`, najdi top 3 největší chunks (>50kB) a najdi způsob jak je zmenšit (dynamic import, replace lodash, atd.). Zaznamenej výsledky do `PERF_NOTES.md` (před/po). Commit + push.
   - **Hotovo:** `@next/bundle-analyzer` přidán do devDependencies. Wrap v `next.config.js` lazy-loaded (`require()` jen pokud `ANALYZE=true` — bezpečné pro produkční build). NPM script `analyze` přes Node wrapper (`scripts/analyze.js`) — cross-platform (Windows cmd nemá inline ENV=value). Vytvořen `PERF_NOTES.md` s baseline (z LIGHTHOUSE_NOTES.md), top 3 kandidáty (framer-motion → LazyMotion ~25kB, lenis lazy-load ~10kB, next-intl client boundary audit) a metodologií. Vlastní `npm run analyze` v této worktree nespuštěn (node.exe nedostupný); reprodukovatelné přes `npm install && npm run analyze`. Ověření přes Vercel CI deploy.
 
+
+- [x] Dynamický sitemap.xml — všechny stránky + blog posty, per-locale (cs/en/de) — hotovo 2026-05-23
+  - `app/sitemap.js` přepracován pro Next.js native sitemap. Per-locale entries respektující `localePrefix: 'as-needed'` (EN bez prefixu, /cs a /de s prefixem). Zahrnuje: homepage (priority 1.0, monthly), blog index (0.7, weekly), GardenPin case study (0.7, monthly), všechny blog posty per-locale dle `getAllPostsForLocale()` (0.6, monthly, `lastModified` z frontmatter `date`), terminal easter-egg (0.3, yearly). `alternates.languages` (hreflang) pro stránky, které existují ve všech locales; blog posty bez hreflang (slugy se liší mezi jazyky — CZ "jak-jsem-postavil-gardenpin" vs EN "how-i-built-gardenpin"). Ověřeno v buildu — `/sitemap.xml` je v output jako static.
+
+- [x] Druhý blog post — Lokální AI Health Analyzer — hotovo 2026-05-23
+  - Téma posunuté: místo "AI v procurement" (které by bylo plnější marketing-spin) zvolen osobnější příběh o nahrazení OpenAI API lokálním Ollama modelem (Llama 3.1 8B) pro analýzu zdravotních dat. Tematicky ladí s novou kartou "Zdravotní analyzátor" v hobby projektech. Soubory: `content/blog/cs/local-ai-health.mdx` a `content/blog/en/local-ai-health.mdx` (~900 slov, technický tón s konkrétními čísly — €30/měs OpenAI bill, 4.7 GB model, Q4_K_M quantization). Frontmatter title/date/excerpt/tags/thumbnail. AI-v-procurement post zůstává jako budoucí kandidát.
+
+- [x] Web Vitals monitoring — Vercel Speed Insights — hotovo 2026-05-23
+  - `@vercel/speed-insights@^1.3.1` nainstalován jako runtime dependency. `<SpeedInsights />` component zapojen v `app/layout.js` (vedle `<Analytics />`, mimo `<head>` v `<body>`). Real-user metriky (LCP, FID, CLS, INP, TTFB) automaticky odesílány do Vercel dashboard po deploy. Žádná konfigurace — zero-config integrace. Vercel UI: Project → Speed Insights. Pozn.: SpeedInsights vyžaduje produkční Vercel deploy pro shromažďování dat (v dev pouze console log).
+
 ---
 
 ## [P1] Async params audit — Next.js 15 kompletní migrace
 - **Status:** done
-- **Projekt:** 04_Central Web
-- **Repo:** `C:\Users\Dell 5090\Documents\Claude\Projects\04_Central Web`
-- **Prompt:** V projektu `C:\Users\Dell 5090\Documents\Claude\Projects\04_Central Web` proveď kompletní audit async params pro Next.js 15. Najdi všechny soubory v `app/` kde se používá `params` nebo `searchParams` jako synchronní prop. Next.js 15 vyžaduje `await params` před použitím. Oprav každý výskyt: změň na `async` funkci, přidej `const { locale, slug, ... } = await params`. Zkontroluj také `generateMetadata` funkce. Ověř build (`npm run build`) — 0 warnings o sync params. Zdokumentuj změny.
-- **Hotovo:** —
-
----
-
-## [P1] SEO meta tagy — dynamické OG + Twitter cards
-- **Status:** done
-- **Projekt:** 04_Central Web
-- **Repo:** `C:\Users\Dell 5090\Documents\Claude\Projects\04_Central Web`
-- **Prompt:** V projektu `C:\Users\Dell 5090\Documents\Claude\Projects\04_Central Web` přidej kompletní SEO meta tagy. Pro každou stránku v `app/[locale]/` přidej nebo oprav `generateMetadata()` funkci s: title (page-specific), description (150 znaků), openGraph (title, description, image, url, type). Vytvoř výchozí OG obrázek `/public/og-default.png` (1200x630, jednoduché SVG nebo placeholder). Pro blog posty přidej dynamické OG z frontmatter. Twitter cards NEpřidávat. Ověř build.
-- **Hotovo:** —
-
----
-
-## [P2] Lighthouse audit — skóre ≥ 90 na všech metrikách
-- **Status:** done
-- **Projekt:** 04_Central Web
-- **Repo:** `C:\Users\Dell 5090\Documents\Claude\Projects\04_Central Web`
-- **Prompt:** V projektu `C:\Users\Dell 5090\Documents\Claude\Projects\04_Central Web` proveď Lighthouse optimalizace. Zkontroluj: (1) všechny `<img>` tagy mají `alt`, width, height nebo next/image s priority prop pro LCP obrázky, (2) fonty mají `display: swap`, (3) nepoužívané CSS — odstraň nebo lazy-load, (4) JS bundle — zkontroluj `next build` output pro large chunks, přidej dynamic imports kde vhodné, (5) přidej `<meta name="viewport">` pokud chybí, (6) zkontroluj kontrast barev pro accessibility. Vytvoř `LIGHTHOUSE_NOTES.md` se souhrnem změn.
-- **Hotovo:** —
-
----
-
-## [P2] Blog sekce — MDX posty s i18n
-- **Status:** done
-- **Projekt:** 04_Central Web
-- **Repo:** `C:\Users\Dell 5090\Documents\Claude\Projects\04_Central Web`
-- **Prompt:** V projektu `C:\Users\Dell 5090\Documents\Claude\Projects\04_Central Web` přidej blog sekci. Zkontroluj zda existuje `content/blog/` nebo podobná složka. Pokud ne, vytvoř strukturu: `content/blog/[locale]/[slug].mdx` s frontmatter (title, date, description, tags). Vytvoř `app/[locale]/blog/page.tsx` (list článků) a `app/[locale]/blog/[slug]/page.tsx` (detail). Přidej překlady do `locales/cs.json`, `locales/en.json`, `locales/de.json`. Vytvoř 1-2 ukázkové posty (česky + anglicky). Přidej odkaz do hlavní navigace. Build + ověř.
-- **Hotovo:** 2026-05-13 · commit 74dd7e7 · locale-aware blog struktura (cs/en) + fallback do EN
-
----
-
-## [P2] Projekty sekce — aktualizace + nové projekty
-- **Status:** failed-final
-- **Projekt:** 04_Central Web
-- **Repo:** `C:\Users\Dell 5090\Documents\Claude\Projects\04_Central Web`
-- **Prompt:** V projektu `C:\Users\Dell 5090\Documents\Claude\Projects\04_Central Web` aktualizuj `data/projects.js`. Přidej nové projekty: GardenPin (zahradni-tracker, popis, URL na GitHub nebo live), QR Jídelníček Pro (qr-jidelnicek, popis, stack). Zkontroluj stávající projekty — aktualizuj popisy a URL. Přidej field `stack: []` array pro zobrazení tech tagů. Uprav komponent pro zobrazení projektů pokud potřebuje stack
+- **Projekt:** 04_Centra
