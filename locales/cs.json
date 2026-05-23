@@ -141,6 +141,29 @@
     "email_cta": "Poslat e-mail",
     "linkedin_cta": "Spojit se na LinkedIn"
   },
+  "currentlyBuilding": {
+    "label": "Právě v práci",
+    "title": "Aktuálně stavím",
+    "subtitle": "Tři otevřené projekty, na kterých teď reálně sahám na kód — žádné mockupy ani spící repozitáře.",
+    "active": "Aktivní",
+    "items": {
+      "gardenpin": {
+        "name": "GardenPin",
+        "description": "Zahradní tracker — záhony na canvas mapě, doporučení pro společenskou výsadbu, offline připomínky.",
+        "status": "Právě v developmentu · iOS / web"
+      },
+      "health": {
+        "name": "Zdravotní analyzátor",
+        "description": "Soukromý offline AI nástroj — nahraj lab výsledky, dostaneš srozumitelný rozbor, co je mimo normu.",
+        "status": "Privátní beta"
+      },
+      "centralWeb": {
+        "name": "Central Web",
+        "description": "Tohle portfolio — Next.js 15, i18n cs/en/de, blog, kontaktní formulář. Live a iteruje se každý týden.",
+        "status": "Live · iterativně"
+      }
+    }
+  },
   "newsletter": {
     "label": "Newsletter",
     "title": "Zůstaňte ve smyčce.",

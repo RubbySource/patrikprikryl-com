@@ -1,0 +1,122 @@
+---
+title: "Jak jsem postavil GardenPin — zahradní tracker na míru"
+date: "2026-05-23"
+description: "Proč žádná česká zahradní appka nedělala jen to, co potřebuju, a jak jsem si za pár večerů s Claude Code postavil vlastní tracker na React + SQLite."
+excerpt: "Žádná zahradní appka v Česku nedělá jen to hlavní — kdy zalít, co kam vysadit a kdy sklidit. Tak jsem si ji postavil. Pár večerů, React, SQLite, Claude Code."
+tags: ["gardenpin", "ai", "vývoj"]
+thumbnail: "/projects/events.jpg"
+---
+
+Mám vyvýšené záhony, balkon plný bylinek a každý duben stejný rituál: stáhnu si tři české zahradní appky, dvě smažu do týdne a jedna mi vydrží do června, než ji přestanu otvírat. Tenhle rok jsem se na to vykašlal a postavil si vlastní.
+
+Jmenuje se GardenPin a žije na mém domácím serveru. Není to startup, není to portfoliový kousek, je to nástroj, který opravdu používám každé ráno u kávy.
+
+## Co mi vadilo na hotových řešeních
+
+Většina českých (i zahraničních) appek na zahradu má stejný problém: chce být vším najednou. Encyklopedie 2000 rostlin, sociální síť pro zahradníky, počasí, market­place na semínka, gamifikace s odznaky za zalévání. Když chci jen vědět, jestli můžu vedle rajčat dát bazalku a kdy mám zasít mrkev, prokousávám se pěti obrazovkami.
+
+K tomu většina z nich:
+
+- Předpokládá německé/americké klima a moje zóna 7a tam buď není, nebo je nastavená divně
+- Nutí mě udělat účet a synchronizovat data do cloudu, který za rok zavřou
+- Reklamní bannery, premium upsell, push notifikace o slevě na zahradnické rukavice
+
+**Já chtěl jen tři věci:** nakreslit si layout svých záhonů, vidět, co se s čím snáší, a dostat upozornění ve správný čas.
+
+## Stack: nuda je vlastnost, ne bug
+
+Vědomě jsem se rozhodl pro nejnudnější možný stack:
+
+- **React** přes Next.js — to, co píšu denně
+- **SQLite** přes `better-sqlite3` — jeden soubor, žádný server, žádná migrace v cloudu
+- **Plátno (canvas)** pro mapu záhonů — žádný Mapbox, žádné API klíče
+- **Claude Code** jako pár-programátor — psal jsem promtem, ne klávesnicí
+
+První večer jsem chtěl React Native + Expo + Mapbox. Po třech hodinách s certifikáty pro iOS simulátor a s Mapbox účtem, který chtěl kreditní kartu, jsem to zabalil a začal znovu jako webovku. Mobilní prohlížeč zvládne canvas, pointer events i Notification API stejně dobře jako nativní appka — a já se vyhnu app store.
+
+## Datový model byl 80 % práce
+
+Tady mě překvapilo, jak málo kódu se pak píše, když je model rostlin pořádně promyšlený. Strávil jsem nedělní dopoledne tím, že jsem na papír sepsal:
+
+```
+plants (id, name_cs, name_la, type, zone_min, zone_max, ...)
+relations (plant_a, plant_b, kind: companion | antagonist)
+events (plant_id, kind: sow | water | harvest, days_offset)
+```
+
+84 rostlin × pár vztahů = 612 řádků v `relations` tabulce. To se vejde do paměti, takže celý "doporučovač" je jeden lookup ve `Map`u a žádné SQL query při kreslení.
+
+Doporučení, když přetáhnu novou rostlinu na záhon, vypadá takhle:
+
+```js
+function scoreTile(plantId, neighbours) {
+  let score = 0;
+  for (const n of neighbours) {
+    const key = [plantId, n.plantId].sort().join(':');
+    const rel = relations.get(key);
+    if (rel === 'companion') score += 1;
+    if (rel === 'antagonist') score -= 2;
+  }
+  return score;
+}
+```
+
+Antagonisté mají dvojnásobnou váhu, protože špatné páry škodí víc, než dobré pomáhají. To je dojem ze čtení r/permaculture, ne věda — ale na můj balkon stačí.
+
+## Co mě překvapilo: Claude Code uměl ten canvas líp než já
+
+Tohle bych před rokem nečekal. Kreslil jsem na plátno pan a zoom přes `pointermove` a `wheel`. Měl jsem to z 80 %, ale dvouprstový pinch na telefonu mi nefungoval — zoom skákal a střed se posouval mimo.
+
+Popsal jsem ten problém v jednom odstavci. Claude Code řekl: *„Při wheel/pinch musíš škálovat kolem kurzoru, ne kolem počátku. Vypočítej offset, odečti, naškáluj, přičti zpátky."* — a poslal hotový handler.
+
+```js
+function zoomAt(ctx, factor, cx, cy) {
+  const newScale = ctx.scale * factor;
+  ctx.x = cx - (cx - ctx.x) * factor;
+  ctx.y = cy - (cy - ctx.y) * factor;
+  ctx.scale = newScale;
+}
+```
+
+Sedm řádků. Hodina mého ladění předtím — pryč. Tohle je ten moment, kdy chápeš, že AI není autocomplete; je to kolega, který ten konkrétní problém už osmkrát řešil.
+
+## Bez cron jobu, bez backendu, bez účtu
+
+Připomínky jsem **nechtěl** posílat ze serveru. Žádný worker, žádný cron, žádná zpráva v 6:00, kterou musí někdo platit a udržovat. Místo toho se všechny upozornění počítají v prohlížeči při otevření appky a strkají se do `setTimeout` v rámci nejbližších 24 hodin. Dál to nemá smysl — tab usne, OS vypne.
+
+```js
+async function scheduleReminders(plants) {
+  if (Notification.permission !== 'granted') return;
+  for (const p of plants) {
+    for (const e of computeEvents(p)) {
+      const delay = e.date - Date.now();
+      if (delay > 0 && delay < 24 * 60 * 60 * 1000) {
+        setTimeout(
+          () => new Notification(e.title, { body: e.body }),
+          delay,
+        );
+      }
+    }
+  }
+}
+```
+
+Tohle je dost dobré pro hobby nástroj a vyhnul jsem se celé jedné vrstvě infrastruktury.
+
+## Výsledek po měsíci
+
+Píšu to v polovině května. GardenPin používám každý den, většinou ráno před prací — kontroluju, jestli mám něco zasít nebo zalít. Záhony jsou rozkreslené, rajčata mají bazalku po straně a rutu nikde poblíž (pro ty, kdo to neví: ruta a bazalka se nesnesou).
+
+Měřitelný výsledek jsem si nestanovil. Ale je tu jeden ne­měřitelný: **přestal jsem si v dubnu rok co rok kreslit záhony znovu**. To je ta jediná metrika, na které u osobních nástrojů záleží — jestli je opravdu používáš, nebo jestli ti jen leží na ploše.
+
+## Co dál
+
+Pár věcí na další víkend, pokud GardenPin vydrží do podzimu:
+
+- **Foto-deník** — jednou denně přidat fotku záhonu, ať vidím rozdíl meziduben a srpen
+- **PDF export** na konec sezóny, abych měl něco offline pro příští rok
+- **Druhý uživatel** — manželka by si chtěla vést vlastní vrstvu. Tady by se ze SQLite konečně stal důvod sáhnout po Supabase
+
+Ale možná to nechám tak, jak to je. Side projekty mají žít na vlastní podmínky, a tahle je: dělej jen to, co reálně používáš.
+
+Pokud máš stejný problém — žádná česká zahradní appka, která dělá jen to hlavní — postav si vlastní. Ten víkend, který bys jinak strávil hledáním "té správné", ti vystačí na funkční MVP. A na rozdíl od appky ze storu ti to neumře, protože ji nikdo nevypne.

@@ -1,0 +1,122 @@
+---
+title: "How I built GardenPin — a garden tracker just for me"
+date: "2026-05-23"
+description: "Why no Czech garden app did just the basics, and how I built my own tracker on React + SQLite over a couple of evenings with Claude Code."
+excerpt: "No garden app on the Czech market did just the basics — when to water, what goes where, when to harvest. So I built one. A few evenings, React, SQLite, Claude Code."
+tags: ["gardenpin", "ai", "development"]
+thumbnail: "/projects/events.jpg"
+---
+
+I have raised beds, a balcony full of herbs, and the same ritual every April: I download three Czech garden apps, delete two within a week, and keep the third until June, when I stop opening it. This year I gave up on the search and built my own.
+
+It's called GardenPin and it lives on my home server. It's not a startup, not a portfolio piece — it's a tool I actually use every morning with my coffee.
+
+## What was wrong with the off-the-shelf options
+
+Most Czech (and most foreign) gardening apps have the same problem: they want to be everything at once. A 2,000-plant encyclopedia, a social network for gardeners, weather, a marketplace for seeds, gamification with badges for watering. When all I want is to know whether basil works next to tomato and when to sow carrots, I'm fighting my way through five screens.
+
+On top of that, most of them:
+
+- Assume German or American climate; my zone 7a is either missing or set up weirdly
+- Force me to make an account and sync to a cloud they'll shut down in a year
+- Ad banners, premium upsell, push notifications about discounts on gardening gloves
+
+**I wanted three things:** sketch the layout of my beds, see what gets along with what, and get reminders at the right time.
+
+## The stack: boring is a feature, not a bug
+
+I deliberately picked the most boring stack I could think of:
+
+- **React** via Next.js — what I write every day
+- **SQLite** via `better-sqlite3` — one file, no server, no cloud migration
+- **Canvas** for the bed map — no Mapbox, no API keys
+- **Claude Code** as a pair programmer — I typed prompts more than I typed code
+
+On day one I tried React Native + Expo + Mapbox. After three hours on iOS simulator certificates and a Mapbox account that wanted a credit card, I bailed and started over as a web app. A mobile browser handles canvas, pointer events, and the Notification API just as well as a native app — and I skip the app store entirely.
+
+## The data model was 80% of the work
+
+This is where I was surprised by how little code I ended up writing, once the plant model was thought through. I spent Sunday morning sketching this on paper:
+
+```
+plants (id, name_cs, name_la, type, zone_min, zone_max, ...)
+relations (plant_a, plant_b, kind: companion | antagonist)
+events (plant_id, kind: sow | water | harvest, days_offset)
+```
+
+84 plants × a handful of relations = 612 rows in the `relations` table. That fits in memory, so the whole "recommender" is one `Map` lookup and no SQL queries while drawing.
+
+The recommendation, when I drag a new plant onto a bed, looks like this:
+
+```js
+function scoreTile(plantId, neighbours) {
+  let score = 0;
+  for (const n of neighbours) {
+    const key = [plantId, n.plantId].sort().join(':');
+    const rel = relations.get(key);
+    if (rel === 'companion') score += 1;
+    if (rel === 'antagonist') score -= 2;
+  }
+  return score;
+}
+```
+
+Antagonists get double weight because bad pairings hurt more than good pairings help. That's a vibe from reading r/permaculture, not science — but it's good enough for my balcony.
+
+## What surprised me: Claude Code did the canvas better than I did
+
+I wouldn't have predicted this a year ago. I had pan and zoom on canvas via `pointermove` and `wheel`. I was 80% there, but two-finger pinch on a phone was broken — the zoom jumped and the center drifted off.
+
+I described the problem in one paragraph. Claude Code said: *"When you wheel/pinch, you have to scale around the cursor, not the origin. Compute the offset, subtract, scale, add back."* — and shipped a working handler.
+
+```js
+function zoomAt(ctx, factor, cx, cy) {
+  const newScale = ctx.scale * factor;
+  ctx.x = cx - (cx - ctx.x) * factor;
+  ctx.y = cy - (cy - ctx.y) * factor;
+  ctx.scale = newScale;
+}
+```
+
+Seven lines. An hour of my prior debugging — gone. This is the moment when you realize AI isn't autocomplete; it's the colleague who has solved that exact problem eight times already.
+
+## No cron, no backend, no account
+
+I deliberately did **not** want to send reminders from a server. No worker, no cron, no 6 AM message someone has to pay for and maintain. Instead, all reminders are computed in the browser when the app opens, and shoved into `setTimeout` for anything within the next 24 hours. Beyond that, it's pointless — the tab sleeps, the OS sleeps.
+
+```js
+async function scheduleReminders(plants) {
+  if (Notification.permission !== 'granted') return;
+  for (const p of plants) {
+    for (const e of computeEvents(p)) {
+      const delay = e.date - Date.now();
+      if (delay > 0 && delay < 24 * 60 * 60 * 1000) {
+        setTimeout(
+          () => new Notification(e.title, { body: e.body }),
+          delay,
+        );
+      }
+    }
+  }
+}
+```
+
+This is good enough for a hobby tool, and it lets me skip an entire layer of infrastructure.
+
+## Result, one month in
+
+I'm writing this in mid-May. I open GardenPin every day, usually in the morning before work — checking whether anything needs sowing or watering. The beds are laid out, tomatoes have basil on the side, and rue is nowhere near (for the unaware: rue and basil really do hate each other).
+
+I never set a measurable goal. But there's one unmeasurable one: **I stopped re-sketching my beds in April every year.** That's the only metric that matters for personal tools — whether you actually use them, or whether they just sit on your desktop.
+
+## What's next
+
+A few things for a future weekend, if GardenPin survives into autumn:
+
+- **Photo journal** — one shot a day, so I can see the difference between April and August
+- **PDF export** at end of season, so I have something offline for next year
+- **A second user** — my wife would want her own layer. That would finally be the reason to swap SQLite for Supabase
+
+But I might just leave it as it is. Side projects should live on their own terms, and this one's terms are: only do what you actually use.
+
+If you have the same problem — no garden app that does just the basics — build your own. The weekend you'd spend hunting for "the right one" will get you to a working MVP. And unlike an app from the store, this one won't die on you, because nobody can switch it off.

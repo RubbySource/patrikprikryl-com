@@ -141,6 +141,29 @@
     "email_cta": "E-Mail senden",
     "linkedin_cta": "Auf LinkedIn vernetzen"
   },
+  "currentlyBuilding": {
+    "label": "In Arbeit",
+    "title": "Aktuell baue ich",
+    "subtitle": "Drei offene Projekte, an denen ich gerade tatsächlich Code schreibe — keine Mockups, keine schlafenden Repos.",
+    "active": "Aktiv",
+    "items": {
+      "gardenpin": {
+        "name": "GardenPin",
+        "description": "Garten-Tracker — Beete auf einer Canvas-Karte, Mischkultur-Hinweise, Offline-Erinnerungen.",
+        "status": "In Entwicklung · iOS / Web"
+      },
+      "health": {
+        "name": "Gesundheits-Analyzer",
+        "description": "Privates Offline-KI-Tool — Laborergebnisse hochladen, klare Erklärung, was außerhalb der Norm liegt.",
+        "status": "Private Beta"
+      },
+      "centralWeb": {
+        "name": "Central Web",
+        "description": "Dieses Portfolio — Next.js 15, i18n cs/en/de, Blog, Kontaktformular. Live und wöchentlich iteriert.",
+        "status": "Live · iterativ"
+      }
+    }
+  },
   "newsletter": {
     "label": "Newsletter",
     "title": "Bleiben Sie in Verbindung.",

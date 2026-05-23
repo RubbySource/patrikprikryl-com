@@ -3,6 +3,7 @@ import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import StatsBar from '@/components/StatsBar';
 import Projects from '@/components/Projects';
+import CurrentlyBuilding from '@/components/CurrentlyBuilding';
 import Awards from '@/components/Awards';
 import Beliefs from '@/components/Beliefs';
 import Skills from '@/components/Skills';
@@ -92,6 +93,7 @@ export default async function Home({ params }) {
         <CoCreators />
         <Contact />
         <GetInTouch />
+        <CurrentlyBuilding />
         <Newsletter />
         <Footer />
       </main>
