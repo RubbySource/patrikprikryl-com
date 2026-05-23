@@ -210,6 +210,78 @@
     "contact": "Napsat mi",
     "digest_label": "ID chyby"
   },
+  "caseStudy": {
+    "back": "Zpět na projekty",
+    "header": {
+      "badge": "Případová studie · Vedlejší projekt",
+      "title": "GardenPin",
+      "lead": "Víkendový projekt — od skici v Moleskinu k funkční aplikaci pro plánování zahrady s doporučeními pro společenskou výsadbu, offline režimem a ručně psanou canvas mřížkou."
+    },
+    "problem": {
+      "title": "Problém",
+      "body": "Každé jaro si do sešitu načrtnu rozložení svých tří vyvýšených záhonů, do července ho ztratím a další rok stavím zpaměti znovu. Společenská výsadba má smysl — bazalka a rajčata si pomáhají, bazalka a routa ne — jenže pravidla jsou roztříštěné po deseti článcích. Neexistoval jeden nástroj, kde bych nakreslil záhon, položil rostliny a hned viděl, kteří sousedi pomáhají a kteří škodí."
+    },
+    "solution": {
+      "title": "Řešení",
+      "body": "Mobilní web app, která funguje offline. Každý záhon je top-down mřížka. Rostliny se přetahují na políčka; graf vztahů v reálném čase boduje jejich sousedy. Z datumů výsevu se generují připomínky zálivky a sklizně přes browserové Notification API. Žádné účty, žádný server, žádné trackery — jen 32znakové device ID v cookie a opt-in sync endpoint."
+    },
+    "tech_stack": { "title": "Tech Stack" },
+    "features": {
+      "title": "Klíčové funkce",
+      "items": [
+        { "title": "Graf společenské výsadby", "body": "Katalog 278 rostlin s hranami compatibility / antagonismu v řídké adjacency tabulce. Drag-and-drop skórování vybírá políčka, kde sousedi posilují růst a kde se neperou.", "icon": "🌱" },
+        { "title": "Interaktivní mapa + canvas mřížka", "body": "~140 řádků vanilla canvasu: pan přes pointer events, pinch-zoom okolo kurzoru, rostliny jako barevné kruhy + emoji. Žádná chartingová knihovna, žádné map tily, žádné SVG.", "icon": "🗺️" },
+        { "title": "iCal export do iOS kalendáře", "body": "Výsev, zálivka i sklizeň jako .ics feed na jeden tap. Přidáte si ho jednou na iPhone a připomínky se objeví vedle ostatních událostí — žádnou další appku není potřeba.", "icon": "📅" },
+        { "title": "Offline-first jako default", "body": "Všechna uživatelská data jsou v localStorage. 32znakové device ID umožňuje opt-in sync přes jediný endpoint. Žádné účty, žádná hesla, žádní externí trackeři.", "icon": "📡" }
+      ]
+    },
+    "timeline": {
+      "title": "Časová osa — 48 hodin, jak šly za sebou",
+      "items": [
+        { "when": "Pátek 19:00", "what": "Startuju s React Native + Mapbox. Po třech hodinách: simulátor certy neřeším, Mapbox chce kreditku. Hod do koše." },
+        { "when": "Pátek 22:30", "what": "Reset. Čistý Next.js 14 + canvas. První mřížku záhonu mám za 40 minut." },
+        { "when": "Sobota ráno", "what": "Skládám katalog 84 rostlin a jejich vztahy. Odbočka přes r/permaculture na nastavení vah." },
+        { "when": "Sobota odpoledne", "what": "Drag-and-drop pokládání pinů, skórování sousedů, vizualizace skóre na hover." },
+        { "when": "Sobota večer", "what": "Generování připomínek z datumů výsevu. Web Notifications API napojené. První end-to-end běh." },
+        { "when": "Neděle", "what": "Doladění: dark mode, klávesová navigace, export záhonu jako PNG, deploy na Vercel. Ship." }
+      ]
+    },
+    "metrics": {
+      "title": "Čísla",
+      "items": [
+        { "value": "48", "label": "Hodin od startu k deployi" },
+        { "value": "278", "label": "Rostlin v katalogu" },
+        { "value": "1 800+", "label": "Hran compatibility / antagonismu" },
+        { "value": "~140", "label": "Řádků canvas kódu" },
+        { "value": "0", "label": "Externích mapových / chart knihoven" },
+        { "value": "✓", "label": "iCal feed pro iOS kalendář" }
+      ]
+    },
+    "screenshots": {
+      "title": "Screenshoty",
+      "caption": "Screenshot dorazí s verzí 1.1",
+      "items": [
+        "Editor záhonu — drag rostlin na mřížku",
+        "Skóre společenské výsadby na hover",
+        "Feed připomínek — zítřejší úkoly",
+        "Dark mode, plánování pozdě v noci"
+      ]
+    },
+    "lessons": {
+      "title": "Co jsem se naučil",
+      "items": [
+        { "title": "Tření je nepřítel víkendových projektů", "body": "Správný stack je ten, ke kterému se dostanete bez ztráty půl dne na certifikátech, fakturačních účtech nebo debatě o frameworku. Shodil jsem React Native ve chvíli, kdy mě stál tři hodiny." },
+        { "title": "Canvas překoná chartingové knihovny, když je geometrie vaše", "body": "Skoro jsem nainstaloval Konvu. Celá mapa skončila na 140 řádcích vanilla canvasu a rozumím každému pixelu. Knihovnu berte, až když byste ji jinak špatně reimplementovali — ne dřív." },
+        { "title": "Data vykurátujte dřív, než stavíte vizualizaci", "body": "Začal jsem s canvasem a v polovině soboty jsem zjistil, že data o rostlinách jsou děravá. Víkendový projekt nemá čas na dvě iterace — nejdřív data správně, potom design." },
+        { "title": "Vyhněte se backend cronům, když to umí klient", "body": "Připomínky jsou deterministická funkce dat o rostlinách. Generuju je v prohlížeči přes Notification API — žádný worker, žádná queue, žádná infra. Hobby aplikace tohle zjednodušení odmění." }
+      ]
+    },
+    "cta": {
+      "lead": "Chcete celý build journal?",
+      "button": "Číst technický článek"
+    },
+    "card_link": "Číst případovou studii"
+  },
   "meta": {
     "home_title": "Patrik Přikryl – AI Project Manager · Škoda Auto",
     "home_tagline": "AI Project Manager · Škoda Auto",
