@@ -210,6 +210,78 @@
     "contact": "Kontakt aufnehmen",
     "digest_label": "Fehler-ID"
   },
+  "caseStudy": {
+    "back": "Zurück zu Projekten",
+    "header": {
+      "badge": "Case Study · Nebenprojekt",
+      "title": "GardenPin",
+      "lead": "Ein Wochenendprojekt — von der Moleskine-Skizze zu einer funktionierenden Gartenplanungs-App mit Mischkultur-Empfehlungen, Offline-Modus und einem selbst geschriebenen Canvas-Raster."
+    },
+    "problem": {
+      "title": "Problem",
+      "body": "Jedes Frühjahr skizziere ich die Anordnung meiner drei Hochbeete in einem Notizbuch, verliere es bis Juli und baue im nächsten Jahr aus dem Gedächtnis neu auf. Mischkultur ist wichtig — Basilikum und Tomaten gedeihen zusammen, Basilikum und Raute nicht — aber die Regeln stehen in einem Dutzend verstreuter Artikel. Es gab kein einziges Werkzeug, mit dem ich ein Beet zeichnen, Pflanzen platzieren und sehen kann, welche Nachbarn helfen oder schaden."
+    },
+    "solution": {
+      "title": "Lösung",
+      "body": "Eine telefonfreundliche, offline-first Web-App, in der jedes Hochbeet ein Top-Down-Raster ist. Pflanzen werden auf Felder gezogen; ein Mischkultur-Graph bewertet die Nachbarn in Echtzeit. Aussaattermine lösen Bewässerungs- und Ernte-Erinnerungen über die Browser-Notification-API aus. Keine Konten, keine Server, kein Tracking — nur eine 32-stellige Device-ID in einem Cookie und ein opt-in Sync-Endpoint."
+    },
+    "tech_stack": { "title": "Tech Stack" },
+    "features": {
+      "title": "Hauptfunktionen",
+      "items": [
+        { "title": "Mischkultur-Graph", "body": "Katalog mit 278 Pflanzen und Beziehungen (kompatibel / antagonistisch) als spärliche Adjazenztabelle. Drag-and-drop-Scoring wählt Felder, auf denen Nachbarn das Wachstum fördern.", "icon": "🌱" },
+        { "title": "Interaktive Karte + Canvas-Raster", "body": "~140 Zeilen Vanilla-Canvas: Pan über Pointer-Events, Pinch-Zoom um den Cursor, Pflanzen als farbige Kreise + Emoji. Keine Charting-Library, keine Map-Tiles, kein SVG.", "icon": "🗺️" },
+        { "title": "iCal-Export in den iOS-Kalender", "body": "Aussaat, Bewässerung und Ernte als ein-tap abonnierbarer .ics-Feed. Einmal auf dem iPhone hinzufügen — Erinnerungen erscheinen neben dem restlichen Kalender, keine zusätzliche App nötig.", "icon": "📅" },
+        { "title": "Offline-first als Standard", "body": "Alle Nutzerdaten liegen im localStorage. Eine 32-stellige Device-ID erlaubt opt-in Sync über einen einzigen Endpoint. Keine Konten, keine Passwörter, keine externen Tracker.", "icon": "📡" }
+      ]
+    },
+    "timeline": {
+      "title": "Zeitstrahl — 48 Stunden, der Reihe nach",
+      "items": [
+        { "when": "Freitag 19:00", "what": "Start mit React Native + Mapbox. Drei Stunden später: Simulator-Zertifikate ungelöst, Mapbox verlangt Kreditkarte. Verwerfen." },
+        { "when": "Freitag 22:30", "what": "Reset. Plain Next.js 14 + Canvas. Erstes Beet-Raster nach 40 Minuten." },
+        { "when": "Samstagmorgen", "what": "Kuratierung des 84-Pflanzen-Katalogs und der Mischkultur-Beziehungen. Umweg über r/permaculture für die Gewichtung." },
+        { "when": "Samstagnachmittag", "what": "Drag-and-drop-Platzierung, Nachbar-Scoring, Score-Visualisierung beim Hover." },
+        { "when": "Samstagabend", "what": "Erinnerungsgenerierung aus Aussaatterminen. Web-Notifications-API angebunden. Erster End-to-End-Lauf." },
+        { "when": "Sonntag", "what": "Feinschliff: Dark Mode, Tastaturnavigation, Beet-Export als PNG, Deploy auf Vercel. Ship." }
+      ]
+    },
+    "metrics": {
+      "title": "Zahlen",
+      "items": [
+        { "value": "48", "label": "Stunden von Start bis Deploy" },
+        { "value": "278", "label": "Pflanzen im Katalog" },
+        { "value": "1.800+", "label": "Mischkultur-Beziehungen" },
+        { "value": "~140", "label": "Zeilen Canvas-Code" },
+        { "value": "0", "label": "Externe Map- / Chart-Libraries" },
+        { "value": "✓", "label": "iCal-Feed für iOS-Kalender" }
+      ]
+    },
+    "screenshots": {
+      "title": "Screenshots",
+      "caption": "Screenshot folgt mit Release 1.1",
+      "items": [
+        "Beet-Editor — Pflanzen ins Raster ziehen",
+        "Mischkultur-Score beim Hover",
+        "Erinnerungs-Feed — die Aufgaben von morgen",
+        "Dark Mode, Planung spät in der Nacht"
+      ]
+    },
+    "lessons": {
+      "title": "Was ich gelernt habe",
+      "items": [
+        { "title": "Reibung ist der Feind von Wochenendprojekten", "body": "Der richtige Stack ist der, den Sie ohne halben Tag Zeitverlust für Zertifikate, Abrechnungskonten oder Framework-Debatten erreichen. Ich habe React Native verworfen, sobald es mich drei Stunden kostete." },
+        { "title": "Canvas schlägt Charting-Libraries, wenn die Geometrie Ihre eigene ist", "body": "Ich hätte fast Konva installiert. Die ganze Karte landete in 140 Zeilen Vanilla-Canvas, und ich verstehe jeden Pixel. Eine Library, wenn Sie sie sonst schlecht nachbauen würden — nicht früher." },
+        { "title": "Daten kuratieren, bevor Sie die Visualisierung bauen", "body": "Ich begann mit dem Canvas und entdeckte mitten am Samstag, dass meine Pflanzendaten unvollständig waren. Ein Wochenendprojekt hat keine Zeit für zwei Durchläufe — erst die Daten richtig, dann hübsch." },
+        { "title": "Backend-Cronjobs überspringen, wenn der Client es kann", "body": "Erinnerungen sind deterministische Funktionen der Pflanzendaten. Ich generiere sie im Browser über die Notification-API — kein Worker, keine Queue, keine Infrastruktur. Hobby-Apps belohnen diese Vereinfachung." }
+      ]
+    },
+    "cta": {
+      "lead": "Möchten Sie das ganze Build-Journal?",
+      "button": "Den technischen Bericht lesen"
+    },
+    "card_link": "Case Study lesen"
+  },
   "meta": {
     "home_title": "Patrik Přikryl – AI Project Manager · Škoda Auto",
     "home_tagline": "AI Project Manager · Škoda Auto",

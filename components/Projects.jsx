@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
+import Link from 'next/link';
 import { projects, hobbyProjects } from '@/data/projects';
 
 function TechStackTags({ techStack }) {
@@ -181,6 +182,13 @@ const hobbyGlowVariants = {
 };
 
 function HobbyProjectCard({ project, index, locale, t }) {
+  const tCase = useTranslations('caseStudy');
+  const caseStudyHref = project.caseStudySlug
+    ? (locale === 'en'
+        ? `/projects/${project.caseStudySlug}`
+        : `/${locale}/projects/${project.caseStudySlug}`)
+    : null;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -263,6 +271,24 @@ function HobbyProjectCard({ project, index, locale, t }) {
               </span>
             ))}
           </div>
+        )}
+
+        {/* Case study link */}
+        {caseStudyHref && (
+          <Link
+            href={caseStudyHref}
+            className="inline-flex items-center gap-1.5 mt-1 text-xs font-semibold tracking-wider uppercase text-emerald-300 hover:text-emerald-200 transition-colors group/link self-start"
+          >
+            {tCase('card_link')}
+            <svg
+              className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-0.5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
         )}
       </div>
     </motion.div>

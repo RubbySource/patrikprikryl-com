@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useTranslations } from 'next-intl';
 
 const TECH_STACK = [
   {
@@ -59,92 +60,6 @@ const TECH_STACK = [
   },
 ];
 
-const FEATURES = [
-  {
-    title: 'Companion-planting graph',
-    body:
-      '278-plant catalogue with companion / antagonist edges encoded as a sparse adjacency table. Drag-and-drop scoring picks tiles where neighbours boost growth and avoid known antagonists.',
-    icon: '🌱',
-  },
-  {
-    title: 'Interactive map + canvas grid',
-    body:
-      '~140 lines of vanilla canvas: pan via pointer events, pinch-zoom around the cursor, plants render as coloured circles + emoji. No charting library, no map tiles, no SVG.',
-    icon: '🗺️',
-  },
-  {
-    title: 'iCal export to iOS calendar',
-    body:
-      'Sowing, watering and harvest tasks ship as a one-tap subscribable .ics feed. Add it once on your iPhone and reminders appear next to the rest of your calendar — no extra app to open.',
-    icon: '📅',
-  },
-  {
-    title: 'Offline-first by default',
-    body:
-      'All user data lives in localStorage. A 32-character device ID lets you opt in to single-endpoint sync. No accounts, no passwords, no third-party trackers.',
-    icon: '📡',
-  },
-];
-
-const TIMELINE = [
-  {
-    when: 'Friday 19:00',
-    what: 'Started with React Native + Mapbox. Three hours later: simulator certs unresolved, Mapbox demanding a credit card. Scrap.',
-  },
-  {
-    when: 'Friday 22:30',
-    what: 'Reset. Plain Next.js 14 + canvas. Drew the first bed grid in 40 minutes.',
-  },
-  {
-    when: 'Saturday morning',
-    what: 'Curated the 84-plant catalogue and the companion / antagonist relations. Detour through r/permaculture for weighting.',
-  },
-  {
-    when: 'Saturday afternoon',
-    what: 'Drag-and-drop pin placement, neighbour scoring, score visualisation on hover.',
-  },
-  {
-    when: 'Saturday evening',
-    what: 'Reminder generation from sowing dates. Web Notifications API wired up. First end-to-end run.',
-  },
-  {
-    when: 'Sunday',
-    what: 'Polish: dark mode, keyboard navigation, exporting beds as PNG, deploy to Vercel. Ship.',
-  },
-];
-
-const METRICS = [
-  { label: 'Hours from start to deploy', value: '48' },
-  { label: 'Plants in catalogue', value: '278' },
-  { label: 'Companion / antagonist edges', value: '1,800+' },
-  { label: 'Lines of canvas code', value: '~140' },
-  { label: 'External map / charting libs', value: '0' },
-  { label: 'iCal feed for iOS calendar', value: '✓' },
-];
-
-const LESSONS = [
-  {
-    title: 'Friction is the enemy of weekend builds',
-    body:
-      'The right stack is the one you can reach without burning a half-day on certs, billing accounts, or framework debates. I dropped React Native the second it cost me three hours.',
-  },
-  {
-    title: 'Canvas beats charting libraries when the geometry is yours',
-    body:
-      "I almost installed Konva. The whole map ended up in 140 lines of vanilla canvas, and I understand every pixel. Reach for a library when you'd be re-implementing it badly — not before.",
-  },
-  {
-    title: 'Curate data before you build the visualisation',
-    body:
-      "I started with the canvas and discovered halfway through Saturday that my plant data was incomplete. A weekend build doesn't have time for two passes — get the data right first, then make it pretty.",
-  },
-  {
-    title: 'Skip backend cron jobs when client-side derivations work',
-    body:
-      'Reminders are deterministic functions of your plant data. I generate them in the browser and use the Notification API — no worker, no queue, no infrastructure. Hobby apps reward this kind of simplification.',
-  },
-];
-
 function FadeIn({ children, delay = 0 }) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.15 });
   return (
@@ -160,20 +75,26 @@ function FadeIn({ children, delay = 0 }) {
 }
 
 export default function GardenPinCaseStudy() {
+  const t = useTranslations('caseStudy');
+  const features = t.raw('features.items');
+  const timeline = t.raw('timeline.items');
+  const metrics = t.raw('metrics.items');
+  const screenshots = t.raw('screenshots.items');
+  const lessons = t.raw('lessons.items');
+
   return (
     <div className="space-y-20">
       {/* Header */}
       <FadeIn>
         <header>
           <span className="text-xs font-semibold tracking-widest uppercase text-[#1A56DB] mb-4 block">
-            Case Study · Side Project
+            {t('header.badge')}
           </span>
           <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl text-[var(--text)] leading-[1.1] mb-6">
-            GardenPin
+            {t('header.title')}
           </h1>
           <p className="text-xl text-[var(--muted)] max-w-3xl leading-relaxed">
-            A weekend build — from a Moleskine sketch to a working garden-planning app with
-            companion-planting recommendations, offline mode, and a hand-rolled canvas grid.
+            {t('header.lead')}
           </p>
         </header>
       </FadeIn>
@@ -182,14 +103,10 @@ export default function GardenPinCaseStudy() {
       <FadeIn>
         <section>
           <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#1A56DB] mb-4">
-            Problem
+            {t('problem.title')}
           </h2>
           <p className="text-lg text-[var(--text)]/85 leading-relaxed max-w-3xl">
-            Every spring I sketch a layout for my three raised beds in a notebook, lose it by July,
-            and rebuild from memory the following year. Companion-planting matters — basil and
-            tomatoes thrive together, basil and rue do not — but the rules live in a dozen
-            scattered articles. There was no single tool that let me draw a bed, place plants, and
-            see which neighbours would help or hurt.
+            {t('problem.body')}
           </p>
         </section>
       </FadeIn>
@@ -198,14 +115,10 @@ export default function GardenPinCaseStudy() {
       <FadeIn>
         <section>
           <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#1A56DB] mb-4">
-            Solution
+            {t('solution.title')}
           </h2>
           <p className="text-lg text-[var(--text)]/85 leading-relaxed max-w-3xl mb-6">
-            A phone-friendly, offline-first web app where each raised bed is a top-down grid. Plants
-            are dragged onto tiles; a companion-planting graph scores their neighbours in
-            real-time. Sowing dates trigger watering and harvest reminders via the browser&apos;s
-            Notification API. No accounts, no servers, no tracking — just a 32-character device ID
-            in a cookie and an opt-in sync endpoint.
+            {t('solution.body')}
           </p>
         </section>
       </FadeIn>
@@ -214,19 +127,19 @@ export default function GardenPinCaseStudy() {
       <FadeIn>
         <section>
           <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#1A56DB] mb-6">
-            Tech Stack
+            {t('tech_stack.title')}
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {TECH_STACK.map((t, i) => (
+            {TECH_STACK.map((tech, i) => (
               <motion.div
-                key={t.name}
+                key={tech.name}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
                 className="flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-[var(--card)]"
               >
-                <span className="text-[#1A56DB]">{t.icon}</span>
-                <span className="font-medium text-[var(--text)]">{t.name}</span>
+                <span className="text-[#1A56DB]">{tech.icon}</span>
+                <span className="font-medium text-[var(--text)]">{tech.name}</span>
               </motion.div>
             ))}
           </div>
@@ -237,10 +150,10 @@ export default function GardenPinCaseStudy() {
       <FadeIn>
         <section>
           <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#1A56DB] mb-6">
-            Key Features
+            {t('features.title')}
           </h2>
           <div className="grid sm:grid-cols-2 gap-5">
-            {FEATURES.map((f, i) => (
+            {features.map((f, i) => (
               <motion.div
                 key={f.title}
                 initial={{ opacity: 0, y: 14 }}
@@ -265,10 +178,10 @@ export default function GardenPinCaseStudy() {
       <FadeIn>
         <section>
           <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#1A56DB] mb-6">
-            Timeline — 48 hours, in order
+            {t('timeline.title')}
           </h2>
           <ol className="relative border-l-2 border-[#1A56DB]/30 pl-6 space-y-6">
-            {TIMELINE.map((t, i) => (
+            {timeline.map((item, i) => (
               <motion.li
                 key={i}
                 initial={{ opacity: 0, x: -10 }}
@@ -278,9 +191,9 @@ export default function GardenPinCaseStudy() {
               >
                 <span className="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-[#1A56DB] ring-4 ring-[var(--bg)]" />
                 <div className="text-xs font-mono uppercase tracking-widest text-[#1A56DB] mb-1">
-                  {t.when}
+                  {item.when}
                 </div>
-                <p className="text-base text-[var(--text)]/85 leading-relaxed">{t.what}</p>
+                <p className="text-base text-[var(--text)]/85 leading-relaxed">{item.what}</p>
               </motion.li>
             ))}
           </ol>
@@ -291,10 +204,10 @@ export default function GardenPinCaseStudy() {
       <FadeIn>
         <section>
           <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#1A56DB] mb-6">
-            Metrics
+            {t('metrics.title')}
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {METRICS.map((m, i) => (
+            {metrics.map((m, i) => (
               <motion.div
                 key={m.label}
                 initial={{ opacity: 0, scale: 0.96 }}
@@ -318,15 +231,10 @@ export default function GardenPinCaseStudy() {
       <FadeIn>
         <section>
           <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#1A56DB] mb-6">
-            Screenshots
+            {t('screenshots.title')}
           </h2>
           <div className="grid sm:grid-cols-2 gap-4">
-            {[
-              { label: 'Bed editor — drag plants onto the grid' },
-              { label: 'Companion-planting score on hover' },
-              { label: 'Reminders feed — tomorrow’s tasks' },
-              { label: 'Dark mode, late-night planning' },
-            ].map((s, i) => (
+            {screenshots.map((label, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0 }}
@@ -337,9 +245,9 @@ export default function GardenPinCaseStudy() {
                 <div className="text-4xl mb-3" aria-hidden>
                   📸
                 </div>
-                <p className="text-sm font-medium text-[var(--muted)]">{s.label}</p>
+                <p className="text-sm font-medium text-[var(--muted)]">{label}</p>
                 <p className="text-xs text-[var(--muted)]/70 mt-1">
-                  Screenshot coming with v1.1 release
+                  {t('screenshots.caption')}
                 </p>
               </motion.div>
             ))}
@@ -351,10 +259,10 @@ export default function GardenPinCaseStudy() {
       <FadeIn>
         <section>
           <h2 className="font-display font-bold text-2xl sm:text-3xl text-[#1A56DB] mb-6">
-            What I learned
+            {t('lessons.title')}
           </h2>
           <div className="space-y-5">
-            {LESSONS.map((l, i) => (
+            {lessons.map((l, i) => (
               <motion.div
                 key={l.title}
                 initial={{ opacity: 0, y: 10 }}
@@ -376,13 +284,13 @@ export default function GardenPinCaseStudy() {
       <FadeIn>
         <section className="text-center py-10 border-t border-[var(--border)]">
           <p className="text-base text-[var(--muted)] mb-4">
-            Want the full build journal?
+            {t('cta.lead')}
           </p>
           <a
             href="/blog/building-gardenpin"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#1A56DB] text-white font-semibold text-sm hover:bg-[#1340B0] active:scale-95 transition-all duration-200 shadow-lg shadow-blue-500/20"
           >
-            Read the technical write-up
+            {t('cta.button')}
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path
                 strokeLinecap="round"

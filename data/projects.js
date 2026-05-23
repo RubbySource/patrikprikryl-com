@@ -98,6 +98,7 @@ export const hobbyProjects = [
     category: "hobby",
     techStack: ["React", "Vite", "Node.js", "Express", "SQLite", "PWA"],
     currentlyBuilding: true,
+    caseStudySlug: "gardenpin",
   },
   {
     title: {

@@ -29,12 +29,9 @@
 - [x] Open Graph obrázky — hotovo 2026-05-23
   - Dynamický endpoint `app/api/og/route.jsx` (edge runtime) přes `next/og` `ImageResponse` — 1200×630 PNG s gradientovým slate pozadím, blue→cyan PP markem, title, subtitle/date. Akceptuje query params: `kind=home|post`, `locale`, `title`, `subtitle`, `date`, `tag`. Cache-Control 1h browser / 24h CDN / 1w stale-while-revalidate. Zapojeno do `generateMetadata` na: `app/[locale]/page.js` (homepage — title+tagline), `app/[locale]/blog/page.jsx` (blog index — title+blog_tagline), `app/[locale]/blog/[slug]/page.jsx` (post title+date+tag), `app/[locale]/projects/gardenpin/page.jsx` (case study title+description+"Case Study" tag). Nové i18n klíče `meta.home_tagline` a `meta.blog_tagline` ve všech 3 locales. Ověřeno v dev: endpoint vrací HTTP 200 image/png 1200×630, blog OG renderuje českou datovou hlášku `23. května 2026`. Pozn.: v dev TLS prostředí nelze stáhnout default font (corp cert), na Vercel Edge to půjde čistě.
 
-- [ ] Case study — GardenPin — jak vznikl, co se naučil, výsledky
-  Scope:
-  - Nový MDX post nebo samostatná /projects/gardenpin stránka
-  - Obsah: problém → řešení → tech stack → výsledky → co bych udělal jinak
-  - Česká verze, EN verze volitelná
-  - Odkaz z projektové karty GardenPin
+- [x] Case study — GardenPin — jak vznikl, co se naučil, výsledky — hotovo 2026-05-23
+  - Samostatná stránka `/[locale]/projects/gardenpin` už existovala v EN, ale byla **hardcoded anglicky**. Refaktor: `components/GardenPinCaseStudy.jsx` přepsán na `useTranslations('caseStudy')`. Všechny sekce (header, problem, solution, tech_stack, features×4, timeline×6, metrics×6, screenshots×4, lessons×4, CTA) tahají texty z lokálů. TECH_STACK ponechán hardcoded (názvy technologií se nepřekládají). Plná i18n cs/en/de v `locales/*.json` (namespace `caseStudy`). Ověřeno v dev preview: všechny 3 URL (`/projects/gardenpin`, `/cs/projects/gardenpin`, `/de/projects/gardenpin`) vrací HTTP 200 a renderují správné jazykové verze. Žádné console errory.
+  - **Link z karty:** `data/projects.js` GardenPin hobby project dostal pole `caseStudySlug: 'gardenpin'`. `components/Projects.jsx` `HobbyProjectCard` renderuje smaragdový "Číst případovou studii →" link (Next.js `<Link>`) pod tech stack tagy, jen když `caseStudySlug` existuje. URL respektuje `localePrefix: 'as-needed'` (EN bez prefixu).
 
 - [x] **[P1] RSS feed pro blog** [S] — hotovo 2026-05-18
   - Per-locale RSS feeds: `/blog/feed.xml`, `/cs/blog/feed.xml`, `/de/blog/feed.xml`. `lib/blog.js` rozšířen o `getAllPostsForLocale(locale)` (fallback na root). `<link rel="alternate" type="application/rss+xml">` přidán přes `generateMetadata` v `app/[locale]/layout.js`.

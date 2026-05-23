@@ -210,6 +210,78 @@
     "contact": "Get in touch",
     "digest_label": "Error ID"
   },
+  "caseStudy": {
+    "back": "Back to projects",
+    "header": {
+      "badge": "Case Study · Side Project",
+      "title": "GardenPin",
+      "lead": "A weekend build — from a Moleskine sketch to a working garden-planning app with companion-planting recommendations, offline mode, and a hand-rolled canvas grid."
+    },
+    "problem": {
+      "title": "Problem",
+      "body": "Every spring I sketch a layout for my three raised beds in a notebook, lose it by July, and rebuild from memory the following year. Companion-planting matters — basil and tomatoes thrive together, basil and rue do not — but the rules live in a dozen scattered articles. There was no single tool that let me draw a bed, place plants, and see which neighbours would help or hurt."
+    },
+    "solution": {
+      "title": "Solution",
+      "body": "A phone-friendly, offline-first web app where each raised bed is a top-down grid. Plants are dragged onto tiles; a companion-planting graph scores their neighbours in real-time. Sowing dates trigger watering and harvest reminders via the browser's Notification API. No accounts, no servers, no tracking — just a 32-character device ID in a cookie and an opt-in sync endpoint."
+    },
+    "tech_stack": { "title": "Tech Stack" },
+    "features": {
+      "title": "Key Features",
+      "items": [
+        { "title": "Companion-planting graph", "body": "278-plant catalogue with companion / antagonist edges encoded as a sparse adjacency table. Drag-and-drop scoring picks tiles where neighbours boost growth and avoid known antagonists.", "icon": "🌱" },
+        { "title": "Interactive map + canvas grid", "body": "~140 lines of vanilla canvas: pan via pointer events, pinch-zoom around the cursor, plants render as coloured circles + emoji. No charting library, no map tiles, no SVG.", "icon": "🗺️" },
+        { "title": "iCal export to iOS calendar", "body": "Sowing, watering and harvest tasks ship as a one-tap subscribable .ics feed. Add it once on your iPhone and reminders appear next to the rest of your calendar — no extra app to open.", "icon": "📅" },
+        { "title": "Offline-first by default", "body": "All user data lives in localStorage. A 32-character device ID lets you opt in to single-endpoint sync. No accounts, no passwords, no third-party trackers.", "icon": "📡" }
+      ]
+    },
+    "timeline": {
+      "title": "Timeline — 48 hours, in order",
+      "items": [
+        { "when": "Friday 19:00", "what": "Started with React Native + Mapbox. Three hours later: simulator certs unresolved, Mapbox demanding a credit card. Scrap." },
+        { "when": "Friday 22:30", "what": "Reset. Plain Next.js 14 + canvas. Drew the first bed grid in 40 minutes." },
+        { "when": "Saturday morning", "what": "Curated the 84-plant catalogue and the companion / antagonist relations. Detour through r/permaculture for weighting." },
+        { "when": "Saturday afternoon", "what": "Drag-and-drop pin placement, neighbour scoring, score visualisation on hover." },
+        { "when": "Saturday evening", "what": "Reminder generation from sowing dates. Web Notifications API wired up. First end-to-end run." },
+        { "when": "Sunday", "what": "Polish: dark mode, keyboard navigation, exporting beds as PNG, deploy to Vercel. Ship." }
+      ]
+    },
+    "metrics": {
+      "title": "Metrics",
+      "items": [
+        { "value": "48", "label": "Hours from start to deploy" },
+        { "value": "278", "label": "Plants in catalogue" },
+        { "value": "1,800+", "label": "Companion / antagonist edges" },
+        { "value": "~140", "label": "Lines of canvas code" },
+        { "value": "0", "label": "External map / charting libs" },
+        { "value": "✓", "label": "iCal feed for iOS calendar" }
+      ]
+    },
+    "screenshots": {
+      "title": "Screenshots",
+      "caption": "Screenshot coming with v1.1 release",
+      "items": [
+        "Bed editor — drag plants onto the grid",
+        "Companion-planting score on hover",
+        "Reminders feed — tomorrow's tasks",
+        "Dark mode, late-night planning"
+      ]
+    },
+    "lessons": {
+      "title": "What I learned",
+      "items": [
+        { "title": "Friction is the enemy of weekend builds", "body": "The right stack is the one you can reach without burning a half-day on certs, billing accounts, or framework debates. I dropped React Native the second it cost me three hours." },
+        { "title": "Canvas beats charting libraries when the geometry is yours", "body": "I almost installed Konva. The whole map ended up in 140 lines of vanilla canvas, and I understand every pixel. Reach for a library when you'd be re-implementing it badly — not before." },
+        { "title": "Curate data before you build the visualisation", "body": "I started with the canvas and discovered halfway through Saturday that my plant data was incomplete. A weekend build doesn't have time for two passes — get the data right first, then make it pretty." },
+        { "title": "Skip backend cron jobs when client-side derivations work", "body": "Reminders are deterministic functions of your plant data. I generate them in the browser and use the Notification API — no worker, no queue, no infrastructure. Hobby apps reward this kind of simplification." }
+      ]
+    },
+    "cta": {
+      "lead": "Want the full build journal?",
+      "button": "Read the technical write-up"
+    },
+    "card_link": "Read the case study"
+  },
   "meta": {
     "home_title": "Patrik Přikryl – AI Project Manager · Škoda Auto",
     "home_tagline": "AI Project Manager · Škoda Auto",
