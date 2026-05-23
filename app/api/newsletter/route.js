@@ -159,14 +159,6 @@ const welcomeHtml = `
 `;
 
 export async function POST(request) {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    return NextResponse.json(
-      { error: 'Newsletter is not configured yet.' },
-      { status: 503 },
-    );
-  }
-
   let body;
   try {
     body = await request.json();
@@ -180,16 +172,27 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
   }
 
-  const resend = new Resend(apiKey);
+  const apiKey = process.env.RESEND_API_KEY;
+  const resend = apiKey ? new Resend(apiKey) : null;
 
-  if (AUDIENCE_ID) {
-    const { error } = await resend.contacts.create({
-      email,
-      audienceId: AUDIENCE_ID,
-      unsubscribed: false,
-    });
-    if (error && !/already exists|already in/i.test(error.message ?? '')) {
-      return NextResponse.json({ error: 'Could not add you to the list.' }, { status: 502 });
+  if (!apiKey) {
+    console.warn(
+      '[newsletter] RESEND_API_KEY is not set in this environment. Subscriber will be stored locally only; welcome + admin emails skipped.',
+    );
+  }
+
+  if (resend && AUDIENCE_ID) {
+    try {
+      const { error } = await resend.contacts.create({
+        email,
+        audienceId: AUDIENCE_ID,
+        unsubscribed: false,
+      });
+      if (error && !/already exists|already in/i.test(error.message ?? '')) {
+        console.error('[newsletter] Resend contacts.create failed:', error);
+      }
+    } catch (err) {
+      console.error('[newsletter] Resend contacts.create threw:', err);
     }
   }
 
@@ -200,38 +203,47 @@ export async function POST(request) {
     try {
       writeSubscribers(subscribers);
     } catch (err) {
-      console.error('Failed to write subscribers.json', err);
+      console.error('[newsletter] Failed to write subscribers.json:', err);
     }
   } else if (name && !existing.name) {
     existing.name = name;
     try {
       writeSubscribers(subscribers);
     } catch (err) {
-      console.error('Failed to update subscribers.json', err);
+      console.error('[newsletter] Failed to update subscribers.json:', err);
     }
   }
 
-  const { error: sendError } = await resend.emails.send({
-    from: FROM_EMAIL,
-    to: email,
-    subject: 'Welcome — first article coming soon 🌱',
-    html: welcomeHtml,
-  });
-  if (sendError) {
-    return NextResponse.json({ error: 'Subscribed, but welcome email failed.' }, { status: 502 });
+  let welcomeEmailSent = false;
+  if (resend) {
+    try {
+      const { error: sendError } = await resend.emails.send({
+        from: FROM_EMAIL,
+        to: email,
+        subject: 'Welcome — first article coming soon 🌱',
+        html: welcomeHtml,
+      });
+      if (sendError) {
+        console.error('[newsletter] Welcome email send failed:', sendError);
+      } else {
+        welcomeEmailSent = true;
+      }
+    } catch (err) {
+      console.error('[newsletter] Welcome email threw:', err);
+    }
+
+    try {
+      await resend.emails.send({
+        from: ADMIN_FROM_EMAIL,
+        to: ADMIN_TO_EMAIL,
+        subject: `Nový subscriber: ${email}`,
+        html: adminNotificationHtml({ name, email, allSubscribers: subscribers }),
+        text: adminNotificationText({ name, email, allSubscribers: subscribers }),
+      });
+    } catch (err) {
+      console.error('[newsletter] Admin notification failed:', err);
+    }
   }
 
-  try {
-    await resend.emails.send({
-      from: ADMIN_FROM_EMAIL,
-      to: ADMIN_TO_EMAIL,
-      subject: `Nový subscriber: ${email}`,
-      html: adminNotificationHtml({ name, email, allSubscribers: subscribers }),
-      text: adminNotificationText({ name, email, allSubscribers: subscribers }),
-    });
-  } catch (err) {
-    console.error('Admin notification failed', err);
-  }
-
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, welcomeEmailSent });
 }

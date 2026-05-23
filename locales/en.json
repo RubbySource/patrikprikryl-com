@@ -103,6 +103,14 @@
     "collaborators_title": "Collaborators & Co-Creators",
     "university_title": "University Collaboration"
   },
+  "testimonials": {
+    "label": "Testimonials",
+    "title": "What people say about working together",
+    "subtitle": "Short quotes from people I've worked with — colleagues, partners, co-creators.",
+    "placeholder_title": "Have we worked together? Drop me a line.",
+    "placeholder_text": "This section is empty for now — I'm collecting short quotes from people I've shipped projects with, negotiated alongside, or spoken at events with. If we've built something together and you'd like to add a few words, get in touch.",
+    "placeholder_cta": "Send a message"
+  },
   "contact": {
     "label": "Contact",
     "title": "Let's Connect",
@@ -140,6 +148,29 @@
     "subtitle": "Open to AI collaborations, speaking engagements, and interesting side projects.",
     "email_cta": "Send an Email",
     "linkedin_cta": "Connect on LinkedIn"
+  },
+  "currentlyBuilding": {
+    "label": "In progress",
+    "title": "Currently building",
+    "subtitle": "Three open projects I'm actively writing code for right now — no mockups, no sleeping repos.",
+    "active": "Active",
+    "items": {
+      "gardenpin": {
+        "name": "GardenPin",
+        "description": "Garden tracker — beds on a canvas map, companion-planting hints, offline reminders.",
+        "status": "In development · iOS / web"
+      },
+      "health": {
+        "name": "Health Analyzer",
+        "description": "Private offline AI tool — upload lab results, get a plain-language read on what's out of range.",
+        "status": "Private beta"
+      },
+      "centralWeb": {
+        "name": "Central Web",
+        "description": "This portfolio — Next.js 15, i18n cs/en/de, blog, contact form. Live and iterating weekly.",
+        "status": "Live · iterating"
+      }
+    }
   },
   "newsletter": {
     "label": "Newsletter",
@@ -181,7 +212,9 @@
   },
   "meta": {
     "home_title": "Patrik Přikryl – AI Project Manager · Škoda Auto",
+    "home_tagline": "AI Project Manager · Škoda Auto",
     "home_description": "AI Project Manager at Škoda Auto. Driving intelligent procurement through automation, AI tools, and digital transformation.",
+    "blog_tagline": "Notes on building, AI, and procurement",
     "blog_title": "Blog — Patrik Přikryl",
     "blog_description": "Notes on AI, procurement, side projects, and what I learn while building.",
     "gardenpin_title": "GardenPin — Case Study | Patrik Přikryl",

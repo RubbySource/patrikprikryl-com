@@ -16,8 +16,13 @@ export async function generateMetadata({ params }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
   const path = locale === 'en' ? '/blog' : `/${locale}/blog`;
+  const ogTitle = t('blog_title');
+  const ogSubtitle = t('blog_tagline');
+  const ogUrl = `${SITE_URL}/api/og?kind=home&locale=${locale}&title=${encodeURIComponent(
+    ogTitle,
+  )}&subtitle=${encodeURIComponent(ogSubtitle)}`;
   return {
-    title: { absolute: t('blog_title') },
+    title: { absolute: ogTitle },
     description: t('blog_description'),
     alternates: {
       canonical: path,
@@ -28,7 +33,7 @@ export async function generateMetadata({ params }) {
       },
     },
     openGraph: {
-      title: t('blog_title'),
+      title: ogTitle,
       description: t('blog_description'),
       url: `${SITE_URL}${path}`,
       siteName: 'Patrik Přikryl',
@@ -37,7 +42,7 @@ export async function generateMetadata({ params }) {
       alternateLocale: alternateOgLocales(locale),
       images: [
         {
-          url: '/og-image.png',
+          url: ogUrl,
           width: 1200,
           height: 630,
           type: 'image/png',
@@ -47,9 +52,9 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: 'summary_large_image',
-      title: t('blog_title'),
+      title: ogTitle,
       description: t('blog_description'),
-      images: ['/og-image.png'],
+      images: [ogUrl],
     },
   };
 }

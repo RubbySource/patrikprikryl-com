@@ -31,6 +31,14 @@ export async function generateMetadata({ params }) {
   const title = `${post.title} — Patrik Přikryl`;
   const description = post.excerpt;
 
+  const ogUrl =
+    post.thumbnail ||
+    `${SITE_URL}/api/og?kind=post&locale=${locale}&title=${encodeURIComponent(
+      post.title,
+    )}&date=${encodeURIComponent(post.date || '')}&tag=${encodeURIComponent(
+      post.tags?.[0] || 'Blog',
+    )}`;
+
   return {
     title,
     description,
@@ -55,7 +63,7 @@ export async function generateMetadata({ params }) {
       tags: post.tags,
       images: [
         {
-          url: post.thumbnail || '/og-image.png',
+          url: ogUrl,
           width: 1200,
           height: 630,
           alt: post.title,
@@ -66,7 +74,7 @@ export async function generateMetadata({ params }) {
       card: 'summary_large_image',
       title: post.title,
       description,
-      images: [post.thumbnail || '/og-image.png'],
+      images: [ogUrl],
     },
   };
 }

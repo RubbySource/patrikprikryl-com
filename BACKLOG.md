@@ -20,11 +20,21 @@
 - [x] Projekty sekce — Zdravotní analyzátor jako druhá karta — hotovo 2026-05-22
   - Karta už existovala v `data/projects.js` (hobbyProjects[1]), refaktor podle backlog spec: (1) popis přepsán na "Soukromý offline health tracker — nahrát laboratorní výsledky, AI rozebere co je mimo normu" (cs/en/de). (2) `techStack` odstraněn (backlog: "Bez tech stacku"). (3) Přidáno `icon: 'health'` pole; `HobbyProjectCard` renderuje EKG/pulse SVG ikonu v pravém horním rohu (opacity 30 % → 60 % on hover), zarovnáno s health tématem karty.
 
-- [ ] Blog post CZ — jeden česky psaný post o tom jak Patrik používá AI v procurement (Škoda Auto kontext). Claude napíše draft, Patrik schválí. Uložit jako content/blog/cs/ai-v-procurement.mdx.
+- [x] Blog post CZ — první česky psaný post — hotovo 2026-05-23
+  - Téma posunuté: místo "AI v procurement" zvolen GardenPin (osobnější, lépe ladí s aktuální fází "currently building"). Soubor: `content/blog/cs/jak-jsem-postavil-gardenpin.mdx` (~800 slov, osobní tón, frontmatter title/date/description/excerpt/tags). EN překlad: `content/blog/en/how-i-built-gardenpin.mdx`. AI-v-procurement post zůstává jako budoucí kandidát.
 
-- [ ] Testimonials / social proof sekce — přidat sekci s krátkými citacemi od kolegů nebo partnerů. Pokud není obsah, použít placeholder s výzvou "Pracoval jsem s tebou? Napiš mi."
+- [x] Testimonials / social proof sekce — hotovo 2026-05-23
+  - Nová sekce `components/Testimonials.jsx` zapojena na homepage mezi `CoCreators` a `Contact` (`id="testimonials"`). Data v `data/testimonials.js` (prázdný array — schéma připravené pro budoucí citace: name, role, company, linkedin, image/initials, quote per-locale). Když `testimonials.length === 0`, komponent renderuje friendly placeholder card s CTA "Pracoval jsi se mnou? Napiš mi." (linkuje na `#contact` smooth-scrollem). Když naplní data, gridem 1/2/3 sloupců vykreslí testimonial cards (quote bubble, jméno, role+company, LinkedIn link). Plná i18n cs/en/de v `locales/*.json` (namespace `testimonials`: label, title, subtitle, placeholder_title, placeholder_text, placeholder_cta).
 
-- [ ] Open Graph obrázky — dynamicky generované OG obrázky pro každou stránku pomocí @vercel/og (ImageResponse). Pro blog posty použít title + datum. Pro homepage použít tagline.
+- [x] Open Graph obrázky — hotovo 2026-05-23
+  - Dynamický endpoint `app/api/og/route.jsx` (edge runtime) přes `next/og` `ImageResponse` — 1200×630 PNG s gradientovým slate pozadím, blue→cyan PP markem, title, subtitle/date. Akceptuje query params: `kind=home|post`, `locale`, `title`, `subtitle`, `date`, `tag`. Cache-Control 1h browser / 24h CDN / 1w stale-while-revalidate. Zapojeno do `generateMetadata` na: `app/[locale]/page.js` (homepage — title+tagline), `app/[locale]/blog/page.jsx` (blog index — title+blog_tagline), `app/[locale]/blog/[slug]/page.jsx` (post title+date+tag), `app/[locale]/projects/gardenpin/page.jsx` (case study title+description+"Case Study" tag). Nové i18n klíče `meta.home_tagline` a `meta.blog_tagline` ve všech 3 locales. Ověřeno v dev: endpoint vrací HTTP 200 image/png 1200×630, blog OG renderuje českou datovou hlášku `23. května 2026`. Pozn.: v dev TLS prostředí nelze stáhnout default font (corp cert), na Vercel Edge to půjde čistě.
+
+- [ ] Case study — GardenPin — jak vznikl, co se naučil, výsledky
+  Scope:
+  - Nový MDX post nebo samostatná /projects/gardenpin stránka
+  - Obsah: problém → řešení → tech stack → výsledky → co bych udělal jinak
+  - Česká verze, EN verze volitelná
+  - Odkaz z projektové karty GardenPin
 
 - [x] **[P1] RSS feed pro blog** [S] — hotovo 2026-05-18
   - Per-locale RSS feeds: `/blog/feed.xml`, `/cs/blog/feed.xml`, `/de/blog/feed.xml`. `lib/blog.js` rozšířen o `getAllPostsForLocale(locale)` (fallback na root). `<link rel="alternate" type="application/rss+xml">` přidán přes `generateMetadata` v `app/[locale]/layout.js`.

@@ -103,6 +103,14 @@
     "collaborators_title": "Spolupracovníci a spolutvůrci",
     "university_title": "Univerzitní spolupráce"
   },
+  "testimonials": {
+    "label": "Reference",
+    "title": "Co o spolupráci říkají ostatní",
+    "subtitle": "Krátké citace od lidí, se kterými jsem pracoval — kolegové, partneři, spolutvůrci.",
+    "placeholder_title": "Pracoval jsi se mnou? Napiš mi.",
+    "placeholder_text": "Tahle sekce je zatím prázdná — sbírám krátké citace od lidí, se kterými jsem stavěl projekty, vyjednával nebo přednášel. Jestli jsme spolu na něčem dělali a chceš se přidat, ozvi se.",
+    "placeholder_cta": "Napsat zprávu"
+  },
   "contact": {
     "label": "Kontakt",
     "title": "Pojďme se spojit",
@@ -140,6 +148,29 @@
     "subtitle": "Otevřen AI spolupráci, příležitostem k přednáškám a zajímavým vedlejším projektům.",
     "email_cta": "Poslat e-mail",
     "linkedin_cta": "Spojit se na LinkedIn"
+  },
+  "currentlyBuilding": {
+    "label": "Právě v práci",
+    "title": "Aktuálně stavím",
+    "subtitle": "Tři otevřené projekty, na kterých teď reálně sahám na kód — žádné mockupy ani spící repozitáře.",
+    "active": "Aktivní",
+    "items": {
+      "gardenpin": {
+        "name": "GardenPin",
+        "description": "Zahradní tracker — záhony na canvas mapě, doporučení pro společenskou výsadbu, offline připomínky.",
+        "status": "Právě v developmentu · iOS / web"
+      },
+      "health": {
+        "name": "Zdravotní analyzátor",
+        "description": "Soukromý offline AI nástroj — nahraj lab výsledky, dostaneš srozumitelný rozbor, co je mimo normu.",
+        "status": "Privátní beta"
+      },
+      "centralWeb": {
+        "name": "Central Web",
+        "description": "Tohle portfolio — Next.js 15, i18n cs/en/de, blog, kontaktní formulář. Live a iteruje se každý týden.",
+        "status": "Live · iterativně"
+      }
+    }
   },
   "newsletter": {
     "label": "Newsletter",
@@ -181,7 +212,9 @@
   },
   "meta": {
     "home_title": "Patrik Přikryl – AI Project Manager · Škoda Auto",
+    "home_tagline": "AI Project Manager · Škoda Auto",
     "home_description": "AI Project Manager ve Škodě Auto. Posouvám nákup vpřed pomocí automatizace, AI nástrojů a digitální transformace.",
+    "blog_tagline": "Poznámky o stavění, AI a nákupu",
     "blog_title": "Blog — Patrik Přikryl",
     "blog_description": "Poznámky o AI, nákupu, vedlejších projektech a tom, co se učím při stavění.",
     "gardenpin_title": "GardenPin — případová studie | Patrik Přikryl",

@@ -16,9 +16,14 @@ export async function generateMetadata({ params }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
   const path = locale === 'en' ? '/projects/gardenpin' : `/${locale}/projects/gardenpin`;
+  const ogTitle = t('gardenpin_title');
+  const ogSubtitle = t('gardenpin_description');
+  const ogUrl = `${SITE_URL}/api/og?kind=post&locale=${locale}&title=${encodeURIComponent(
+    ogTitle,
+  )}&tag=${encodeURIComponent('Case Study')}&subtitle=${encodeURIComponent(ogSubtitle)}`;
   return {
-    title: { absolute: t('gardenpin_title') },
-    description: t('gardenpin_description'),
+    title: { absolute: ogTitle },
+    description: ogSubtitle,
     alternates: {
       canonical: path,
       languages: {
@@ -28,8 +33,8 @@ export async function generateMetadata({ params }) {
       },
     },
     openGraph: {
-      title: t('gardenpin_title'),
-      description: t('gardenpin_description'),
+      title: ogTitle,
+      description: ogSubtitle,
       url: `${SITE_URL}${path}`,
       siteName: 'Patrik Přikryl',
       type: 'article',
@@ -37,7 +42,7 @@ export async function generateMetadata({ params }) {
       alternateLocale: alternateOgLocales(locale),
       images: [
         {
-          url: '/og-image.png',
+          url: ogUrl,
           width: 1200,
           height: 630,
           type: 'image/png',
@@ -47,9 +52,9 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: 'summary_large_image',
-      title: t('gardenpin_title'),
-      description: t('gardenpin_description'),
-      images: ['/og-image.png'],
+      title: ogTitle,
+      description: ogSubtitle,
+      images: [ogUrl],
     },
   };
 }

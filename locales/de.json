@@ -103,6 +103,14 @@
     "collaborators_title": "Mitarbeiter & Mitgestalter",
     "university_title": "Universitätszusammenarbeit"
   },
+  "testimonials": {
+    "label": "Stimmen",
+    "title": "Was andere über die Zusammenarbeit sagen",
+    "subtitle": "Kurze Zitate von Menschen, mit denen ich gearbeitet habe — Kollegen, Partner, Mitgestalter.",
+    "placeholder_title": "Haben wir zusammengearbeitet? Schreiben Sie mir.",
+    "placeholder_text": "Dieser Abschnitt ist noch leer — ich sammle kurze Zitate von Menschen, mit denen ich Projekte umgesetzt, verhandelt oder Vorträge gehalten habe. Wenn wir etwas gemeinsam aufgebaut haben und Sie ein paar Worte beisteuern möchten, melden Sie sich.",
+    "placeholder_cta": "Nachricht senden"
+  },
   "contact": {
     "label": "Kontakt",
     "title": "Lassen Sie uns vernetzen",
@@ -140,6 +148,29 @@
     "subtitle": "Offen für KI-Kooperationen, Vortragsanfragen und spannende Nebenprojekte.",
     "email_cta": "E-Mail senden",
     "linkedin_cta": "Auf LinkedIn vernetzen"
+  },
+  "currentlyBuilding": {
+    "label": "In Arbeit",
+    "title": "Aktuell baue ich",
+    "subtitle": "Drei offene Projekte, an denen ich gerade tatsächlich Code schreibe — keine Mockups, keine schlafenden Repos.",
+    "active": "Aktiv",
+    "items": {
+      "gardenpin": {
+        "name": "GardenPin",
+        "description": "Garten-Tracker — Beete auf einer Canvas-Karte, Mischkultur-Hinweise, Offline-Erinnerungen.",
+        "status": "In Entwicklung · iOS / Web"
+      },
+      "health": {
+        "name": "Gesundheits-Analyzer",
+        "description": "Privates Offline-KI-Tool — Laborergebnisse hochladen, klare Erklärung, was außerhalb der Norm liegt.",
+        "status": "Private Beta"
+      },
+      "centralWeb": {
+        "name": "Central Web",
+        "description": "Dieses Portfolio — Next.js 15, i18n cs/en/de, Blog, Kontaktformular. Live und wöchentlich iteriert.",
+        "status": "Live · iterativ"
+      }
+    }
   },
   "newsletter": {
     "label": "Newsletter",
@@ -181,7 +212,9 @@
   },
   "meta": {
     "home_title": "Patrik Přikryl – AI Project Manager · Škoda Auto",
+    "home_tagline": "AI Project Manager · Škoda Auto",
     "home_description": "AI Project Manager bei Škoda Auto. Intelligenter Einkauf durch Automatisierung, KI-Werkzeuge und digitale Transformation.",
+    "blog_tagline": "Notizen zum Bauen, zu KI und zum Einkauf",
     "blog_title": "Blog — Patrik Přikryl",
     "blog_description": "Notizen zu KI, Einkauf, Nebenprojekten und dem, was ich beim Bauen lerne.",
     "gardenpin_title": "GardenPin — Case Study | Patrik Přikryl",
