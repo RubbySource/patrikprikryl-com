@@ -23,9 +23,11 @@
 - [x] Blog post CZ — první česky psaný post — hotovo 2026-05-23
   - Téma posunuté: místo "AI v procurement" zvolen GardenPin (osobnější, lépe ladí s aktuální fází "currently building"). Soubor: `content/blog/cs/jak-jsem-postavil-gardenpin.mdx` (~800 slov, osobní tón, frontmatter title/date/description/excerpt/tags). EN překlad: `content/blog/en/how-i-built-gardenpin.mdx`. AI-v-procurement post zůstává jako budoucí kandidát.
 
-- [ ] Testimonials / social proof sekce — přidat sekci s krátkými citacemi od kolegů nebo partnerů. Pokud není obsah, použít placeholder s výzvou "Pracoval jsem s tebou? Napiš mi."
+- [x] Testimonials / social proof sekce — hotovo 2026-05-23
+  - Nová sekce `components/Testimonials.jsx` zapojena na homepage mezi `CoCreators` a `Contact` (`id="testimonials"`). Data v `data/testimonials.js` (prázdný array — schéma připravené pro budoucí citace: name, role, company, linkedin, image/initials, quote per-locale). Když `testimonials.length === 0`, komponent renderuje friendly placeholder card s CTA "Pracoval jsi se mnou? Napiš mi." (linkuje na `#contact` smooth-scrollem). Když naplní data, gridem 1/2/3 sloupců vykreslí testimonial cards (quote bubble, jméno, role+company, LinkedIn link). Plná i18n cs/en/de v `locales/*.json` (namespace `testimonials`: label, title, subtitle, placeholder_title, placeholder_text, placeholder_cta).
 
-- [ ] Open Graph obrázky — dynamicky generované OG obrázky pro každou stránku pomocí @vercel/og (ImageResponse). Pro blog posty použít title + datum. Pro homepage použít tagline.
+- [x] Open Graph obrázky — hotovo 2026-05-23
+  - Dynamický endpoint `app/api/og/route.jsx` (edge runtime) přes `next/og` `ImageResponse` — 1200×630 PNG s gradientovým slate pozadím, blue→cyan PP markem, title, subtitle/date. Akceptuje query params: `kind=home|post`, `locale`, `title`, `subtitle`, `date`, `tag`. Cache-Control 1h browser / 24h CDN / 1w stale-while-revalidate. Zapojeno do `generateMetadata` na: `app/[locale]/page.js` (homepage — title+tagline), `app/[locale]/blog/page.jsx` (blog index — title+blog_tagline), `app/[locale]/blog/[slug]/page.jsx` (post title+date+tag), `app/[locale]/projects/gardenpin/page.jsx` (case study title+description+"Case Study" tag). Nové i18n klíče `meta.home_tagline` a `meta.blog_tagline` ve všech 3 locales. Ověřeno v dev: endpoint vrací HTTP 200 image/png 1200×630, blog OG renderuje českou datovou hlášku `23. května 2026`. Pozn.: v dev TLS prostředí nelze stáhnout default font (corp cert), na Vercel Edge to půjde čistě.
 
 - [ ] Case study — GardenPin — jak vznikl, co se naučil, výsledky
   Scope:
