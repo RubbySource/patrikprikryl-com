@@ -33,3 +33,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code worktrees + scratch
+/.claude/worktrees/
+/.next.old/
+/build.*
+/*.bat
+/PROMPT.md
+/REDESIGN_STRATEGY.md

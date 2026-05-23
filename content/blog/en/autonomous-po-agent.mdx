@@ -1,0 +1,72 @@
+---
+title: "How I built an autonomous PO agent — Claude Dispatch, scheduled tasks, and an auto-backlog"
+date: "2026-05-23"
+description: "I built a Product Owner that reads its own backlog, picks its own task, commits its own code, and adds what comes next. Here's how it works and why it makes sense to me."
+excerpt: "My portfolio site is built by Claude — but I don't assign it tickets. It reads the backlog itself, commits itself, adds the next thing itself. A few evenings with Claude Dispatch and scheduled tasks, and suddenly I have an agent shipping code overnight."
+tags: ["claude code", "autonomy", "automation", "side project"]
+thumbnail: "/projects/negotiation.jpg"
+---
+
+About a month ago I noticed most of the commits on my portfolio site looked identical: I'd sit down in the evening, scan my todo list, pick one item, tell Claude Code "do this and this", review it, commit, done. It worked. It was fast. And it was exactly the kind of routine that deserves to be automated.
+
+So I built an autonomous Product Owner that runs the routine for me. A few evenings with Claude Dispatch and scheduled tasks, and now it commits overnight what I would have committed in the morning.
+
+## What the PO agent does
+
+Every day at a fixed time a Claude session wakes up in the cloud. It gets a single prompt:
+
+> You are an autonomous developer. Read BACKLOG.md — the ## Queue section. Implement the top 2 unchecked items. After each one: mark [x], commit. At the end: push.
+
+That's it. No supervision, no human-in-the-loop, no "are you sure?". Claude reads the backlog, picks the first two open items, implements them, commits, and pushes. Vercel turns it into a preview deploy, I get a notification, and in the morning I look at what happened.
+
+Most of the time it's fine. Sometimes it isn't — more on that in a second.
+
+## Three moving parts
+
+For this to work, three things have to fit together:
+
+### 1. The backlog as the single source of truth
+
+`BACKLOG.md` in the repo root is a living document. When I have an idea I drop it in as `- [ ] task description`. When Claude finishes something it flips it to `- [x]` and pastes a two-line summary underneath (which files changed, key decisions). No Jira, no Linear, no Notion — a markdown file in the repo.
+
+This gives me two wins: the agent has offline access to the full history of work (it reads it as a prompt), and I don't have to log into anywhere to see what's happening. `cat BACKLOG.md | tail -50` tells me everything.
+
+### 2. Claude Dispatch — a runtime in the cloud
+
+Dispatch is Anthropic's remote runtime — I sit at a terminal and say "kick off this Claude session in the background, in the cloud, with access to my repo". The session gets its own worktree, its own git identity ("Claude Agent"), its own credentials to push to GitHub. When it finishes I get a notification with a link to the transcript.
+
+The lovely thing is that it runs with my laptop closed. That's a hard requirement for me — I'm not at the machine 8 hours a day, so if this needed an open Claude Code session, I probably wouldn't have built it.
+
+### 3. Scheduled tasks — when to fire
+
+Then there's a cron layer. The same Dispatch sessions can be scheduled at a fixed time — "every day at 21:00, run this prompt". I aim it at the evening when I'm doing nothing anyway, so I wake up with a preview to look at.
+
+I'll also schedule one-offs sometimes — before a weekend away, I'll queue a Wednesday and a Friday run so the agent gets two solid working days.
+
+## What works surprisingly well
+
+**Small, well-specified tasks.** When the backlog says "add hreflang tags + canonical URL", the agent does it better than I would — it walks every page, adds them systematically, doesn't miss one. I would have missed the blog index.
+
+**i18n updates.** The agent is more disciplined about touching every language file than I am. A label change ripples through `cs.json` + `en.json` + `de.json` consistently, no "I'll save two and look at the third tomorrow".
+
+**Commit messages and backlog summaries.** This is work I'd otherwise phone in. The agent phones it in too, but consistently — which is more than I was doing.
+
+## What doesn't work
+
+**Anything that requires taste.** When I write "improve the hero section, make it pop more", the agent produces something generic. I delete those tasks from the queue or rewrite them with concrete instructions ("shrink the padding by 20%, bump hero copy to 5xl").
+
+**Anything that requires a decision outside the repo.** "Hook up Plausible Analytics" the agent can't do — it doesn't know my credentials and shouldn't have them. I tag those tasks `[ ] [manual]` and pick them up myself.
+
+**When a backlog item is badly written.** The agent takes it literally. I've learned to write tasks almost like PR descriptions: context, what specifically to do, where, acceptance criteria. When I do that properly, the output is dramatically better.
+
+## What changed
+
+Three weeks in production. What it feels like:
+
+- The backlog is *maintained*. When I have an idea I don't have to drop everything and act on it — I know the agent will get to it.
+- Small things don't rot. Weeks would slip past with "add OG image", "do the sitemap", "fix the mailto link" sitting open. The agent clears those overnight.
+- I get to focus on bigger things — case studies, content, design decisions. The stuff I care about.
+
+And — this surprised me — my relationship to the portfolio has shifted. It's not the project that *I* am writing. It's the project that we maintain together. I make decisions, the agent executes. After a few years in procurement, watching AI start to do exactly the same thing for buyers, this arrangement feels familiar.
+
+I built a buying agent at work. Now I have one for my own site. Cycle complete.

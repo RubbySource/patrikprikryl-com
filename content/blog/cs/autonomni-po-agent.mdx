@@ -1,0 +1,72 @@
+---
+title: "Jak jsem postavil autonomního PO agenta — Claude Dispatch, scheduled tasks a auto-backlog"
+date: "2026-05-23"
+description: "Postavil jsem si Product Ownera, který sám čte backlog, sám si vybere úkol, sám ho commitne a sám si přidá co dál. Tady je, jak to funguje a proč mi to dává smysl."
+excerpt: "Můj portfoliový web staví Claude — jenže já mu úkoly nezadávám. Sám si je čte z backlogu, sám commitne, sám si přidá další. Pár večerů s Claude Dispatch a scheduled tasks a najednou mi v noci pracuje agent."
+tags: ["claude code", "autonomie", "automation", "side project"]
+thumbnail: "/projects/negotiation.jpg"
+---
+
+Asi měsíc zpátky jsem si všiml, že většina komitů na mém portfoliu vypadá takhle: večer si sednu, projedu seznam todo, vyberu jeden úkol, řeknu Claude Code "udělej tohle a tohle", on to udělá, já review, commit, hotovo. Funguje to. Je to rychlé. A je to přesně ten typ rutiny, který si zaslouží být automatizovaný.
+
+Tak jsem si postavil autonomního Product Ownera, který tu rutinu dělá za mě. Pár večerů s Claude Dispatch a scheduled tasks, a teď mi v noci komitne to, co bych jinak komitoval ráno.
+
+## Co PO agent dělá
+
+Každý den ve smluveném čase se v cloudu probudí Claude session. Dostane jeden prompt:
+
+> Jsi autonomní vývojář. Přečti BACKLOG.md — sekci ## Fronta. Implementuj TOP 2 [ ] položky. Po každé: označ [x], commit. Na konci: push.
+
+To je celé. Žádný supervize, žádný human-in-the-loop, žádné "jsi si jistý?". Claude si přečte backlog, vybere si první dvě nedokončené položky, naimplementuje je, commitne a pushne. Vercel z toho udělá deploy preview, dostanu notifikaci, ráno se podívám, co se stalo.
+
+Většinou je to v pořádku. Občas ne — o tom za chvilku.
+
+## Tři stavební kameny
+
+Aby to fungovalo, potřebuju tři věci, které do sebe musí zapadnout:
+
+### 1. Backlog jako jediný zdroj pravdy
+
+`BACKLOG.md` v rootu repa je živý dokument. Když dostanu nápad, hodím ho tam jako `- [ ] popis úkolu`. Když Claude něco dokončí, přepíše to na `- [x]` a přilepí pod to dvouřádkový souhrn co udělal (název souborů, klíčová rozhodnutí). Žádný Jira, žádný Linear, žádný Notion — markdown soubor v repu.
+
+To má dva užitky: agent má offline přístup k celé historii práce (čte ji jako prompt), a já si nemusím nikam logovat, abych viděl co se děje. `cat BACKLOG.md | tail -50` mi řekne všechno.
+
+### 2. Claude Dispatch — spouštěč v cloudu
+
+Dispatch je remote runtime od Anthropicu — sednu si k terminálu a řeknu "spusť tuhle Claude session na pozadí v cloudu, s přístupem k mému repu". Session dostane vlastní worktree, vlastní git identity ("Claude Agent"), vlastní credentials pro push na GitHub. Když skončí, dostanu notifikaci s linkem na transcript.
+
+Krása je, že to běží i když mám zavřený notebook. To je pro mě podmínka — netrávím u stroje 8 hodin denně, takže kdyby to vyžadovalo otevřenou Claude Code session, asi bych to nepostavil.
+
+### 3. Scheduled tasks — kdy spustit
+
+Pak je tu cron vrstva. Stejné Dispatch session se dají naplánovat na pevný čas — "každý den ve 21:00 spusť tenhle prompt". Spouštím to v noci, kdy stejně nic nedělám, abych ráno měl preview ke kontrole.
+
+Občas si naplánuju i jednorázový běh — třeba před cestou na víkend pošlu agenta projít backlog ještě jednou ve středu a v pátek, ať mi to dva dny v kuse pracuje.
+
+## Co funguje překvapivě dobře
+
+**Drobné, dobře specifikované úkoly.** Když je v backlogu napsáno "Přidej hreflang tagy + canonical URL", agent to udělá lépe než já — projde všechny stránky, přidá je systematicky, ani na jednu nezapomene. Já bych zapomněl na blog index.
+
+**i18n updaty.** Agent je v překlepech jazyků nervově odolnější než já. Změna labelu se promítne do `cs.json` + `en.json` + `de.json` konzistentně, bez "uložím dva, na třetí kouknu zítra".
+
+**Commitové zprávy a backlog summaries.** Tohle je práce, kterou bych jinak odflákl. Agent ji odflákne taky, ale konzistentně — což je víc, než jsem dělal já.
+
+## Co nefunguje
+
+**Cokoliv, co vyžaduje vkus.** Když napíšu do backlogu "vylepši hero sekci, ať to víc kope", agent vyrobí něco generického. Tyhle úkoly z fronty mažu nebo přidávám konkrétní zadání ("zmenši padding o 20 %, zvětš font hero copy na 5xl").
+
+**Cokoliv, co vyžaduje rozhodnutí mimo repo.** "Připoj se na Plausible Analytics" agent neudělá — nezná moje credentials, nemám mu je dávat. Tyhle úkoly označuju `[ ] [manual]` a sám si je vyřídím.
+
+**Když má backlog špatně napsanou položku.** Agent ji vezme doslovně. Naučil jsem se psát úkoly skoro jako PR popisy: kontext, co konkrétně udělat, kde, akceptační kritéria. Když to udělám pořádně, výstup je výrazně lepší.
+
+## Co to změnilo
+
+Tři týdny v provozu. Co cítím:
+
+- Backlog je *udržovaný*. Když mám nápad, nemusím ho hned řešit — vím, že na něj agent dojde.
+- Drobné věci nezůstávají ležet. Týdny mi vyšumějí "přidej OG image", "udělej sitemap", "fix mailto link". Agent je sundá za noc.
+- Já se můžu věnovat většímu — případovým studiím, obsahu, designovým rozhodnutím. Tomu, na čem mi záleží.
+
+A — což jsem nečekal — můj vztah k portfoliu se posunul. Není to projekt, který *já* píšu. Je to projekt, který spravujeme spolu. Já dělám rozhodnutí, agent provádí. Po pár letech v procurementu, kde sleduju AI, co začíná dělat to samé pro nákupčí, mi tohle uspořádání přijde důvěrně známé.
+
+Postavil jsem si nákupního agenta. Teď mám i agenta na vlastní web. Cycle complete.
