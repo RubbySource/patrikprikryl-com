@@ -282,6 +282,82 @@
     },
     "card_link": "Read the case study"
   },
+  "caseStudyHealth": {
+    "back": "Back to projects",
+    "header": {
+      "badge": "Case Study · Side Project · Health Tech",
+      "title": "Health Analyzer",
+      "lead": "An offline AI health tracker. Upload a lab report, an OCR pipeline pulls every marker out of the PDF, and a locally-running Llama 3.1 explains — in plain language — what sits outside the reference range. Nothing leaves the laptop."
+    },
+    "problem": {
+      "title": "Problem",
+      "body": "Twice a year I get a stack of lab results — twelve PDFs, fifty markers, three different reference-range conventions. The interesting story is rarely a single bad value; it's the trend across two years. But I'm not about to paste my full blood panel into ChatGPT, and the SaaS trackers that promise this either charge €15/month or quietly forward your data to a third-party API."
+    },
+    "why_local": {
+      "title": "Why local Ollama",
+      "body": "Health data is the textbook case for staying on-device. Hormone panels, lipid trends, anything liver-related — once it leaves your machine, you don't get it back. Running Llama 3.1 8B through Ollama means the model loads in 4 GB of RAM, runs at ~30 tokens/s on an M2 Air, and the only network traffic the app makes is checking for Ollama on localhost:11434. No accounts, no API keys, no cloud bill that scales with how curious I am that week."
+    },
+    "how_it_works": {
+      "title": "How it works — OCR + bulk import",
+      "body": "Drop a folder of PDFs onto the import zone. Tesseract OCR scans each page, a small parser detects the marker name + value + unit + reference range (Czech and German labs use different layouts, so there's a per-lab template registry). Markers get normalised, deduplicated against history, and stored in Postgres. Once a year's worth is in, you click \"Explain\" — the app builds a structured markdown summary (current value vs. range vs. 12-month trend) and ships that, not the raw PDFs, to the local LLM. The model returns three sections: what to watch, what to ignore, what to ask the GP."
+    },
+    "tech_stack": { "title": "Tech Stack" },
+    "features": {
+      "title": "Key Features",
+      "items": [
+        { "title": "100% local inference", "body": "Llama 3.1 8B via Ollama on localhost. No API keys, no rate limits, no subscription. Works on a plane.", "icon": "🔒" },
+        { "title": "Bulk PDF import + OCR", "body": "Drag a folder of lab PDFs onto the import zone. Tesseract pulls text, a per-lab parser extracts marker name + value + unit + range.", "icon": "📄" },
+        { "title": "Trend analysis across years", "body": "Each marker is normalised and stored over time, so you see whether ferritin is genuinely drifting or just noisy week-to-week.", "icon": "📈" },
+        { "title": "Plain-language explanations", "body": "The LLM gets a structured summary, not the raw PDFs. It returns three sections: what to watch, what to ignore, what to ask the GP.", "icon": "🩺" }
+      ]
+    },
+    "timeline": {
+      "title": "Timeline — how it grew",
+      "items": [
+        { "when": "Evening 1", "what": "Painful spike: paste one lab PDF into Claude and ask for analysis. The output was great. The €0.40 per request was not the issue — sending the panel to a third party was." },
+        { "when": "Evening 2", "what": "Installed Ollama, pulled llama3.1:8b, wired up a tiny Next.js page that POSTs to localhost:11434. First local response in 6 seconds." },
+        { "when": "Weekend 1", "what": "OCR pipeline with Tesseract. First three Czech lab templates parsed cleanly; the German one needed a per-lab regex." },
+        { "when": "Weekend 2", "what": "Postgres schema for markers + history. Bulk import of 18 months of PDFs. First trend view." },
+        { "when": "Evening (later)", "what": "Prompt engineering: structured markdown summary, few-shot examples for tone, three-section output. Quality jumped past the original cloud version." },
+        { "when": "Ongoing", "what": "Adding lab templates as I encounter new layouts. Next: an Ollama-based natural-language query layer (\"show me ferritin since 2023\")." }
+      ]
+    },
+    "metrics": {
+      "title": "Numbers",
+      "items": [
+        { "value": "100%", "label": "Local inference" },
+        { "value": "€0", "label": "Monthly API bill" },
+        { "value": "4 GB", "label": "RAM for the model" },
+        { "value": "~30", "label": "Tokens / second on M2" },
+        { "value": "50+", "label": "Markers tracked" },
+        { "value": "0", "label": "Bytes leaving the laptop" }
+      ]
+    },
+    "screenshots": {
+      "title": "Screenshots",
+      "caption": "Screenshots redacted — real lab data inside",
+      "items": [
+        "Bulk import — drop a folder of PDFs",
+        "Marker trend view, 12 months",
+        "LLM explanation panel — three sections",
+        "Per-lab template editor"
+      ]
+    },
+    "lessons": {
+      "title": "What I learned",
+      "items": [
+        { "title": "Local-first changes what you let yourself store", "body": "When inference costs €0 and data never leaves the laptop, you stop self-censoring what you import. The dataset got richer because the privacy cost dropped to zero." },
+        { "title": "Prompt > parameter count, again", "body": "Llama 3.1 8B with a structured summary beats GPT-4 with raw PDFs. The win was in the input shape, not the model size — same lesson I keep relearning." },
+        { "title": "OCR is the unsexy 80%", "body": "I budgeted a weekend for the LLM and an evening for OCR. It was the other way around. Lab PDFs have wildly inconsistent layouts; a per-lab template registry was unavoidable." },
+        { "title": "Health data deserves a higher bar than 'we encrypt in transit'", "body": "Most SaaS trackers will happily process your blood panel through a third-party LLM. I'm not willing to assume that ends well. Local-first wasn't a feature — it was the whole reason to build it." }
+      ]
+    },
+    "cta": {
+      "lead": "Want the build journal?",
+      "button": "Read the technical write-up"
+    },
+    "card_link": "Read the case study"
+  },
   "meta": {
     "home_title": "Patrik Přikryl – AI Project Manager · Škoda Auto",
     "home_tagline": "AI Project Manager · Škoda Auto",
@@ -291,6 +367,8 @@
     "blog_description": "Notes on AI, procurement, side projects, and what I learn while building.",
     "gardenpin_title": "GardenPin — Case Study | Patrik Přikryl",
     "gardenpin_description": "A weekend build: from Moleskine sketch to a working garden-planning app with companion-planting tips, offline mode, and a custom canvas grid.",
+    "health_title": "Health Analyzer — Case Study | Patrik Přikryl",
+    "health_description": "Offline AI health tracker: bulk PDF import, Tesseract OCR, a locally-running Llama 3.1 explains your lab results, nothing leaves the laptop.",
     "terminal_title": "Terminal — patrikprikryl.com",
     "terminal_description": "patrik@portfolio:~$ — type 'help' for a list of commands.",
     "notfound_title": "404 — Lost in the garden | Patrik Přikryl",

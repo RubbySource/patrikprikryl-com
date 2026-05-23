@@ -65,6 +65,19 @@ export default function sitemap() {
     );
   }
 
+  // Health Analyzer case study per locale.
+  for (const locale of LOCALES) {
+    entries.push(
+      entry({
+        url: `${BASE_URL}${localePath(locale, '/projects/zdravotni')}`,
+        lastModified: now,
+        changeFrequency: 'monthly',
+        priority: 0.7,
+        alternates: localesEntry('/projects/zdravotni'),
+      }),
+    );
+  }
+
   // Blog posts — only the slugs that actually exist for each locale.
   // Slugs can differ between locales (e.g. CZ "jak-jsem-postavil-gardenpin"
   // vs EN "how-i-built-gardenpin"), so we don't cross-link them via hreflang.

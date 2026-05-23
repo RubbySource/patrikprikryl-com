@@ -124,5 +124,6 @@ export const hobbyProjects = [
     category: "hobby",
     icon: "health",
     currentlyBuilding: true,
+    caseStudySlug: "zdravotni",
   },
 ];

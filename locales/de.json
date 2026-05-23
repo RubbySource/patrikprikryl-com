@@ -282,6 +282,82 @@
     },
     "card_link": "Case Study lesen"
   },
+  "caseStudyHealth": {
+    "back": "Zurück zu Projekten",
+    "header": {
+      "badge": "Case Study · Nebenprojekt · Health Tech",
+      "title": "Gesundheits-Analyzer",
+      "lead": "Offline KI-Gesundheits-Tracker. Laborbefund hochladen — eine OCR-Pipeline extrahiert jeden Marker aus dem PDF, und ein lokal laufendes Llama 3.1 erklärt in einfacher Sprache, was außerhalb des Referenzbereichs liegt. Nichts verlässt den Laptop."
+    },
+    "problem": {
+      "title": "Problem",
+      "body": "Zweimal im Jahr bekomme ich einen Stapel Laborwerte — zwölf PDFs, fünfzig Marker, drei verschiedene Konventionen für Referenzbereiche. Das Interessante ist selten ein einzelner schlechter Wert; es ist der Trend über zwei Jahre. Aber ich kippe sicher nicht mein komplettes Blutbild in ChatGPT, und die SaaS-Tracker, die das versprechen, kosten entweder 15 €/Monat oder leiten Daten still an eine Drittanbieter-API weiter."
+    },
+    "why_local": {
+      "title": "Warum lokales Ollama",
+      "body": "Gesundheitsdaten sind der Lehrbuchfall fürs On-Device-Bleiben. Hormonpanels, Lipid-Trends, alles Leberbezogene — sobald es deinen Rechner verlässt, bekommst du es nicht zurück. Llama 3.1 8B über Ollama läuft mit 4 GB RAM, etwa 30 Tokens/s auf einem M2 Air, und der einzige Netzwerkverkehr der App ist der Check auf localhost:11434. Keine Accounts, keine API-Schlüssel, keine Cloud-Rechnung, die mit meiner wöchentlichen Neugier wächst."
+    },
+    "how_it_works": {
+      "title": "So funktioniert es — OCR + Bulk-Import",
+      "body": "Einen Ordner mit PDFs in die Import-Zone ziehen. Tesseract OCR scannt jede Seite, ein kleiner Parser erkennt Markername + Wert + Einheit + Referenzbereich (deutsche und tschechische Labors haben unterschiedliche Layouts, daher gibt es ein Pro-Labor-Template-Register). Marker werden normalisiert, gegen die Historie dedupliziert und in Postgres gespeichert. Sobald ein Jahr drin ist, klickst du \"Erklären\" — die App baut eine strukturierte Markdown-Zusammenfassung (aktueller Wert vs. Bereich vs. 12-Monats-Trend) und schickt diese, nicht die rohen PDFs, an das lokale LLM. Das Modell liefert drei Abschnitte: was beobachten, was ignorieren, was den Hausarzt fragen."
+    },
+    "tech_stack": { "title": "Tech Stack" },
+    "features": {
+      "title": "Hauptfunktionen",
+      "items": [
+        { "title": "100 % lokale Inferenz", "body": "Llama 3.1 8B über Ollama auf localhost. Keine API-Schlüssel, keine Rate Limits, kein Abo. Funktioniert im Flugzeug.", "icon": "🔒" },
+        { "title": "Bulk-PDF-Import + OCR", "body": "Einen Ordner mit Labor-PDFs in die Import-Zone ziehen. Tesseract extrahiert Text, ein Pro-Labor-Parser zieht Markername + Wert + Einheit + Bereich heraus.", "icon": "📄" },
+        { "title": "Trendanalyse über Jahre", "body": "Jeder Marker wird normalisiert und über die Zeit gespeichert, sodass du siehst, ob Ferritin tatsächlich driftet oder nur wöchentlich rauscht.", "icon": "📈" },
+        { "title": "Erklärungen in einfacher Sprache", "body": "Das LLM bekommt eine strukturierte Zusammenfassung, nicht die rohen PDFs. Es liefert drei Abschnitte: was beobachten, was ignorieren, was den Hausarzt fragen.", "icon": "🩺" }
+      ]
+    },
+    "timeline": {
+      "title": "Zeitstrahl — wie es wuchs",
+      "items": [
+        { "when": "Abend 1", "what": "Schmerzhafter Spike: ein Labor-PDF in Claude einfügen und Analyse anfordern. Output war stark. 0,40 € pro Request war nicht das Problem — meine Werte an Dritte zu senden, war es." },
+        { "when": "Abend 2", "what": "Ollama installiert, llama3.1:8b gezogen, eine kleine Next.js-Seite verkabelt, die an localhost:11434 POSTet. Erste lokale Antwort nach 6 Sekunden." },
+        { "when": "Wochenende 1", "what": "OCR-Pipeline mit Tesseract. Erste drei tschechische Labor-Templates parsten sauber; das deutsche brauchte einen eigenen Regex." },
+        { "when": "Wochenende 2", "what": "Postgres-Schema für Marker + Historie. Bulk-Import von 18 Monaten PDFs. Erste Trendansicht." },
+        { "when": "Abend (später)", "what": "Prompt Engineering: strukturierte Markdown-Zusammenfassung, Few-Shot-Beispiele für den Ton, dreiteiliger Output. Qualität sprang über die ursprüngliche Cloud-Version." },
+        { "when": "Laufend", "what": "Templates ergänzen, wenn neue Layouts auftauchen. Als Nächstes: eine Ollama-basierte natürlichsprachliche Abfrageschicht (\"zeig mir Ferritin seit 2023\")." }
+      ]
+    },
+    "metrics": {
+      "title": "Zahlen",
+      "items": [
+        { "value": "100 %", "label": "Lokale Inferenz" },
+        { "value": "0 €", "label": "Monatliche API-Rechnung" },
+        { "value": "4 GB", "label": "RAM für das Modell" },
+        { "value": "~30", "label": "Tokens / Sekunde auf M2" },
+        { "value": "50+", "label": "Verfolgte Marker" },
+        { "value": "0", "label": "Bytes verlassen den Laptop" }
+      ]
+    },
+    "screenshots": {
+      "title": "Screenshots",
+      "caption": "Screenshots geschwärzt — echte Labordaten innen",
+      "items": [
+        "Bulk-Import — Ordner mit PDFs ziehen",
+        "Marker-Trend über 12 Monate",
+        "LLM-Erklärungs-Panel — drei Abschnitte",
+        "Pro-Labor-Template-Editor"
+      ]
+    },
+    "lessons": {
+      "title": "Was ich gelernt habe",
+      "items": [
+        { "title": "Lokal-first ändert, was du dir zu speichern erlaubst", "body": "Wenn Inferenz 0 € kostet und Daten den Laptop nie verlassen, hörst du auf, dich beim Importieren zu zensieren. Der Datensatz wurde reicher, weil die Privacy-Kosten auf null fielen." },
+        { "title": "Prompt > Parameteranzahl, schon wieder", "body": "Llama 3.1 8B mit strukturierter Zusammenfassung schlägt GPT-4 mit rohen PDFs. Der Gewinn lag in der Eingabeform, nicht in der Modellgröße — die gleiche Lektion, die ich immer wieder lerne." },
+        { "title": "OCR ist die unsexy 80 %", "body": "Ich hatte ein Wochenende fürs LLM und einen Abend für OCR eingeplant. Es war umgekehrt. Labor-PDFs haben wild inkonsistente Layouts; ein Pro-Labor-Template-Register war unvermeidbar." },
+        { "title": "Gesundheitsdaten verdienen mehr als 'wir verschlüsseln in Transit'", "body": "Die meisten SaaS-Tracker schicken dein Blutbild ohne zu zögern durch ein Drittanbieter-LLM. Ich bin nicht bereit anzunehmen, dass das gut endet. Lokal-first war kein Feature — es war der ganze Grund, das zu bauen." }
+      ]
+    },
+    "cta": {
+      "lead": "Möchtest du das ganze Build-Journal?",
+      "button": "Den technischen Bericht lesen"
+    },
+    "card_link": "Case Study lesen"
+  },
   "meta": {
     "home_title": "Patrik Přikryl – AI Project Manager · Škoda Auto",
     "home_tagline": "AI Project Manager · Škoda Auto",
@@ -291,6 +367,8 @@
     "blog_description": "Notizen zu KI, Einkauf, Nebenprojekten und dem, was ich beim Bauen lerne.",
     "gardenpin_title": "GardenPin — Case Study | Patrik Přikryl",
     "gardenpin_description": "Ein Wochenendprojekt: von der Moleskine-Skizze zur Gartenplanungs-App mit Pflanzempfehlungen, Offline-Modus und einem Canvas-Raster.",
+    "health_title": "Gesundheits-Analyzer — Case Study | Patrik Přikryl",
+    "health_description": "Offline KI-Gesundheits-Tracker: Bulk-PDF-Import, Tesseract OCR, lokal laufendes Llama 3.1 erklärt deine Laborwerte — nichts verlässt den Laptop.",
     "terminal_title": "Terminal — patrikprikryl.com",
     "terminal_description": "patrik@portfolio:~$ — geben Sie 'help' für eine Befehlsliste ein.",
     "notfound_title": "404 — Im Garten verirrt | Patrik Přikryl",

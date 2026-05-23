@@ -1,0 +1,355 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { useTranslations } from 'next-intl';
+
+const ACCENT = '#BE185D';
+
+const TECH_STACK = [
+  {
+    name: 'Next.js 15',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7">
+        <path d="M11.572 0c-.176 0-.31.001-.358.007a19.76 19.76 0 0 1-.364.033C7.443.346 4.25 2.185 2.228 5.012a11.875 11.875 0 0 0-2.119 5.243c-.096.659-.108.854-.108 1.747s.012 1.089.108 1.748c.652 4.506 3.86 8.292 8.209 9.695.779.25 1.6.422 2.534.525.363.04 1.935.04 2.299 0 1.611-.178 2.977-.577 4.323-1.264.207-.106.247-.134.219-.158-.02-.013-.9-1.193-1.955-2.62l-1.919-2.592-2.404-3.558a338.739 338.739 0 0 0-2.422-3.556c-.009-.002-.018 1.579-.023 3.51-.007 3.38-.01 3.515-.052 3.595a.426.426 0 0 1-.206.214c-.075.037-.14.044-.495.044H7.81l-.108-.068a.438.438 0 0 1-.157-.171l-.05-.106.006-4.703.007-4.705.072-.092a.645.645 0 0 1 .174-.143c.096-.047.134-.051.54-.051.478 0 .558.018.682.154.035.038 1.337 1.999 2.895 4.361a10760.433 10760.433 0 0 0 4.735 7.17l1.9 2.879.096-.063a12.317 12.317 0 0 0 2.466-2.163 11.944 11.944 0 0 0 2.824-6.134c.096-.66.108-.854.108-1.748 0-.893-.012-1.088-.108-1.747-.652-4.506-3.859-8.292-8.208-9.695a12.597 12.597 0 0 0-2.499-.523A33.119 33.119 0 0 0 11.573 0z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Ollama',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-7 h-7">
+        <path d="M12 3c-3.5 0-6 2.5-6 6 0 1.5.5 2.8 1.3 3.8C6.5 13.5 6 14.7 6 16c0 2.8 2.7 5 6 5s6-2.2 6-5c0-1.3-.5-2.5-1.3-3.2.8-1 1.3-2.3 1.3-3.8 0-3.5-2.5-6-6-6z" />
+        <circle cx="9.5" cy="10" r="0.8" fill="currentColor" />
+        <circle cx="14.5" cy="10" r="0.8" fill="currentColor" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Llama 3.1',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-7 h-7">
+        <path d="M4 21c0-4 2-7 5-7s3 2 3 4-1 3-1 3" />
+        <path d="M12 21c0-3 2-6 5-6s3 1 3 3" />
+        <circle cx="8" cy="6" r="2.5" />
+        <path d="M9 4.5l1-1.5M7 4.5L6 3" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Tesseract OCR',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-7 h-7">
+        <rect x="3" y="4" width="18" height="16" rx="2" />
+        <path d="M3 9h18" />
+        <path d="M7 14h4M7 17h7" />
+      </svg>
+    ),
+  },
+  {
+    name: 'PostgreSQL',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-7 h-7">
+        <ellipse cx="12" cy="5" rx="9" ry="3" />
+        <path d="M3 5v6c0 1.66 4.03 3 9 3s9-1.34 9-3V5" />
+        <path d="M3 11v6c0 1.66 4.03 3 9 3s9-1.34 9-3v-6" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Tailwind',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7">
+        <path d="M12 6c-2.67 0-4.33 1.33-5 4 1-1.33 2.17-1.83 3.5-1.5.76.19 1.31.74 1.91 1.35C13.39 10.85 14.55 12 17 12c2.67 0 4.33-1.33 5-4-1 1.33-2.17 1.83-3.5 1.5-.76-.19-1.3-.74-1.91-1.35C15.61 7.15 14.45 6 12 6Zm-5 6c-2.67 0-4.33 1.33-5 4 1-1.33 2.17-1.83 3.5-1.5.76.19 1.3.74 1.91 1.35C8.39 16.85 9.55 18 12 18c2.67 0 4.33-1.33 5-4-1 1.33-2.17 1.83-3.5 1.5-.76-.19-1.3-.74-1.91-1.35C10.61 13.15 9.45 12 7 12Z" />
+      </svg>
+    ),
+  },
+];
+
+function FadeIn({ children, delay = 0 }) {
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.15 });
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 24 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export default function HealthAnalyzerCaseStudy() {
+  const t = useTranslations('caseStudyHealth');
+  const features = t.raw('features.items');
+  const timeline = t.raw('timeline.items');
+  const metrics = t.raw('metrics.items');
+  const screenshots = t.raw('screenshots.items');
+  const lessons = t.raw('lessons.items');
+
+  return (
+    <div className="space-y-20">
+      <FadeIn>
+        <header>
+          <span
+            className="text-xs font-semibold tracking-widest uppercase mb-4 block"
+            style={{ color: ACCENT }}
+          >
+            {t('header.badge')}
+          </span>
+          <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl text-[var(--text)] leading-[1.1] mb-6">
+            {t('header.title')}
+          </h1>
+          <p className="text-xl text-[var(--muted)] max-w-3xl leading-relaxed">
+            {t('header.lead')}
+          </p>
+        </header>
+      </FadeIn>
+
+      <FadeIn>
+        <section>
+          <h2
+            className="font-display font-bold text-2xl sm:text-3xl mb-4"
+            style={{ color: ACCENT }}
+          >
+            {t('problem.title')}
+          </h2>
+          <p className="text-lg text-[var(--text)]/85 leading-relaxed max-w-3xl">
+            {t('problem.body')}
+          </p>
+        </section>
+      </FadeIn>
+
+      <FadeIn>
+        <section>
+          <h2
+            className="font-display font-bold text-2xl sm:text-3xl mb-4"
+            style={{ color: ACCENT }}
+          >
+            {t('why_local.title')}
+          </h2>
+          <p className="text-lg text-[var(--text)]/85 leading-relaxed max-w-3xl">
+            {t('why_local.body')}
+          </p>
+        </section>
+      </FadeIn>
+
+      <FadeIn>
+        <section>
+          <h2
+            className="font-display font-bold text-2xl sm:text-3xl mb-4"
+            style={{ color: ACCENT }}
+          >
+            {t('how_it_works.title')}
+          </h2>
+          <p className="text-lg text-[var(--text)]/85 leading-relaxed max-w-3xl mb-6">
+            {t('how_it_works.body')}
+          </p>
+        </section>
+      </FadeIn>
+
+      <FadeIn>
+        <section>
+          <h2
+            className="font-display font-bold text-2xl sm:text-3xl mb-6"
+            style={{ color: ACCENT }}
+          >
+            {t('tech_stack.title')}
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {TECH_STACK.map((tech, i) => (
+              <motion.div
+                key={tech.name}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+                className="flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-[var(--card)]"
+              >
+                <span style={{ color: ACCENT }}>{tech.icon}</span>
+                <span className="font-medium text-[var(--text)]">{tech.name}</span>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+      </FadeIn>
+
+      <FadeIn>
+        <section>
+          <h2
+            className="font-display font-bold text-2xl sm:text-3xl mb-6"
+            style={{ color: ACCENT }}
+          >
+            {t('features.title')}
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-5">
+            {features.map((f, i) => (
+              <motion.div
+                key={f.title}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="p-6 rounded-2xl border border-[var(--border)] bg-[var(--card)] hover:border-pink-500/40 transition-colors"
+              >
+                <div className="text-3xl mb-3" aria-hidden>
+                  {f.icon}
+                </div>
+                <h3 className="font-display font-semibold text-lg text-[var(--text)] mb-2">
+                  {f.title}
+                </h3>
+                <p className="text-sm text-[var(--muted)] leading-relaxed">{f.body}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+      </FadeIn>
+
+      <FadeIn>
+        <section>
+          <h2
+            className="font-display font-bold text-2xl sm:text-3xl mb-6"
+            style={{ color: ACCENT }}
+          >
+            {t('timeline.title')}
+          </h2>
+          <ol className="relative border-l-2 pl-6 space-y-6" style={{ borderColor: `${ACCENT}55` }}>
+            {timeline.map((item, i) => (
+              <motion.li
+                key={i}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.06 }}
+                className="relative"
+              >
+                <span
+                  className="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full ring-4 ring-[var(--bg)]"
+                  style={{ background: ACCENT }}
+                />
+                <div
+                  className="text-xs font-mono uppercase tracking-widest mb-1"
+                  style={{ color: ACCENT }}
+                >
+                  {item.when}
+                </div>
+                <p className="text-base text-[var(--text)]/85 leading-relaxed">{item.what}</p>
+              </motion.li>
+            ))}
+          </ol>
+        </section>
+      </FadeIn>
+
+      <FadeIn>
+        <section>
+          <h2
+            className="font-display font-bold text-2xl sm:text-3xl mb-6"
+            style={{ color: ACCENT }}
+          >
+            {t('metrics.title')}
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {metrics.map((m, i) => (
+              <motion.div
+                key={m.label}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+                className="p-5 rounded-2xl border border-[var(--border)] bg-[var(--card)]"
+              >
+                <div
+                  className="font-display font-bold text-3xl sm:text-4xl mb-1"
+                  style={{ color: ACCENT }}
+                >
+                  {m.value}
+                </div>
+                <div className="text-xs uppercase tracking-wider text-[var(--muted)] font-medium">
+                  {m.label}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+      </FadeIn>
+
+      <FadeIn>
+        <section>
+          <h2
+            className="font-display font-bold text-2xl sm:text-3xl mb-6"
+            style={{ color: ACCENT }}
+          >
+            {t('screenshots.title')}
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {screenshots.map((label, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: i * 0.07 }}
+                className="aspect-[16/10] rounded-2xl border border-dashed border-[var(--border)] bg-gradient-to-br from-pink-900/10 via-rose-900/5 to-transparent flex flex-col items-center justify-center text-center p-6"
+              >
+                <div className="text-4xl mb-3" aria-hidden>
+                  🩺
+                </div>
+                <p className="text-sm font-medium text-[var(--muted)]">{label}</p>
+                <p className="text-xs text-[var(--muted)]/70 mt-1">
+                  {t('screenshots.caption')}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+      </FadeIn>
+
+      <FadeIn>
+        <section>
+          <h2
+            className="font-display font-bold text-2xl sm:text-3xl mb-6"
+            style={{ color: ACCENT }}
+          >
+            {t('lessons.title')}
+          </h2>
+          <div className="space-y-5">
+            {lessons.map((l, i) => (
+              <motion.div
+                key={l.title}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.06 }}
+                className="p-6 rounded-2xl border-l-4 bg-[var(--card)]"
+                style={{ borderLeftColor: ACCENT }}
+              >
+                <h3 className="font-display font-semibold text-lg text-[var(--text)] mb-2">
+                  {l.title}
+                </h3>
+                <p className="text-base text-[var(--muted)] leading-relaxed">{l.body}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+      </FadeIn>
+
+      <FadeIn>
+        <section className="text-center py-10 border-t border-[var(--border)]">
+          <p className="text-base text-[var(--muted)] mb-4">
+            {t('cta.lead')}
+          </p>
+          <a
+            href="/blog/local-ai-health"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-semibold text-sm hover:opacity-90 active:scale-95 transition-all duration-200 shadow-lg"
+            style={{ background: ACCENT, boxShadow: `0 10px 30px -10px ${ACCENT}66` }}
+          >
+            {t('cta.button')}
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </a>
+        </section>
+      </FadeIn>
+    </div>
+  );
+}

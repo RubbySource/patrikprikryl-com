@@ -52,17 +52,12 @@
   - **Hotovo:** `@next/bundle-analyzer` přidán do devDependencies. Wrap v `next.config.js` lazy-loaded (`require()` jen pokud `ANALYZE=true` — bezpečné pro produkční build). NPM script `analyze` přes Node wrapper (`scripts/analyze.js`) — cross-platform (Windows cmd nemá inline ENV=value). Vytvořen `PERF_NOTES.md` s baseline (z LIGHTHOUSE_NOTES.md), top 3 kandidáty (framer-motion → LazyMotion ~25kB, lenis lazy-load ~10kB, next-intl client boundary audit) a metodologií. Vlastní `npm run analyze` v této worktree nespuštěn (node.exe nedostupný); reprodukovatelné přes `npm install && npm run analyze`. Ověření přes Vercel CI deploy.
 
 
+- [x] Case study — Zdravotní analyzátor — jak funguje offline AI health tracker, proč lokální Ollama model, co jsem se naučil. Stejná struktura jako GardenPin case study. cs/en/de. — hotovo 2026-05-23
+  - Nová stránka `/[locale]/projects/zdravotni` (`app/[locale]/projects/zdravotni/page.jsx`) + komponenta `components/HealthAnalyzerCaseStudy.jsx`. Struktura mirroruje GardenPin case study (header / problem / why_local / how_it_works / tech_stack / features×4 / timeline×6 / metrics×6 / screenshots×4 / lessons×4 / CTA), s rose/pink akcentem (`#BE185D`) místo modré. Tech stack: Next.js 15, Ollama, Llama 3.1, Tesseract OCR, PostgreSQL, Tailwind. CTA odkazuje na `/blog/local-ai-health`. Plná i18n v namespace `caseStudyHealth` (cs/en/de) + nové meta klíče `meta.health_title` / `meta.health_description`. `HobbyProjectCard` "Health Analyzer" dostal `caseStudySlug: 'zdravotni'` v `data/projects.js` → smaragdový "Číst případovou studii" link se renderuje automaticky (sdílí `caseStudy.card_link` string). Sitemap rozšířen o `/projects/zdravotni` per-locale (priority 0.7). Verifikace přes Vercel CI / preview deploy.
+
+- [ ] Blog post 3 — "Jak jsem postavil autonomního PO agenta" — osobní tech post o Claude Dispatch + scheduled tasks + auto-backlog workflow. cs + en verze.
+
+- [ ] Kontaktní stránka /contact — samostatná stránka (ne jen sekce na homepage) s formulářem, LinkedIn, GitHub, krátké "o mně" ve 2 větách. SEO: structured data ContactPoint. cs/en/de.
+
 - [x] Dynamický sitemap.xml — všechny stránky + blog posty, per-locale (cs/en/de) — hotovo 2026-05-23
-  - `app/sitemap.js` přepracován pro Next.js native sitemap. Per-locale entries respektující `localePrefix: 'as-needed'` (EN bez prefixu, /cs a /de s prefixem). Zahrnuje: homepage (priority 1.0, monthly), blog index (0.7, weekly), GardenPin case study (0.7, monthly), všechny blog posty per-locale dle `getAllPostsForLocale()` (0.6, monthly, `lastModified` z frontmatter `date`), terminal easter-egg (0.3, yearly). `alternates.languages` (hreflang) pro stránky, které existují ve všech locales; blog posty bez hreflang (slugy se liší mezi jazyky — CZ "jak-jsem-postavil-gardenpin" vs EN "how-i-built-gardenpin"). Ověřeno v buildu — `/sitemap.xml` je v output jako static.
-
-- [x] Druhý blog post — Lokální AI Health Analyzer — hotovo 2026-05-23
-  - Téma posunuté: místo "AI v procurement" (které by bylo plnější marketing-spin) zvolen osobnější příběh o nahrazení OpenAI API lokálním Ollama modelem (Llama 3.1 8B) pro analýzu zdravotních dat. Tematicky ladí s novou kartou "Zdravotní analyzátor" v hobby projektech. Soubory: `content/blog/cs/local-ai-health.mdx` a `content/blog/en/local-ai-health.mdx` (~900 slov, technický tón s konkrétními čísly — €30/měs OpenAI bill, 4.7 GB model, Q4_K_M quantization). Frontmatter title/date/excerpt/tags/thumbnail. AI-v-procurement post zůstává jako budoucí kandidát.
-
-- [x] Web Vitals monitoring — Vercel Speed Insights — hotovo 2026-05-23
-  - `@vercel/speed-insights@^1.3.1` nainstalován jako runtime dependency. `<SpeedInsights />` component zapojen v `app/layout.js` (vedle `<Analytics />`, mimo `<head>` v `<body>`). Real-user metriky (LCP, FID, CLS, INP, TTFB) automaticky odesílány do Vercel dashboard po deploy. Žádná konfigurace — zero-config integrace. Vercel UI: Project → Speed Insights. Pozn.: SpeedInsights vyžaduje produkční Vercel deploy pro shromažďování dat (v dev pouze console log).
-
----
-
-## [P1] Async params audit — Next.js 15 kompletní migrace
-- **Status:** done
-- **Projekt:** 04_Centra
+  - `app/sitemap.js` přepracován pro Next.js native sitemap. Per-locale entries respektující `localePrefix: 'as-needed'` (EN bez prefixu, /cs a /de s prefixem). Zahrnuje: homepage (priority 1.0, monthly), blog index (0.7, weekly), GardenPin case study (0.7,
