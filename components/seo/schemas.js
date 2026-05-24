@@ -67,3 +67,33 @@ export function portfolioSchema(locale, projects) {
     })),
   };
 }
+
+export function contactPageSchema(locale = 'en') {
+  const langMap = { en: 'en-US', cs: 'cs-CZ', de: 'de-DE' };
+  const path = locale === 'en' ? '/contact' : `/${locale}/contact`;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    '@id': `${SITE_URL}${path}#contactpage`,
+    name: 'Contact — Patrik Přikryl',
+    url: `${SITE_URL}${path}`,
+    inLanguage: langMap[locale] ?? 'en-US',
+    mainEntity: {
+      '@type': 'Person',
+      name: 'Patrik Přikryl',
+      jobTitle: 'AI Project Manager',
+      url: SITE_URL,
+      sameAs: [
+        'https://www.linkedin.com/in/patrikprikryl',
+        'https://github.com/RubbySource',
+      ],
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'Professional Inquiries',
+        url: `${SITE_URL}${path}`,
+        availableLanguage: ['English', 'Czech', 'German'],
+        areaServed: 'Worldwide',
+      },
+    },
+  };
+}

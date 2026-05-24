@@ -25,8 +25,8 @@ function TechStackTags({ techStack }) {
 const projectCardEase = [0.22, 1, 0.36, 1];
 
 const projectCardHoverVariants = {
-  rest: {},
-  hover: {},
+  rest: { scale: 1 },
+  hover: { scale: 1.008, transition: { duration: 0.6, ease: projectCardEase } },
 };
 
 const projectMediaVariants = {
@@ -54,7 +54,6 @@ function ProjectCard({ project, index, totalCount, t, locale }) {
     <motion.div
       initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.008 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.6, ease: projectCardEase }}
       variants={projectCardHoverVariants}
@@ -193,7 +192,6 @@ function HobbyProjectCard({ project, index, locale, t }) {
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -6, scale: 1.02 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.55, ease: projectCardEase, delay: index * 0.1 }}
       variants={hobbyCardHoverVariants}

@@ -225,36 +225,90 @@
       "title": "Solution",
       "body": "A phone-friendly, offline-first web app where each raised bed is a top-down grid. Plants are dragged onto tiles; a companion-planting graph scores their neighbours in real-time. Sowing dates trigger watering and harvest reminders via the browser's Notification API. No accounts, no servers, no tracking — just a 32-character device ID in a cookie and an opt-in sync endpoint."
     },
-    "tech_stack": { "title": "Tech Stack" },
+    "tech_stack": {
+      "title": "Tech Stack"
+    },
     "features": {
       "title": "Key Features",
       "items": [
-        { "title": "Companion-planting graph", "body": "278-plant catalogue with companion / antagonist edges encoded as a sparse adjacency table. Drag-and-drop scoring picks tiles where neighbours boost growth and avoid known antagonists.", "icon": "🌱" },
-        { "title": "Interactive map + canvas grid", "body": "~140 lines of vanilla canvas: pan via pointer events, pinch-zoom around the cursor, plants render as coloured circles + emoji. No charting library, no map tiles, no SVG.", "icon": "🗺️" },
-        { "title": "iCal export to iOS calendar", "body": "Sowing, watering and harvest tasks ship as a one-tap subscribable .ics feed. Add it once on your iPhone and reminders appear next to the rest of your calendar — no extra app to open.", "icon": "📅" },
-        { "title": "Offline-first by default", "body": "All user data lives in localStorage. A 32-character device ID lets you opt in to single-endpoint sync. No accounts, no passwords, no third-party trackers.", "icon": "📡" }
+        {
+          "title": "Companion-planting graph",
+          "body": "278-plant catalogue with companion / antagonist edges encoded as a sparse adjacency table. Drag-and-drop scoring picks tiles where neighbours boost growth and avoid known antagonists.",
+          "icon": "🌱"
+        },
+        {
+          "title": "Interactive map + canvas grid",
+          "body": "~140 lines of vanilla canvas: pan via pointer events, pinch-zoom around the cursor, plants render as coloured circles + emoji. No charting library, no map tiles, no SVG.",
+          "icon": "🗺️"
+        },
+        {
+          "title": "iCal export to iOS calendar",
+          "body": "Sowing, watering and harvest tasks ship as a one-tap subscribable .ics feed. Add it once on your iPhone and reminders appear next to the rest of your calendar — no extra app to open.",
+          "icon": "📅"
+        },
+        {
+          "title": "Offline-first by default",
+          "body": "All user data lives in localStorage. A 32-character device ID lets you opt in to single-endpoint sync. No accounts, no passwords, no third-party trackers.",
+          "icon": "📡"
+        }
       ]
     },
     "timeline": {
       "title": "Timeline — 48 hours, in order",
       "items": [
-        { "when": "Friday 19:00", "what": "Started with React Native + Mapbox. Three hours later: simulator certs unresolved, Mapbox demanding a credit card. Scrap." },
-        { "when": "Friday 22:30", "what": "Reset. Plain Next.js 14 + canvas. Drew the first bed grid in 40 minutes." },
-        { "when": "Saturday morning", "what": "Curated the 84-plant catalogue and the companion / antagonist relations. Detour through r/permaculture for weighting." },
-        { "when": "Saturday afternoon", "what": "Drag-and-drop pin placement, neighbour scoring, score visualisation on hover." },
-        { "when": "Saturday evening", "what": "Reminder generation from sowing dates. Web Notifications API wired up. First end-to-end run." },
-        { "when": "Sunday", "what": "Polish: dark mode, keyboard navigation, exporting beds as PNG, deploy to Vercel. Ship." }
+        {
+          "when": "Friday 19:00",
+          "what": "Started with React Native + Mapbox. Three hours later: simulator certs unresolved, Mapbox demanding a credit card. Scrap."
+        },
+        {
+          "when": "Friday 22:30",
+          "what": "Reset. Plain Next.js 14 + canvas. Drew the first bed grid in 40 minutes."
+        },
+        {
+          "when": "Saturday morning",
+          "what": "Curated the 84-plant catalogue and the companion / antagonist relations. Detour through r/permaculture for weighting."
+        },
+        {
+          "when": "Saturday afternoon",
+          "what": "Drag-and-drop pin placement, neighbour scoring, score visualisation on hover."
+        },
+        {
+          "when": "Saturday evening",
+          "what": "Reminder generation from sowing dates. Web Notifications API wired up. First end-to-end run."
+        },
+        {
+          "when": "Sunday",
+          "what": "Polish: dark mode, keyboard navigation, exporting beds as PNG, deploy to Vercel. Ship."
+        }
       ]
     },
     "metrics": {
       "title": "Metrics",
       "items": [
-        { "value": "48", "label": "Hours from start to deploy" },
-        { "value": "278", "label": "Plants in catalogue" },
-        { "value": "1,800+", "label": "Companion / antagonist edges" },
-        { "value": "~140", "label": "Lines of canvas code" },
-        { "value": "0", "label": "External map / charting libs" },
-        { "value": "✓", "label": "iCal feed for iOS calendar" }
+        {
+          "value": "48",
+          "label": "Hours from start to deploy"
+        },
+        {
+          "value": "278",
+          "label": "Plants in catalogue"
+        },
+        {
+          "value": "1,800+",
+          "label": "Companion / antagonist edges"
+        },
+        {
+          "value": "~140",
+          "label": "Lines of canvas code"
+        },
+        {
+          "value": "0",
+          "label": "External map / charting libs"
+        },
+        {
+          "value": "✓",
+          "label": "iCal feed for iOS calendar"
+        }
       ]
     },
     "screenshots": {
@@ -270,10 +324,22 @@
     "lessons": {
       "title": "What I learned",
       "items": [
-        { "title": "Friction is the enemy of weekend builds", "body": "The right stack is the one you can reach without burning a half-day on certs, billing accounts, or framework debates. I dropped React Native the second it cost me three hours." },
-        { "title": "Canvas beats charting libraries when the geometry is yours", "body": "I almost installed Konva. The whole map ended up in 140 lines of vanilla canvas, and I understand every pixel. Reach for a library when you'd be re-implementing it badly — not before." },
-        { "title": "Curate data before you build the visualisation", "body": "I started with the canvas and discovered halfway through Saturday that my plant data was incomplete. A weekend build doesn't have time for two passes — get the data right first, then make it pretty." },
-        { "title": "Skip backend cron jobs when client-side derivations work", "body": "Reminders are deterministic functions of your plant data. I generate them in the browser and use the Notification API — no worker, no queue, no infrastructure. Hobby apps reward this kind of simplification." }
+        {
+          "title": "Friction is the enemy of weekend builds",
+          "body": "The right stack is the one you can reach without burning a half-day on certs, billing accounts, or framework debates. I dropped React Native the second it cost me three hours."
+        },
+        {
+          "title": "Canvas beats charting libraries when the geometry is yours",
+          "body": "I almost installed Konva. The whole map ended up in 140 lines of vanilla canvas, and I understand every pixel. Reach for a library when you'd be re-implementing it badly — not before."
+        },
+        {
+          "title": "Curate data before you build the visualisation",
+          "body": "I started with the canvas and discovered halfway through Saturday that my plant data was incomplete. A weekend build doesn't have time for two passes — get the data right first, then make it pretty."
+        },
+        {
+          "title": "Skip backend cron jobs when client-side derivations work",
+          "body": "Reminders are deterministic functions of your plant data. I generate them in the browser and use the Notification API — no worker, no queue, no infrastructure. Hobby apps reward this kind of simplification."
+        }
       ]
     },
     "cta": {
@@ -301,36 +367,90 @@
       "title": "How it works — OCR + bulk import",
       "body": "Drop a folder of PDFs onto the import zone. Tesseract OCR scans each page, a small parser detects the marker name + value + unit + reference range (Czech and German labs use different layouts, so there's a per-lab template registry). Markers get normalised, deduplicated against history, and stored in Postgres. Once a year's worth is in, you click \"Explain\" — the app builds a structured markdown summary (current value vs. range vs. 12-month trend) and ships that, not the raw PDFs, to the local LLM. The model returns three sections: what to watch, what to ignore, what to ask the GP."
     },
-    "tech_stack": { "title": "Tech Stack" },
+    "tech_stack": {
+      "title": "Tech Stack"
+    },
     "features": {
       "title": "Key Features",
       "items": [
-        { "title": "100% local inference", "body": "Llama 3.1 8B via Ollama on localhost. No API keys, no rate limits, no subscription. Works on a plane.", "icon": "🔒" },
-        { "title": "Bulk PDF import + OCR", "body": "Drag a folder of lab PDFs onto the import zone. Tesseract pulls text, a per-lab parser extracts marker name + value + unit + range.", "icon": "📄" },
-        { "title": "Trend analysis across years", "body": "Each marker is normalised and stored over time, so you see whether ferritin is genuinely drifting or just noisy week-to-week.", "icon": "📈" },
-        { "title": "Plain-language explanations", "body": "The LLM gets a structured summary, not the raw PDFs. It returns three sections: what to watch, what to ignore, what to ask the GP.", "icon": "🩺" }
+        {
+          "title": "100% local inference",
+          "body": "Llama 3.1 8B via Ollama on localhost. No API keys, no rate limits, no subscription. Works on a plane.",
+          "icon": "🔒"
+        },
+        {
+          "title": "Bulk PDF import + OCR",
+          "body": "Drag a folder of lab PDFs onto the import zone. Tesseract pulls text, a per-lab parser extracts marker name + value + unit + range.",
+          "icon": "📄"
+        },
+        {
+          "title": "Trend analysis across years",
+          "body": "Each marker is normalised and stored over time, so you see whether ferritin is genuinely drifting or just noisy week-to-week.",
+          "icon": "📈"
+        },
+        {
+          "title": "Plain-language explanations",
+          "body": "The LLM gets a structured summary, not the raw PDFs. It returns three sections: what to watch, what to ignore, what to ask the GP.",
+          "icon": "🩺"
+        }
       ]
     },
     "timeline": {
       "title": "Timeline — how it grew",
       "items": [
-        { "when": "Evening 1", "what": "Painful spike: paste one lab PDF into Claude and ask for analysis. The output was great. The €0.40 per request was not the issue — sending the panel to a third party was." },
-        { "when": "Evening 2", "what": "Installed Ollama, pulled llama3.1:8b, wired up a tiny Next.js page that POSTs to localhost:11434. First local response in 6 seconds." },
-        { "when": "Weekend 1", "what": "OCR pipeline with Tesseract. First three Czech lab templates parsed cleanly; the German one needed a per-lab regex." },
-        { "when": "Weekend 2", "what": "Postgres schema for markers + history. Bulk import of 18 months of PDFs. First trend view." },
-        { "when": "Evening (later)", "what": "Prompt engineering: structured markdown summary, few-shot examples for tone, three-section output. Quality jumped past the original cloud version." },
-        { "when": "Ongoing", "what": "Adding lab templates as I encounter new layouts. Next: an Ollama-based natural-language query layer (\"show me ferritin since 2023\")." }
+        {
+          "when": "Evening 1",
+          "what": "Painful spike: paste one lab PDF into Claude and ask for analysis. The output was great. The €0.40 per request was not the issue — sending the panel to a third party was."
+        },
+        {
+          "when": "Evening 2",
+          "what": "Installed Ollama, pulled llama3.1:8b, wired up a tiny Next.js page that POSTs to localhost:11434. First local response in 6 seconds."
+        },
+        {
+          "when": "Weekend 1",
+          "what": "OCR pipeline with Tesseract. First three Czech lab templates parsed cleanly; the German one needed a per-lab regex."
+        },
+        {
+          "when": "Weekend 2",
+          "what": "Postgres schema for markers + history. Bulk import of 18 months of PDFs. First trend view."
+        },
+        {
+          "when": "Evening (later)",
+          "what": "Prompt engineering: structured markdown summary, few-shot examples for tone, three-section output. Quality jumped past the original cloud version."
+        },
+        {
+          "when": "Ongoing",
+          "what": "Adding lab templates as I encounter new layouts. Next: an Ollama-based natural-language query layer (\"show me ferritin since 2023\")."
+        }
       ]
     },
     "metrics": {
       "title": "Numbers",
       "items": [
-        { "value": "100%", "label": "Local inference" },
-        { "value": "€0", "label": "Monthly API bill" },
-        { "value": "4 GB", "label": "RAM for the model" },
-        { "value": "~30", "label": "Tokens / second on M2" },
-        { "value": "50+", "label": "Markers tracked" },
-        { "value": "0", "label": "Bytes leaving the laptop" }
+        {
+          "value": "100%",
+          "label": "Local inference"
+        },
+        {
+          "value": "€0",
+          "label": "Monthly API bill"
+        },
+        {
+          "value": "4 GB",
+          "label": "RAM for the model"
+        },
+        {
+          "value": "~30",
+          "label": "Tokens / second on M2"
+        },
+        {
+          "value": "50+",
+          "label": "Markers tracked"
+        },
+        {
+          "value": "0",
+          "label": "Bytes leaving the laptop"
+        }
       ]
     },
     "screenshots": {
@@ -346,10 +466,22 @@
     "lessons": {
       "title": "What I learned",
       "items": [
-        { "title": "Local-first changes what you let yourself store", "body": "When inference costs €0 and data never leaves the laptop, you stop self-censoring what you import. The dataset got richer because the privacy cost dropped to zero." },
-        { "title": "Prompt > parameter count, again", "body": "Llama 3.1 8B with a structured summary beats GPT-4 with raw PDFs. The win was in the input shape, not the model size — same lesson I keep relearning." },
-        { "title": "OCR is the unsexy 80%", "body": "I budgeted a weekend for the LLM and an evening for OCR. It was the other way around. Lab PDFs have wildly inconsistent layouts; a per-lab template registry was unavoidable." },
-        { "title": "Health data deserves a higher bar than 'we encrypt in transit'", "body": "Most SaaS trackers will happily process your blood panel through a third-party LLM. I'm not willing to assume that ends well. Local-first wasn't a feature — it was the whole reason to build it." }
+        {
+          "title": "Local-first changes what you let yourself store",
+          "body": "When inference costs €0 and data never leaves the laptop, you stop self-censoring what you import. The dataset got richer because the privacy cost dropped to zero."
+        },
+        {
+          "title": "Prompt > parameter count, again",
+          "body": "Llama 3.1 8B with a structured summary beats GPT-4 with raw PDFs. The win was in the input shape, not the model size — same lesson I keep relearning."
+        },
+        {
+          "title": "OCR is the unsexy 80%",
+          "body": "I budgeted a weekend for the LLM and an evening for OCR. It was the other way around. Lab PDFs have wildly inconsistent layouts; a per-lab template registry was unavoidable."
+        },
+        {
+          "title": "Health data deserves a higher bar than 'we encrypt in transit'",
+          "body": "Most SaaS trackers will happily process your blood panel through a third-party LLM. I'm not willing to assume that ends well. Local-first wasn't a feature — it was the whole reason to build it."
+        }
       ]
     },
     "cta": {
@@ -373,6 +505,25 @@
     "terminal_description": "patrik@portfolio:~$ — type 'help' for a list of commands.",
     "notfound_title": "404 — Lost in the garden | Patrik Přikryl",
     "notfound_description": "This page wandered off into the garden. Let's get you back.",
-    "og_alt": "Patrik Přikryl – AI Project Manager · Škoda Auto"
+    "og_alt": "Patrik Přikryl – AI Project Manager · Škoda Auto",
+    "contact_title": "Contact — Patrik Přikryl",
+    "contact_description": "Get in touch with Patrik Přikryl — AI Project Manager. AI projects, speaking engagements, and procurement innovation.",
+    "contact_tagline": "Let's build something together"
+  },
+  "contactPage": {
+    "label": "Contact",
+    "title": "Let's build something together",
+    "subtitle": "Whether it's an AI project, a speaking invitation, or just a good conversation about procurement and automation — I'd love to hear from you.",
+    "form_heading": "Send a message",
+    "response_note": "I usually reply within 24 hours.",
+    "links_label": "Find me elsewhere",
+    "linkedin_name": "LinkedIn",
+    "linkedin_desc": "Connect and follow my work",
+    "github_name": "GitHub",
+    "github_desc": "Side projects and experiments",
+    "location_label": "Based in",
+    "location_city": "Prague, Czech Republic",
+    "location_text": "Working from Prague — open to remote collaboration across Europe and beyond. Central European Time (CET).",
+    "back_home": "Back to home"
   }
 }

@@ -225,36 +225,90 @@
       "title": "Lösung",
       "body": "Eine telefonfreundliche, offline-first Web-App, in der jedes Hochbeet ein Top-Down-Raster ist. Pflanzen werden auf Felder gezogen; ein Mischkultur-Graph bewertet die Nachbarn in Echtzeit. Aussaattermine lösen Bewässerungs- und Ernte-Erinnerungen über die Browser-Notification-API aus. Keine Konten, keine Server, kein Tracking — nur eine 32-stellige Device-ID in einem Cookie und ein opt-in Sync-Endpoint."
     },
-    "tech_stack": { "title": "Tech Stack" },
+    "tech_stack": {
+      "title": "Tech Stack"
+    },
     "features": {
       "title": "Hauptfunktionen",
       "items": [
-        { "title": "Mischkultur-Graph", "body": "Katalog mit 278 Pflanzen und Beziehungen (kompatibel / antagonistisch) als spärliche Adjazenztabelle. Drag-and-drop-Scoring wählt Felder, auf denen Nachbarn das Wachstum fördern.", "icon": "🌱" },
-        { "title": "Interaktive Karte + Canvas-Raster", "body": "~140 Zeilen Vanilla-Canvas: Pan über Pointer-Events, Pinch-Zoom um den Cursor, Pflanzen als farbige Kreise + Emoji. Keine Charting-Library, keine Map-Tiles, kein SVG.", "icon": "🗺️" },
-        { "title": "iCal-Export in den iOS-Kalender", "body": "Aussaat, Bewässerung und Ernte als ein-tap abonnierbarer .ics-Feed. Einmal auf dem iPhone hinzufügen — Erinnerungen erscheinen neben dem restlichen Kalender, keine zusätzliche App nötig.", "icon": "📅" },
-        { "title": "Offline-first als Standard", "body": "Alle Nutzerdaten liegen im localStorage. Eine 32-stellige Device-ID erlaubt opt-in Sync über einen einzigen Endpoint. Keine Konten, keine Passwörter, keine externen Tracker.", "icon": "📡" }
+        {
+          "title": "Mischkultur-Graph",
+          "body": "Katalog mit 278 Pflanzen und Beziehungen (kompatibel / antagonistisch) als spärliche Adjazenztabelle. Drag-and-drop-Scoring wählt Felder, auf denen Nachbarn das Wachstum fördern.",
+          "icon": "🌱"
+        },
+        {
+          "title": "Interaktive Karte + Canvas-Raster",
+          "body": "~140 Zeilen Vanilla-Canvas: Pan über Pointer-Events, Pinch-Zoom um den Cursor, Pflanzen als farbige Kreise + Emoji. Keine Charting-Library, keine Map-Tiles, kein SVG.",
+          "icon": "🗺️"
+        },
+        {
+          "title": "iCal-Export in den iOS-Kalender",
+          "body": "Aussaat, Bewässerung und Ernte als ein-tap abonnierbarer .ics-Feed. Einmal auf dem iPhone hinzufügen — Erinnerungen erscheinen neben dem restlichen Kalender, keine zusätzliche App nötig.",
+          "icon": "📅"
+        },
+        {
+          "title": "Offline-first als Standard",
+          "body": "Alle Nutzerdaten liegen im localStorage. Eine 32-stellige Device-ID erlaubt opt-in Sync über einen einzigen Endpoint. Keine Konten, keine Passwörter, keine externen Tracker.",
+          "icon": "📡"
+        }
       ]
     },
     "timeline": {
       "title": "Zeitstrahl — 48 Stunden, der Reihe nach",
       "items": [
-        { "when": "Freitag 19:00", "what": "Start mit React Native + Mapbox. Drei Stunden später: Simulator-Zertifikate ungelöst, Mapbox verlangt Kreditkarte. Verwerfen." },
-        { "when": "Freitag 22:30", "what": "Reset. Plain Next.js 14 + Canvas. Erstes Beet-Raster nach 40 Minuten." },
-        { "when": "Samstagmorgen", "what": "Kuratierung des 84-Pflanzen-Katalogs und der Mischkultur-Beziehungen. Umweg über r/permaculture für die Gewichtung." },
-        { "when": "Samstagnachmittag", "what": "Drag-and-drop-Platzierung, Nachbar-Scoring, Score-Visualisierung beim Hover." },
-        { "when": "Samstagabend", "what": "Erinnerungsgenerierung aus Aussaatterminen. Web-Notifications-API angebunden. Erster End-to-End-Lauf." },
-        { "when": "Sonntag", "what": "Feinschliff: Dark Mode, Tastaturnavigation, Beet-Export als PNG, Deploy auf Vercel. Ship." }
+        {
+          "when": "Freitag 19:00",
+          "what": "Start mit React Native + Mapbox. Drei Stunden später: Simulator-Zertifikate ungelöst, Mapbox verlangt Kreditkarte. Verwerfen."
+        },
+        {
+          "when": "Freitag 22:30",
+          "what": "Reset. Plain Next.js 14 + Canvas. Erstes Beet-Raster nach 40 Minuten."
+        },
+        {
+          "when": "Samstagmorgen",
+          "what": "Kuratierung des 84-Pflanzen-Katalogs und der Mischkultur-Beziehungen. Umweg über r/permaculture für die Gewichtung."
+        },
+        {
+          "when": "Samstagnachmittag",
+          "what": "Drag-and-drop-Platzierung, Nachbar-Scoring, Score-Visualisierung beim Hover."
+        },
+        {
+          "when": "Samstagabend",
+          "what": "Erinnerungsgenerierung aus Aussaatterminen. Web-Notifications-API angebunden. Erster End-to-End-Lauf."
+        },
+        {
+          "when": "Sonntag",
+          "what": "Feinschliff: Dark Mode, Tastaturnavigation, Beet-Export als PNG, Deploy auf Vercel. Ship."
+        }
       ]
     },
     "metrics": {
       "title": "Zahlen",
       "items": [
-        { "value": "48", "label": "Stunden von Start bis Deploy" },
-        { "value": "278", "label": "Pflanzen im Katalog" },
-        { "value": "1.800+", "label": "Mischkultur-Beziehungen" },
-        { "value": "~140", "label": "Zeilen Canvas-Code" },
-        { "value": "0", "label": "Externe Map- / Chart-Libraries" },
-        { "value": "✓", "label": "iCal-Feed für iOS-Kalender" }
+        {
+          "value": "48",
+          "label": "Stunden von Start bis Deploy"
+        },
+        {
+          "value": "278",
+          "label": "Pflanzen im Katalog"
+        },
+        {
+          "value": "1.800+",
+          "label": "Mischkultur-Beziehungen"
+        },
+        {
+          "value": "~140",
+          "label": "Zeilen Canvas-Code"
+        },
+        {
+          "value": "0",
+          "label": "Externe Map- / Chart-Libraries"
+        },
+        {
+          "value": "✓",
+          "label": "iCal-Feed für iOS-Kalender"
+        }
       ]
     },
     "screenshots": {
@@ -270,10 +324,22 @@
     "lessons": {
       "title": "Was ich gelernt habe",
       "items": [
-        { "title": "Reibung ist der Feind von Wochenendprojekten", "body": "Der richtige Stack ist der, den Sie ohne halben Tag Zeitverlust für Zertifikate, Abrechnungskonten oder Framework-Debatten erreichen. Ich habe React Native verworfen, sobald es mich drei Stunden kostete." },
-        { "title": "Canvas schlägt Charting-Libraries, wenn die Geometrie Ihre eigene ist", "body": "Ich hätte fast Konva installiert. Die ganze Karte landete in 140 Zeilen Vanilla-Canvas, und ich verstehe jeden Pixel. Eine Library, wenn Sie sie sonst schlecht nachbauen würden — nicht früher." },
-        { "title": "Daten kuratieren, bevor Sie die Visualisierung bauen", "body": "Ich begann mit dem Canvas und entdeckte mitten am Samstag, dass meine Pflanzendaten unvollständig waren. Ein Wochenendprojekt hat keine Zeit für zwei Durchläufe — erst die Daten richtig, dann hübsch." },
-        { "title": "Backend-Cronjobs überspringen, wenn der Client es kann", "body": "Erinnerungen sind deterministische Funktionen der Pflanzendaten. Ich generiere sie im Browser über die Notification-API — kein Worker, keine Queue, keine Infrastruktur. Hobby-Apps belohnen diese Vereinfachung." }
+        {
+          "title": "Reibung ist der Feind von Wochenendprojekten",
+          "body": "Der richtige Stack ist der, den Sie ohne halben Tag Zeitverlust für Zertifikate, Abrechnungskonten oder Framework-Debatten erreichen. Ich habe React Native verworfen, sobald es mich drei Stunden kostete."
+        },
+        {
+          "title": "Canvas schlägt Charting-Libraries, wenn die Geometrie Ihre eigene ist",
+          "body": "Ich hätte fast Konva installiert. Die ganze Karte landete in 140 Zeilen Vanilla-Canvas, und ich verstehe jeden Pixel. Eine Library, wenn Sie sie sonst schlecht nachbauen würden — nicht früher."
+        },
+        {
+          "title": "Daten kuratieren, bevor Sie die Visualisierung bauen",
+          "body": "Ich begann mit dem Canvas und entdeckte mitten am Samstag, dass meine Pflanzendaten unvollständig waren. Ein Wochenendprojekt hat keine Zeit für zwei Durchläufe — erst die Daten richtig, dann hübsch."
+        },
+        {
+          "title": "Backend-Cronjobs überspringen, wenn der Client es kann",
+          "body": "Erinnerungen sind deterministische Funktionen der Pflanzendaten. Ich generiere sie im Browser über die Notification-API — kein Worker, keine Queue, keine Infrastruktur. Hobby-Apps belohnen diese Vereinfachung."
+        }
       ]
     },
     "cta": {
@@ -301,36 +367,90 @@
       "title": "So funktioniert es — OCR + Bulk-Import",
       "body": "Einen Ordner mit PDFs in die Import-Zone ziehen. Tesseract OCR scannt jede Seite, ein kleiner Parser erkennt Markername + Wert + Einheit + Referenzbereich (deutsche und tschechische Labors haben unterschiedliche Layouts, daher gibt es ein Pro-Labor-Template-Register). Marker werden normalisiert, gegen die Historie dedupliziert und in Postgres gespeichert. Sobald ein Jahr drin ist, klickst du \"Erklären\" — die App baut eine strukturierte Markdown-Zusammenfassung (aktueller Wert vs. Bereich vs. 12-Monats-Trend) und schickt diese, nicht die rohen PDFs, an das lokale LLM. Das Modell liefert drei Abschnitte: was beobachten, was ignorieren, was den Hausarzt fragen."
     },
-    "tech_stack": { "title": "Tech Stack" },
+    "tech_stack": {
+      "title": "Tech Stack"
+    },
     "features": {
       "title": "Hauptfunktionen",
       "items": [
-        { "title": "100 % lokale Inferenz", "body": "Llama 3.1 8B über Ollama auf localhost. Keine API-Schlüssel, keine Rate Limits, kein Abo. Funktioniert im Flugzeug.", "icon": "🔒" },
-        { "title": "Bulk-PDF-Import + OCR", "body": "Einen Ordner mit Labor-PDFs in die Import-Zone ziehen. Tesseract extrahiert Text, ein Pro-Labor-Parser zieht Markername + Wert + Einheit + Bereich heraus.", "icon": "📄" },
-        { "title": "Trendanalyse über Jahre", "body": "Jeder Marker wird normalisiert und über die Zeit gespeichert, sodass du siehst, ob Ferritin tatsächlich driftet oder nur wöchentlich rauscht.", "icon": "📈" },
-        { "title": "Erklärungen in einfacher Sprache", "body": "Das LLM bekommt eine strukturierte Zusammenfassung, nicht die rohen PDFs. Es liefert drei Abschnitte: was beobachten, was ignorieren, was den Hausarzt fragen.", "icon": "🩺" }
+        {
+          "title": "100 % lokale Inferenz",
+          "body": "Llama 3.1 8B über Ollama auf localhost. Keine API-Schlüssel, keine Rate Limits, kein Abo. Funktioniert im Flugzeug.",
+          "icon": "🔒"
+        },
+        {
+          "title": "Bulk-PDF-Import + OCR",
+          "body": "Einen Ordner mit Labor-PDFs in die Import-Zone ziehen. Tesseract extrahiert Text, ein Pro-Labor-Parser zieht Markername + Wert + Einheit + Bereich heraus.",
+          "icon": "📄"
+        },
+        {
+          "title": "Trendanalyse über Jahre",
+          "body": "Jeder Marker wird normalisiert und über die Zeit gespeichert, sodass du siehst, ob Ferritin tatsächlich driftet oder nur wöchentlich rauscht.",
+          "icon": "📈"
+        },
+        {
+          "title": "Erklärungen in einfacher Sprache",
+          "body": "Das LLM bekommt eine strukturierte Zusammenfassung, nicht die rohen PDFs. Es liefert drei Abschnitte: was beobachten, was ignorieren, was den Hausarzt fragen.",
+          "icon": "🩺"
+        }
       ]
     },
     "timeline": {
       "title": "Zeitstrahl — wie es wuchs",
       "items": [
-        { "when": "Abend 1", "what": "Schmerzhafter Spike: ein Labor-PDF in Claude einfügen und Analyse anfordern. Output war stark. 0,40 € pro Request war nicht das Problem — meine Werte an Dritte zu senden, war es." },
-        { "when": "Abend 2", "what": "Ollama installiert, llama3.1:8b gezogen, eine kleine Next.js-Seite verkabelt, die an localhost:11434 POSTet. Erste lokale Antwort nach 6 Sekunden." },
-        { "when": "Wochenende 1", "what": "OCR-Pipeline mit Tesseract. Erste drei tschechische Labor-Templates parsten sauber; das deutsche brauchte einen eigenen Regex." },
-        { "when": "Wochenende 2", "what": "Postgres-Schema für Marker + Historie. Bulk-Import von 18 Monaten PDFs. Erste Trendansicht." },
-        { "when": "Abend (später)", "what": "Prompt Engineering: strukturierte Markdown-Zusammenfassung, Few-Shot-Beispiele für den Ton, dreiteiliger Output. Qualität sprang über die ursprüngliche Cloud-Version." },
-        { "when": "Laufend", "what": "Templates ergänzen, wenn neue Layouts auftauchen. Als Nächstes: eine Ollama-basierte natürlichsprachliche Abfrageschicht (\"zeig mir Ferritin seit 2023\")." }
+        {
+          "when": "Abend 1",
+          "what": "Schmerzhafter Spike: ein Labor-PDF in Claude einfügen und Analyse anfordern. Output war stark. 0,40 € pro Request war nicht das Problem — meine Werte an Dritte zu senden, war es."
+        },
+        {
+          "when": "Abend 2",
+          "what": "Ollama installiert, llama3.1:8b gezogen, eine kleine Next.js-Seite verkabelt, die an localhost:11434 POSTet. Erste lokale Antwort nach 6 Sekunden."
+        },
+        {
+          "when": "Wochenende 1",
+          "what": "OCR-Pipeline mit Tesseract. Erste drei tschechische Labor-Templates parsten sauber; das deutsche brauchte einen eigenen Regex."
+        },
+        {
+          "when": "Wochenende 2",
+          "what": "Postgres-Schema für Marker + Historie. Bulk-Import von 18 Monaten PDFs. Erste Trendansicht."
+        },
+        {
+          "when": "Abend (später)",
+          "what": "Prompt Engineering: strukturierte Markdown-Zusammenfassung, Few-Shot-Beispiele für den Ton, dreiteiliger Output. Qualität sprang über die ursprüngliche Cloud-Version."
+        },
+        {
+          "when": "Laufend",
+          "what": "Templates ergänzen, wenn neue Layouts auftauchen. Als Nächstes: eine Ollama-basierte natürlichsprachliche Abfrageschicht (\"zeig mir Ferritin seit 2023\")."
+        }
       ]
     },
     "metrics": {
       "title": "Zahlen",
       "items": [
-        { "value": "100 %", "label": "Lokale Inferenz" },
-        { "value": "0 €", "label": "Monatliche API-Rechnung" },
-        { "value": "4 GB", "label": "RAM für das Modell" },
-        { "value": "~30", "label": "Tokens / Sekunde auf M2" },
-        { "value": "50+", "label": "Verfolgte Marker" },
-        { "value": "0", "label": "Bytes verlassen den Laptop" }
+        {
+          "value": "100 %",
+          "label": "Lokale Inferenz"
+        },
+        {
+          "value": "0 €",
+          "label": "Monatliche API-Rechnung"
+        },
+        {
+          "value": "4 GB",
+          "label": "RAM für das Modell"
+        },
+        {
+          "value": "~30",
+          "label": "Tokens / Sekunde auf M2"
+        },
+        {
+          "value": "50+",
+          "label": "Verfolgte Marker"
+        },
+        {
+          "value": "0",
+          "label": "Bytes verlassen den Laptop"
+        }
       ]
     },
     "screenshots": {
@@ -346,10 +466,22 @@
     "lessons": {
       "title": "Was ich gelernt habe",
       "items": [
-        { "title": "Lokal-first ändert, was du dir zu speichern erlaubst", "body": "Wenn Inferenz 0 € kostet und Daten den Laptop nie verlassen, hörst du auf, dich beim Importieren zu zensieren. Der Datensatz wurde reicher, weil die Privacy-Kosten auf null fielen." },
-        { "title": "Prompt > Parameteranzahl, schon wieder", "body": "Llama 3.1 8B mit strukturierter Zusammenfassung schlägt GPT-4 mit rohen PDFs. Der Gewinn lag in der Eingabeform, nicht in der Modellgröße — die gleiche Lektion, die ich immer wieder lerne." },
-        { "title": "OCR ist die unsexy 80 %", "body": "Ich hatte ein Wochenende fürs LLM und einen Abend für OCR eingeplant. Es war umgekehrt. Labor-PDFs haben wild inkonsistente Layouts; ein Pro-Labor-Template-Register war unvermeidbar." },
-        { "title": "Gesundheitsdaten verdienen mehr als 'wir verschlüsseln in Transit'", "body": "Die meisten SaaS-Tracker schicken dein Blutbild ohne zu zögern durch ein Drittanbieter-LLM. Ich bin nicht bereit anzunehmen, dass das gut endet. Lokal-first war kein Feature — es war der ganze Grund, das zu bauen." }
+        {
+          "title": "Lokal-first ändert, was du dir zu speichern erlaubst",
+          "body": "Wenn Inferenz 0 € kostet und Daten den Laptop nie verlassen, hörst du auf, dich beim Importieren zu zensieren. Der Datensatz wurde reicher, weil die Privacy-Kosten auf null fielen."
+        },
+        {
+          "title": "Prompt > Parameteranzahl, schon wieder",
+          "body": "Llama 3.1 8B mit strukturierter Zusammenfassung schlägt GPT-4 mit rohen PDFs. Der Gewinn lag in der Eingabeform, nicht in der Modellgröße — die gleiche Lektion, die ich immer wieder lerne."
+        },
+        {
+          "title": "OCR ist die unsexy 80 %",
+          "body": "Ich hatte ein Wochenende fürs LLM und einen Abend für OCR eingeplant. Es war umgekehrt. Labor-PDFs haben wild inkonsistente Layouts; ein Pro-Labor-Template-Register war unvermeidbar."
+        },
+        {
+          "title": "Gesundheitsdaten verdienen mehr als 'wir verschlüsseln in Transit'",
+          "body": "Die meisten SaaS-Tracker schicken dein Blutbild ohne zu zögern durch ein Drittanbieter-LLM. Ich bin nicht bereit anzunehmen, dass das gut endet. Lokal-first war kein Feature — es war der ganze Grund, das zu bauen."
+        }
       ]
     },
     "cta": {
@@ -373,6 +505,25 @@
     "terminal_description": "patrik@portfolio:~$ — geben Sie 'help' für eine Befehlsliste ein.",
     "notfound_title": "404 — Im Garten verirrt | Patrik Přikryl",
     "notfound_description": "Diese Seite hat sich in den Garten verirrt. Wir bringen Sie zurück.",
-    "og_alt": "Patrik Přikryl – AI Project Manager · Škoda Auto"
+    "og_alt": "Patrik Přikryl – AI Project Manager · Škoda Auto",
+    "contact_title": "Kontakt — Patrik Přikryl",
+    "contact_description": "Kontaktieren Sie Patrik Přikryl — AI Project Manager. KI-Projekte, Vorträge und Einkaufsinnovation.",
+    "contact_tagline": "Lassen Sie uns gemeinsam etwas aufbauen"
+  },
+  "contactPage": {
+    "label": "Kontakt",
+    "title": "Lassen Sie uns gemeinsam etwas aufbauen",
+    "subtitle": "Ob ein KI-Projekt, eine Einladung als Speaker oder einfach ein gutes Gespräch über Einkauf und Automatisierung — ich freue mich auf Ihre Nachricht.",
+    "form_heading": "Nachricht senden",
+    "response_note": "Ich antworte in der Regel innerhalb von 24 Stunden.",
+    "links_label": "Finden Sie mich auch hier",
+    "linkedin_name": "LinkedIn",
+    "linkedin_desc": "Vernetzen und meine Arbeit verfolgen",
+    "github_name": "GitHub",
+    "github_desc": "Nebenprojekte und Experimente",
+    "location_label": "Ansässig in",
+    "location_city": "Prag, Tschechische Republik",
+    "location_text": "Ich arbeite aus Prag — offen für Remote-Zusammenarbeit in ganz Europa und darüber hinaus. Mitteleuropäische Zeit (MEZ).",
+    "back_home": "Zurück zur Startseite"
   }
 }

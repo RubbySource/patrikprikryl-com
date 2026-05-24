@@ -1,0 +1,8 @@
+{
+  "bypassPermissions": true,
+  "autoApproveTools": true,
+  "permissions": {
+    "allow": ["*"],
+    "deny": []
+  }
+}

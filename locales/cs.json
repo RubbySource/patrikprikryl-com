@@ -225,36 +225,90 @@
       "title": "Řešení",
       "body": "Mobilní web app, která funguje offline. Každý záhon je top-down mřížka. Rostliny se přetahují na políčka; graf vztahů v reálném čase boduje jejich sousedy. Z datumů výsevu se generují připomínky zálivky a sklizně přes browserové Notification API. Žádné účty, žádný server, žádné trackery — jen 32znakové device ID v cookie a opt-in sync endpoint."
     },
-    "tech_stack": { "title": "Tech Stack" },
+    "tech_stack": {
+      "title": "Tech Stack"
+    },
     "features": {
       "title": "Klíčové funkce",
       "items": [
-        { "title": "Graf společenské výsadby", "body": "Katalog 278 rostlin s hranami compatibility / antagonismu v řídké adjacency tabulce. Drag-and-drop skórování vybírá políčka, kde sousedi posilují růst a kde se neperou.", "icon": "🌱" },
-        { "title": "Interaktivní mapa + canvas mřížka", "body": "~140 řádků vanilla canvasu: pan přes pointer events, pinch-zoom okolo kurzoru, rostliny jako barevné kruhy + emoji. Žádná chartingová knihovna, žádné map tily, žádné SVG.", "icon": "🗺️" },
-        { "title": "iCal export do iOS kalendáře", "body": "Výsev, zálivka i sklizeň jako .ics feed na jeden tap. Přidáte si ho jednou na iPhone a připomínky se objeví vedle ostatních událostí — žádnou další appku není potřeba.", "icon": "📅" },
-        { "title": "Offline-first jako default", "body": "Všechna uživatelská data jsou v localStorage. 32znakové device ID umožňuje opt-in sync přes jediný endpoint. Žádné účty, žádná hesla, žádní externí trackeři.", "icon": "📡" }
+        {
+          "title": "Graf společenské výsadby",
+          "body": "Katalog 278 rostlin s hranami compatibility / antagonismu v řídké adjacency tabulce. Drag-and-drop skórování vybírá políčka, kde sousedi posilují růst a kde se neperou.",
+          "icon": "🌱"
+        },
+        {
+          "title": "Interaktivní mapa + canvas mřížka",
+          "body": "~140 řádků vanilla canvasu: pan přes pointer events, pinch-zoom okolo kurzoru, rostliny jako barevné kruhy + emoji. Žádná chartingová knihovna, žádné map tily, žádné SVG.",
+          "icon": "🗺️"
+        },
+        {
+          "title": "iCal export do iOS kalendáře",
+          "body": "Výsev, zálivka i sklizeň jako .ics feed na jeden tap. Přidáte si ho jednou na iPhone a připomínky se objeví vedle ostatních událostí — žádnou další appku není potřeba.",
+          "icon": "📅"
+        },
+        {
+          "title": "Offline-first jako default",
+          "body": "Všechna uživatelská data jsou v localStorage. 32znakové device ID umožňuje opt-in sync přes jediný endpoint. Žádné účty, žádná hesla, žádní externí trackeři.",
+          "icon": "📡"
+        }
       ]
     },
     "timeline": {
       "title": "Časová osa — 48 hodin, jak šly za sebou",
       "items": [
-        { "when": "Pátek 19:00", "what": "Startuju s React Native + Mapbox. Po třech hodinách: simulátor certy neřeším, Mapbox chce kreditku. Hod do koše." },
-        { "when": "Pátek 22:30", "what": "Reset. Čistý Next.js 14 + canvas. První mřížku záhonu mám za 40 minut." },
-        { "when": "Sobota ráno", "what": "Skládám katalog 84 rostlin a jejich vztahy. Odbočka přes r/permaculture na nastavení vah." },
-        { "when": "Sobota odpoledne", "what": "Drag-and-drop pokládání pinů, skórování sousedů, vizualizace skóre na hover." },
-        { "when": "Sobota večer", "what": "Generování připomínek z datumů výsevu. Web Notifications API napojené. První end-to-end běh." },
-        { "when": "Neděle", "what": "Doladění: dark mode, klávesová navigace, export záhonu jako PNG, deploy na Vercel. Ship." }
+        {
+          "when": "Pátek 19:00",
+          "what": "Startuju s React Native + Mapbox. Po třech hodinách: simulátor certy neřeším, Mapbox chce kreditku. Hod do koše."
+        },
+        {
+          "when": "Pátek 22:30",
+          "what": "Reset. Čistý Next.js 14 + canvas. První mřížku záhonu mám za 40 minut."
+        },
+        {
+          "when": "Sobota ráno",
+          "what": "Skládám katalog 84 rostlin a jejich vztahy. Odbočka přes r/permaculture na nastavení vah."
+        },
+        {
+          "when": "Sobota odpoledne",
+          "what": "Drag-and-drop pokládání pinů, skórování sousedů, vizualizace skóre na hover."
+        },
+        {
+          "when": "Sobota večer",
+          "what": "Generování připomínek z datumů výsevu. Web Notifications API napojené. První end-to-end běh."
+        },
+        {
+          "when": "Neděle",
+          "what": "Doladění: dark mode, klávesová navigace, export záhonu jako PNG, deploy na Vercel. Ship."
+        }
       ]
     },
     "metrics": {
       "title": "Čísla",
       "items": [
-        { "value": "48", "label": "Hodin od startu k deployi" },
-        { "value": "278", "label": "Rostlin v katalogu" },
-        { "value": "1 800+", "label": "Hran compatibility / antagonismu" },
-        { "value": "~140", "label": "Řádků canvas kódu" },
-        { "value": "0", "label": "Externích mapových / chart knihoven" },
-        { "value": "✓", "label": "iCal feed pro iOS kalendář" }
+        {
+          "value": "48",
+          "label": "Hodin od startu k deployi"
+        },
+        {
+          "value": "278",
+          "label": "Rostlin v katalogu"
+        },
+        {
+          "value": "1 800+",
+          "label": "Hran compatibility / antagonismu"
+        },
+        {
+          "value": "~140",
+          "label": "Řádků canvas kódu"
+        },
+        {
+          "value": "0",
+          "label": "Externích mapových / chart knihoven"
+        },
+        {
+          "value": "✓",
+          "label": "iCal feed pro iOS kalendář"
+        }
       ]
     },
     "screenshots": {
@@ -270,10 +324,22 @@
     "lessons": {
       "title": "Co jsem se naučil",
       "items": [
-        { "title": "Tření je nepřítel víkendových projektů", "body": "Správný stack je ten, ke kterému se dostanete bez ztráty půl dne na certifikátech, fakturačních účtech nebo debatě o frameworku. Shodil jsem React Native ve chvíli, kdy mě stál tři hodiny." },
-        { "title": "Canvas překoná chartingové knihovny, když je geometrie vaše", "body": "Skoro jsem nainstaloval Konvu. Celá mapa skončila na 140 řádcích vanilla canvasu a rozumím každému pixelu. Knihovnu berte, až když byste ji jinak špatně reimplementovali — ne dřív." },
-        { "title": "Data vykurátujte dřív, než stavíte vizualizaci", "body": "Začal jsem s canvasem a v polovině soboty jsem zjistil, že data o rostlinách jsou děravá. Víkendový projekt nemá čas na dvě iterace — nejdřív data správně, potom design." },
-        { "title": "Vyhněte se backend cronům, když to umí klient", "body": "Připomínky jsou deterministická funkce dat o rostlinách. Generuju je v prohlížeči přes Notification API — žádný worker, žádná queue, žádná infra. Hobby aplikace tohle zjednodušení odmění." }
+        {
+          "title": "Tření je nepřítel víkendových projektů",
+          "body": "Správný stack je ten, ke kterému se dostanete bez ztráty půl dne na certifikátech, fakturačních účtech nebo debatě o frameworku. Shodil jsem React Native ve chvíli, kdy mě stál tři hodiny."
+        },
+        {
+          "title": "Canvas překoná chartingové knihovny, když je geometrie vaše",
+          "body": "Skoro jsem nainstaloval Konvu. Celá mapa skončila na 140 řádcích vanilla canvasu a rozumím každému pixelu. Knihovnu berte, až když byste ji jinak špatně reimplementovali — ne dřív."
+        },
+        {
+          "title": "Data vykurátujte dřív, než stavíte vizualizaci",
+          "body": "Začal jsem s canvasem a v polovině soboty jsem zjistil, že data o rostlinách jsou děravá. Víkendový projekt nemá čas na dvě iterace — nejdřív data správně, potom design."
+        },
+        {
+          "title": "Vyhněte se backend cronům, když to umí klient",
+          "body": "Připomínky jsou deterministická funkce dat o rostlinách. Generuju je v prohlížeči přes Notification API — žádný worker, žádná queue, žádná infra. Hobby aplikace tohle zjednodušení odmění."
+        }
       ]
     },
     "cta": {
@@ -301,36 +367,90 @@
       "title": "Jak to funguje — OCR + bulk import",
       "body": "Hodíš složku s PDF na import zónu. Tesseract OCR projde každou stránku, malý parser detekuje název ukazatele + hodnotu + jednotku + referenční rozsah (české a německé labrky mají různé layouty, takže máme per-laboratoř template registry). Ukazatele se normalizují, deduplikují proti historii a uloží do Postgresu. Když je tam rok dat, klikneš \"Vysvětli\" — app vytvoří strukturovaný markdown sumář (aktuální hodnota vs. rozsah vs. 12měsíční trend) a pošle ten, ne syrová PDF, do lokálního LLM. Model vrátí tři sekce: co sledovat, co ignorovat, na co se zeptat doktora."
     },
-    "tech_stack": { "title": "Tech Stack" },
+    "tech_stack": {
+      "title": "Tech Stack"
+    },
     "features": {
       "title": "Klíčové funkce",
       "items": [
-        { "title": "100% lokální inference", "body": "Llama 3.1 8B přes Ollamu na localhostu. Žádné API klíče, žádné rate limity, žádné předplatné. Funguje v letadle.", "icon": "🔒" },
-        { "title": "Bulk import PDF + OCR", "body": "Přetáhni složku s laboratorními PDF. Tesseract vytáhne text, per-laboratorní parser zpracuje název ukazatele + hodnotu + jednotku + rozsah.", "icon": "📄" },
-        { "title": "Analýza trendu přes roky", "body": "Každý ukazatel se normalizuje a ukládá v čase, takže vidíš, jestli ferritin opravdu klesá nebo to je týdenní šum.", "icon": "📈" },
-        { "title": "Vysvětlení v běžné řeči", "body": "LLM dostává strukturovaný sumář, ne syrová PDF. Vrátí tři sekce: co sledovat, co ignorovat, na co se zeptat doktora.", "icon": "🩺" }
+        {
+          "title": "100% lokální inference",
+          "body": "Llama 3.1 8B přes Ollamu na localhostu. Žádné API klíče, žádné rate limity, žádné předplatné. Funguje v letadle.",
+          "icon": "🔒"
+        },
+        {
+          "title": "Bulk import PDF + OCR",
+          "body": "Přetáhni složku s laboratorními PDF. Tesseract vytáhne text, per-laboratorní parser zpracuje název ukazatele + hodnotu + jednotku + rozsah.",
+          "icon": "📄"
+        },
+        {
+          "title": "Analýza trendu přes roky",
+          "body": "Každý ukazatel se normalizuje a ukládá v čase, takže vidíš, jestli ferritin opravdu klesá nebo to je týdenní šum.",
+          "icon": "📈"
+        },
+        {
+          "title": "Vysvětlení v běžné řeči",
+          "body": "LLM dostává strukturovaný sumář, ne syrová PDF. Vrátí tři sekce: co sledovat, co ignorovat, na co se zeptat doktora.",
+          "icon": "🩺"
+        }
       ]
     },
     "timeline": {
       "title": "Časová osa — jak to rostlo",
       "items": [
-        { "when": "Večer 1", "what": "Bolavý spike: vlož jedno PDF labáku do Claude a požádej o analýzu. Výstup výborný. Problém nebylo 10 Kč za request — bylo posílání mého panelu třetí straně." },
-        { "when": "Večer 2", "what": "Nainstaloval Ollamu, stáhl llama3.1:8b, zdrátoval malou Next.js stránku, co POSTuje na localhost:11434. První lokální odpověď za 6 sekund." },
-        { "when": "Víkend 1", "what": "OCR pipeline s Tesseractem. První tři české laboratorní šablony parsovaly čistě; německá si vyžádala vlastní regex." },
-        { "when": "Víkend 2", "what": "Postgres schema pro ukazatele + historie. Bulk import 18 měsíců PDF. První pohled na trendy." },
-        { "when": "Večer (později)", "what": "Prompt engineering: strukturovaný markdown sumář, few-shot příklady pro tón, tři sekce ve výstupu. Kvalita přeskočila původní cloudovou verzi." },
-        { "when": "Průběžně", "what": "Přidávám šablony, jak narážím na nové layouty. Příště: vrstva přirozeného dotazování přes Ollamu (\"ukaž mi ferritin od 2023\")." }
+        {
+          "when": "Večer 1",
+          "what": "Bolavý spike: vlož jedno PDF labáku do Claude a požádej o analýzu. Výstup výborný. Problém nebylo 10 Kč za request — bylo posílání mého panelu třetí straně."
+        },
+        {
+          "when": "Večer 2",
+          "what": "Nainstaloval Ollamu, stáhl llama3.1:8b, zdrátoval malou Next.js stránku, co POSTuje na localhost:11434. První lokální odpověď za 6 sekund."
+        },
+        {
+          "when": "Víkend 1",
+          "what": "OCR pipeline s Tesseractem. První tři české laboratorní šablony parsovaly čistě; německá si vyžádala vlastní regex."
+        },
+        {
+          "when": "Víkend 2",
+          "what": "Postgres schema pro ukazatele + historie. Bulk import 18 měsíců PDF. První pohled na trendy."
+        },
+        {
+          "when": "Večer (později)",
+          "what": "Prompt engineering: strukturovaný markdown sumář, few-shot příklady pro tón, tři sekce ve výstupu. Kvalita přeskočila původní cloudovou verzi."
+        },
+        {
+          "when": "Průběžně",
+          "what": "Přidávám šablony, jak narážím na nové layouty. Příště: vrstva přirozeného dotazování přes Ollamu (\"ukaž mi ferritin od 2023\")."
+        }
       ]
     },
     "metrics": {
       "title": "Čísla",
       "items": [
-        { "value": "100%", "label": "Lokální inference" },
-        { "value": "0 Kč", "label": "Měsíční API účet" },
-        { "value": "4 GB", "label": "RAM pro model" },
-        { "value": "~30", "label": "Tokenů / sekundu na M2" },
-        { "value": "50+", "label": "Sledovaných ukazatelů" },
-        { "value": "0", "label": "Bajtů opustí notebook" }
+        {
+          "value": "100%",
+          "label": "Lokální inference"
+        },
+        {
+          "value": "0 Kč",
+          "label": "Měsíční API účet"
+        },
+        {
+          "value": "4 GB",
+          "label": "RAM pro model"
+        },
+        {
+          "value": "~30",
+          "label": "Tokenů / sekundu na M2"
+        },
+        {
+          "value": "50+",
+          "label": "Sledovaných ukazatelů"
+        },
+        {
+          "value": "0",
+          "label": "Bajtů opustí notebook"
+        }
       ]
     },
     "screenshots": {
@@ -346,10 +466,22 @@
     "lessons": {
       "title": "Co jsem se naučil",
       "items": [
-        { "title": "Lokální default mění, co si dovolíš ukládat", "body": "Když inference stojí 0 Kč a data neopouští notebook, přestaneš si autocenzurovat, co naimportuješ. Dataset zbohatl, protože náklad na soukromí klesl na nulu." },
-        { "title": "Prompt > velikost modelu, znovu", "body": "Llama 3.1 8B se strukturovaným sumářem překoná GPT-4 se syrovými PDF. Výhra byla ve tvaru vstupu, ne ve velikosti modelu — stejná lekce, kterou se opakovaně učím." },
-        { "title": "OCR je nesexy 80 %", "body": "Naplánoval jsem víkend na LLM a večer na OCR. Bylo to obráceně. Laboratorní PDF mají divoce nekonzistentní layouty; per-laboratorní šablony byly nevyhnutelné." },
-        { "title": "Zdravotní data zaslouží vyšší laťku než 'šifrujeme přenos'", "body": "Většina SaaS trackerů ti rád prožene krevní obraz přes třetí stranu. Nejsem ochotný předpokládat, že to dopadne dobře. Lokální default nebyla feature — byl to celý důvod, proč to stavět." }
+        {
+          "title": "Lokální default mění, co si dovolíš ukládat",
+          "body": "Když inference stojí 0 Kč a data neopouští notebook, přestaneš si autocenzurovat, co naimportuješ. Dataset zbohatl, protože náklad na soukromí klesl na nulu."
+        },
+        {
+          "title": "Prompt > velikost modelu, znovu",
+          "body": "Llama 3.1 8B se strukturovaným sumářem překoná GPT-4 se syrovými PDF. Výhra byla ve tvaru vstupu, ne ve velikosti modelu — stejná lekce, kterou se opakovaně učím."
+        },
+        {
+          "title": "OCR je nesexy 80 %",
+          "body": "Naplánoval jsem víkend na LLM a večer na OCR. Bylo to obráceně. Laboratorní PDF mají divoce nekonzistentní layouty; per-laboratorní šablony byly nevyhnutelné."
+        },
+        {
+          "title": "Zdravotní data zaslouží vyšší laťku než 'šifrujeme přenos'",
+          "body": "Většina SaaS trackerů ti rád prožene krevní obraz přes třetí stranu. Nejsem ochotný předpokládat, že to dopadne dobře. Lokální default nebyla feature — byl to celý důvod, proč to stavět."
+        }
       ]
     },
     "cta": {
@@ -373,6 +505,25 @@
     "terminal_description": "patrik@portfolio:~$ — napište 'help' pro seznam příkazů.",
     "notfound_title": "404 — Ztraceno v zahradě | Patrik Přikryl",
     "notfound_description": "Tahle stránka se zatoulala do zahrady. Vrátíme vás zpět.",
-    "og_alt": "Patrik Přikryl – AI Project Manager · Škoda Auto"
+    "og_alt": "Patrik Přikryl – AI Project Manager · Škoda Auto",
+    "contact_title": "Kontakt — Patrik Přikryl",
+    "contact_description": "Spojte se s Patrikem Přikrylem — AI Project Manager. AI projekty, přednášky a inovace v nákupu.",
+    "contact_tagline": "Pojďme spolu něco postavit"
+  },
+  "contactPage": {
+    "label": "Kontakt",
+    "title": "Pojďme spolu něco postavit",
+    "subtitle": "Ať už jde o AI projekt, pozvánku na přednášku, nebo jen dobrý rozhovor o nákupu a automatizaci — ozvěte se mi.",
+    "form_heading": "Napsat zprávu",
+    "response_note": "Obvykle odpovídám do 24 hodin.",
+    "links_label": "Najdete mě i jinde",
+    "linkedin_name": "LinkedIn",
+    "linkedin_desc": "Spojme se a sledujte mou práci",
+    "github_name": "GitHub",
+    "github_desc": "Vedlejší projekty a experimenty",
+    "location_label": "Sídlím v",
+    "location_city": "Praha, Česká republika",
+    "location_text": "Pracuji z Prahy — otevřený vzdálené spolupráci po celé Evropě i dál. Středoevropský čas (CET).",
+    "back_home": "Zpět na úvod"
   }
 }

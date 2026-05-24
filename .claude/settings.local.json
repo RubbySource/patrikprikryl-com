@@ -48,7 +48,21 @@
       "Bash(powershell.exe -Command \"Get-ChildItem ''C:\\\\Users\\\\User\\\\Documents\\\\Claude Code\\\\04_Central Web\\\\.claude\\\\worktrees\\\\happy-ptolemy\\\\public'' | Select-Object Name\")",
       "Bash(git add app/icon.svg)",
       "Bash(rm .git/index.lock)",
-      "Bash(git checkout *)"
-    ]
-  }
-}
+      "Bash(git checkout *)",
+      "Bash(where.exe node *)",
+      "Bash(where.exe npm *)",
+      "Bash(npm install *)",
+      "Bash(curl.exe -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:49370/)",
+      "Bash(curl.exe -s -o og-test.png -w \"HTTP %{http_code}\\\\nType: %{content_type}\\\\nSize: %{size_download}\\\\n\" \"http://localhost:49370/api/og?kind=home&locale=en&title=Test+Title&subtitle=Test+Subtitle\")",
+      "Bash(curl.exe -s -o og-post.png -w \"HTTP %{http_code}\\\\nSize: %{size_download}\\\\n\" \"http://localhost:49370/api/og?kind=post&locale=cs&title=Jak%20jsem%20postavil%20GardenPin&tag=Building&date=2026-05-23\")",
+      "Bash(git add *)",
+      "Bash(\"/mnt/c/Program Files/Git/mingw64/bin/git.exe\" checkout -b feat/gardenpin-case-study-i18n)",
+      "Bash(\"/c/Program Files/Git/mingw64/bin/git.exe\" checkout -b feat/gardenpin-case-study-i18n)",
+      "Bash(git pull *)",
+      "Bash(npm run *)",
+      "Bash(\"/mnt/c/Program Files/Git/mingw64/bin/git.exe\" push origin main)",
+      "PowerShell(Get-NetTCPConnection -LocalPort 3001 -ErrorAction SilentlyContinue)",
+      "Bash(git reset *)",
+      "Bash(rm -f .git/HEAD.lock && git status --short | head -20)",
+      "Bash(git diff *)",
+      "Bash

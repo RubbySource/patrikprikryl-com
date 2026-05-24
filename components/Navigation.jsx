@@ -49,11 +49,12 @@ export default function Navigation() {
   const navItems = [
     { label: t('projects'), href: '#projects' },
     { label: t('awards'), href: '#awards' },
-    { label: t('contact'), href: '#contact' },
   ];
 
   const onBlog = pathname?.includes('/blog');
   const blogHref = `/${locale}/blog`;
+  const onContact = pathname?.includes('/contact');
+  const contactHref = `/${locale}/contact`;
 
   const locales = ['en', 'cs', 'de'];
 
@@ -70,11 +71,11 @@ export default function Navigation() {
   };
 
   const scrollTo = (href) => {
-    if (onBlog) {
-      router.push(`/${locale}/${href}`);
+    const el = !onBlog && !onContact ? document.querySelector(href) : null;
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
     } else {
-      const el = document.querySelector(href);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      router.push(`/${locale}/${href}`);
     }
     setMenuOpen(false);
   };
@@ -106,6 +107,16 @@ export default function Navigation() {
               {item.label}
             </button>
           ))}
+          <Link
+            href={contactHref}
+            className={`text-sm font-medium transition-colors ${
+              onContact
+                ? 'text-[#1A56DB]'
+                : 'text-[#6B7280] dark:text-gray-400 hover:text-[#111111] dark:hover:text-[#F0F0F0]'
+            }`}
+          >
+            {t('contact')}
+          </Link>
           <Link
             href={blogHref}
             className={`text-sm font-medium transition-colors ${
@@ -193,6 +204,15 @@ export default function Navigation() {
                   {item.label}
                 </button>
               ))}
+              <Link
+                href={contactHref}
+                onClick={() => setMenuOpen(false)}
+                className={`text-left text-base font-medium transition-colors ${
+                  onContact ? 'text-[#1A56DB]' : 'text-[#111111] dark:text-[#F0F0F0] hover:text-[#1A56DB]'
+                }`}
+              >
+                {t('contact')}
+              </Link>
               <Link
                 href={blogHref}
                 onClick={() => setMenuOpen(false)}
