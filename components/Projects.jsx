@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -51,7 +51,7 @@ const projectContentVariants = {
 
 function ProjectCard({ project, index, totalCount, t, locale }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
@@ -62,7 +62,7 @@ function ProjectCard({ project, index, totalCount, t, locale }) {
       className="group relative overflow-hidden rounded-3xl mx-4 sm:mx-6 lg:mx-8 my-6 min-h-[70vh] sm:min-h-[80vh] cursor-default will-change-transform"
     >
       {/* Background — image or gradient (scales on hover) */}
-      <motion.div className="absolute inset-0" variants={projectMediaVariants}>
+      <m.div className="absolute inset-0" variants={projectMediaVariants}>
         {project.image ? (
           <Image
             src={project.image}
@@ -79,16 +79,16 @@ function ProjectCard({ project, index, totalCount, t, locale }) {
             }}
           />
         )}
-      </motion.div>
+      </m.div>
 
       {/* Gradient overlay for text legibility — fades a touch on hover */}
-      <motion.div
+      <m.div
         className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 pointer-events-none"
         variants={projectOverlayVariants}
       />
 
       {/* Accent glow that appears on hover */}
-      <motion.div
+      <m.div
         className="absolute inset-0 pointer-events-none"
         variants={projectGlowVariants}
         style={{
@@ -100,7 +100,7 @@ function ProjectCard({ project, index, totalCount, t, locale }) {
       <div className="absolute inset-0 rounded-3xl ring-0 ring-white/0 group-hover:ring-1 group-hover:ring-white/15 transition-[box-shadow,ring] duration-500 pointer-events-none" />
 
       {/* Content */}
-      <motion.div
+      <m.div
         className="absolute inset-0 flex flex-col p-8 sm:p-12 lg:p-16"
         variants={projectContentVariants}
       >
@@ -146,8 +146,8 @@ function ProjectCard({ project, index, totalCount, t, locale }) {
           <TechStackTags techStack={project.techStack} />
         </div>
 
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }
 
@@ -189,7 +189,7 @@ function HobbyProjectCard({ project, index, locale, t }) {
     : null;
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
@@ -204,7 +204,7 @@ function HobbyProjectCard({ project, index, locale, t }) {
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
       {/* Hover accent glow */}
-      <motion.div
+      <m.div
         className="absolute inset-0 pointer-events-none"
         variants={hobbyGlowVariants}
         style={{
@@ -289,7 +289,7 @@ function HobbyProjectCard({ project, index, locale, t }) {
           </Link>
         )}
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 

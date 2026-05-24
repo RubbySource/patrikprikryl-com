@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import { awards } from '@/data/awards';
 
@@ -41,7 +41,7 @@ function AwardCard({ award, index, t, locale }) {
   const year        = yearMatch ? yearMatch[1] : '';
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
@@ -152,7 +152,7 @@ function AwardCard({ award, index, t, locale }) {
           </div>
         )}
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -167,7 +167,7 @@ export default function Awards() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Heading */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
@@ -180,7 +180,7 @@ export default function Awards() {
           <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-[#111111] dark:text-[#F0F0F0]">
             {t('title')}
           </h2>
-        </motion.div>
+        </m.div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">

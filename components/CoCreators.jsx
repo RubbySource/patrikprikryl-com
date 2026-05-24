@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import { collaborators, universityCollaborators } from '@/data/cocreators';
@@ -18,7 +18,7 @@ function PersonCard({ person, index, globalIndex, locale }) {
   const colorClass = avatarColors[globalIndex % avatarColors.length];
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
@@ -65,7 +65,7 @@ function PersonCard({ person, index, globalIndex, locale }) {
           </p>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -76,7 +76,7 @@ export default function CoCreators() {
   return (
     <section id="cocreators" className="section-padding">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
@@ -89,7 +89,7 @@ export default function CoCreators() {
           <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-[#111111] dark:text-[#F0F0F0]">
             {t('title')}
           </h2>
-        </motion.div>
+        </m.div>
 
         {/* Collaborators */}
         <div className="mb-12">

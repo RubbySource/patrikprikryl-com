@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useTranslations } from 'next-intl';
 
@@ -14,7 +14,7 @@ export default function About() {
     <section id="about" className="section-padding">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={ref} className="max-w-3xl">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
@@ -32,7 +32,7 @@ export default function About() {
             {/* Focus tags */}
             <div className="flex flex-wrap gap-2.5">
               {tags.map((tag, i) => (
-                <motion.span
+                <m.span
                   key={i}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={inView ? { opacity: 1, scale: 1 } : {}}
@@ -40,10 +40,10 @@ export default function About() {
                   className="tag-pill font-medium"
                 >
                   {tag}
-                </motion.span>
+                </m.span>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

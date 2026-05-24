@@ -5,7 +5,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 
 const PPLogo = ({ className }) => (
   <svg
@@ -187,7 +187,7 @@ export default function Navigation() {
       {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -238,7 +238,7 @@ export default function Navigation() {
                 ))}
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>
