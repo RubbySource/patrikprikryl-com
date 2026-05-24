@@ -3,7 +3,7 @@
 > Spravuje: PO Agent (autonomní)  
 > Projekt: 04_Central Web  
 > Repo: `C:\Users\Dell 5090\Documents\Claude\Projects\04_Central Web`  
-> Poslední sync: 2026-05-23
+> Poslední sync: 2026-05-24
 
 ---
 
@@ -61,4 +61,10 @@
 - [x] Performance optimalizace — LazyMotion místo plného Framer Motion bundle (~25kB úspora), lenis smooth scroll lazy-load (~10kB). Podle PERF_NOTES.md. Ověř Lighthouse score před/po v dev. Push na main. — hotovo 2026-05-24
   - **LazyMotion:** nový `components/MotionProvider.jsx` (`<LazyMotion features={domAnimation} strict>`) zapojen v `app/layout.js` kolem celého stromu. 19 animovaných komponent přepnuto z `motion.*` na lehký `m.*`. `strict` mód zaručí, že se těžké `motion` API nevrátí. **lenis:** `components/SmoothScroll.jsx` načítá lenis přes dynamický `import('lenis')` v efektu → samostatný chunk po hydrataci, mimo initial bundle. **Výsledek (`next build`):** First Load JS −28 kB na každé animované routě (home 195→167 kB, blog 164→136, contact 173→146, gardenpin/zdravotni 167→139). Build čistě zkompiloval a prerenderoval všech 42 stránek. Detaily v `PERF_NOTES.md` § Pass 2. Pozn.: 2 case-study komponenty měly `metrics.map((m, i) => …)` — parametr stínil nový `m` import, přejmenován na `metric`. Lighthouse v sandboxu nešel (bez headless Chrome); bundle-size z `next build` je ověřitelný proxy, projeví se v Lighthouse na Vercel deployi.
 
-- [x] Case study — Zdravotní analyzátor — jak funguje offline AI health tracker, proč lokální Ollama model, co
+- [x] Case study — Zdravotní analyzátor — jak funguje offline AI health tracker, proč lokální Ollama model, co se naučil a jaké jsou výsledky — hotovo 2026-05-23
+
+- [ ] Obrázky — komprese a next/image audit — `public/patrik.jpg` má 847 kB, což zdržuje LCP. Zmenšit na skutečně zobrazované rozměry, vygenerovat WebP/AVIF variantu a zajistit `next/image` se správným `sizes`; `priority` ponechat jen na LCP obrázku v Hero. Projít i `public/projects/` a `public/avatars/`. Cíl: žádný obrázek v initial viewportu nad ~150 kB. Ověřit přes Network tab v dev.
+
+- [ ] `prefers-reduced-motion` napříč webem — přidat `<MotionConfig reducedMotion="user">` do `components/MotionProvider.jsx`, aby všech 19 framer-motion komponent respektovalo OS nastavení. Zkontrolovat a sjednotit existující dílčí ošetření v `components/ScrollReveal.jsx` a `app/globals.css`. Cíl: se zapnutým reduced-motion žádný parallax ani posuny, jen jemný fade nebo statický obsah. Ověřit v dev přes emulaci reduced-motion.
+
+- [ ] Blog post 4 — technický post o i18n v Next.js App Router — jak je patrikprikryl.com postavený s `next-intl`: 3 locale (cs/en/de), `localePrefix: 'as-needed'`, hreflang + canonical, per-locale RSS a OG obrázky. Mix osobního a technického tónu, cs + en verze, ~700–900 slov. Soubory do `content/blog/cs/` a `content/blog/en/`, frontmatter title/date/description/excerpt/tags.
