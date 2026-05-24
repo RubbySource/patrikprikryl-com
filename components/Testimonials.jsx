@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import { testimonials } from '@/data/testimonials';
@@ -26,7 +26,7 @@ function TestimonialCard({ person, index, locale }) {
   const quote = pickField(person.quote, locale);
 
   return (
-    <motion.figure
+    <m.figure
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
@@ -87,7 +87,7 @@ function TestimonialCard({ person, index, locale }) {
           </p>
         </div>
       </figcaption>
-    </motion.figure>
+    </m.figure>
   );
 }
 
@@ -95,7 +95,7 @@ function Placeholder() {
   const t = useTranslations('testimonials');
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
@@ -135,7 +135,7 @@ function Placeholder() {
           {t('placeholder_cta')}
         </a>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -147,7 +147,7 @@ export default function Testimonials() {
   return (
     <section id="testimonials" className="section-padding">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
@@ -165,7 +165,7 @@ export default function Testimonials() {
               {t('subtitle')}
             </p>
           )}
-        </motion.div>
+        </m.div>
 
         {hasContent ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

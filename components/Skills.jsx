@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useTranslations } from 'next-intl';
 
@@ -20,7 +20,7 @@ export default function Skills() {
   return (
     <section id="skills" className="section-padding">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+        <m.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -36,11 +36,11 @@ export default function Skills() {
           <p className="text-base sm:text-lg text-[var(--muted)] leading-relaxed">
             {t('subtitle')}
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {AREA_KEYS.map((key, i) => (
-            <motion.div
+            <m.div
               key={key}
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -53,7 +53,7 @@ export default function Skills() {
               <p className="text-sm text-[var(--muted)] leading-relaxed">
                 {t(`areas.${key}.description`)}
               </p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

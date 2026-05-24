@@ -1,30 +1,15 @@
-import { Inter, Sora, Plus_Jakarta_Sans } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import Analytics from '@/components/Analytics';
 import StructuredData from '@/components/seo/StructuredData';
 import { personSchema } from '@/components/seo/schemas';
+import MotionProvider from '@/components/MotionProvider';
 
-const inter = Inter({
-  subsets: ['latin', 'latin-ext'],
-  weight: ['300', '400', '500', '600', '700'],
-  display: 'swap',
-  variable: '--font-inter',
-});
+const inter = { variable: 'font-inter' };
 
-const sora = Sora({
-  subsets: ['latin', 'latin-ext'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  display: 'swap',
-  variable: '--font-sora',
-});
+const sora = { variable: 'font-sora' };
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ['latin', 'latin-ext'],
-  weight: ['400', '500', '600', '700', '800'],
-  display: 'swap',
-  variable: '--font-plus-jakarta-sans',
-});
+const plusJakartaSans = { variable: 'font-pjs' };
 
 export const viewport = {
   width: 'device-width',
@@ -112,7 +97,7 @@ export default function RootLayout({ children }) {
         <StructuredData data={personSchema()} />
       </head>
       <body>
-        {children}
+        <MotionProvider>{children}</MotionProvider>
         <Analytics />
         <SpeedInsights />
       </body>

@@ -1,12 +1,12 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import { beliefs } from '@/data/beliefs';
 
 function BeliefCard({ belief, index, locale }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
@@ -38,7 +38,7 @@ function BeliefCard({ belief, index, locale }) {
 
       {/* Accent line on hover */}
       <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#1A56DB] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-b-2xl" />
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -49,7 +49,7 @@ export default function Beliefs() {
   return (
     <section id="beliefs" className="section-padding bg-[#111111] dark:bg-[#0D0D0D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
@@ -62,7 +62,7 @@ export default function Beliefs() {
           <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-[#F0F0F0]">
             {t('title')}
           </h2>
-        </motion.div>
+        </m.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {beliefs.map((belief, index) => (

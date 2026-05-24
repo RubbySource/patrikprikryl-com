@@ -1,11 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 export default function NotFoundScene() {
   return (
     <div className="relative w-full max-w-md mx-auto aspect-square">
-      <motion.svg
+      <m.svg
         viewBox="0 0 320 320"
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-full"
@@ -33,7 +33,7 @@ export default function NotFoundScene() {
         <ellipse cx="160" cy="288" rx="70" ry="6" fill="rgba(0,0,0,0.18)" />
 
         {/* Pot */}
-        <motion.g
+        <m.g
           initial={{ y: 8 }}
           animate={{ y: 0 }}
           transition={{ delay: 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -44,10 +44,10 @@ export default function NotFoundScene() {
           />
           <ellipse cx="160" cy="220" rx="60" ry="10" fill="#8C4A22" />
           <ellipse cx="160" cy="220" rx="55" ry="7" fill="url(#soilGrad)" />
-        </motion.g>
+        </m.g>
 
         {/* Plant stem */}
-        <motion.path
+        <m.path
           d="M160 220 Q158 180 162 150 Q165 120 158 90"
           stroke="#2D7D46"
           strokeWidth="3.5"
@@ -59,7 +59,7 @@ export default function NotFoundScene() {
         />
 
         {/* Leaf 1 — left */}
-        <motion.g
+        <m.g
           initial={{ scale: 0, rotate: -20 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ delay: 1.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -75,10 +75,10 @@ export default function NotFoundScene() {
             strokeWidth="1"
             fill="none"
           />
-        </motion.g>
+        </m.g>
 
         {/* Leaf 2 — right */}
-        <motion.g
+        <m.g
           initial={{ scale: 0, rotate: 25 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ delay: 1.4, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -94,16 +94,16 @@ export default function NotFoundScene() {
             strokeWidth="1"
             fill="none"
           />
-        </motion.g>
+        </m.g>
 
         {/* Leaf 3 — top, gentle sway */}
-        <motion.g
+        <m.g
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 1.6, duration: 0.6 }}
           style={{ transformOrigin: '158px 92px' }}
         >
-          <motion.g
+          <m.g
             animate={{ rotate: [-3, 3, -3] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
             style={{ transformOrigin: '158px 92px' }}
@@ -112,11 +112,11 @@ export default function NotFoundScene() {
               d="M158 92 Q140 70 152 50 Q170 55 168 80 Q165 90 158 92 Z"
               fill="url(#leafGrad)"
             />
-          </motion.g>
-        </motion.g>
+          </m.g>
+        </m.g>
 
         {/* Butterfly — flies in arc */}
-        <motion.g
+        <m.g
           initial={{ x: 240, y: 60, opacity: 0 }}
           animate={{
             x: [240, 200, 230, 180, 210],
@@ -134,7 +134,7 @@ export default function NotFoundScene() {
           {/* Butterfly body */}
           <ellipse cx="0" cy="0" rx="1" ry="5" fill="#1A1A1A" />
           {/* Left wing */}
-          <motion.path
+          <m.path
             d="M0 -2 Q-12 -10 -16 0 Q-12 6 -3 4 Z"
             fill="#1A56DB"
             animate={{ scaleX: [1, 0.4, 1] }}
@@ -142,14 +142,14 @@ export default function NotFoundScene() {
             style={{ transformOrigin: '0 0' }}
           />
           {/* Right wing */}
-          <motion.path
+          <m.path
             d="M0 -2 Q12 -10 16 0 Q12 6 3 4 Z"
             fill="#3B82F6"
             animate={{ scaleX: [1, 0.4, 1] }}
             transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut' }}
             style={{ transformOrigin: '0 0' }}
           />
-        </motion.g>
+        </m.g>
 
         {/* Floating "404" digits — like seeds drifting */}
         {[
@@ -157,7 +157,7 @@ export default function NotFoundScene() {
           { char: '0', x: 160, delay: 2.2, drift: 6  },
           { char: '4', x: 260, delay: 2.4, drift: -6 },
         ].map((d, i) => (
-          <motion.text
+          <m.text
             key={i}
             x={d.x}
             y={50}
@@ -178,12 +178,12 @@ export default function NotFoundScene() {
             }}
           >
             {d.char}
-          </motion.text>
+          </m.text>
         ))}
 
         {/* Tiny ground sprouts */}
         {[80, 110, 240, 230].map((x, i) => (
-          <motion.path
+          <m.path
             key={`sprout-${i}`}
             d={`M${x} 295 Q${x - 2} 285 ${x} 278`}
             stroke="#2D7D46"
@@ -195,7 +195,7 @@ export default function NotFoundScene() {
             transition={{ delay: 2.0 + i * 0.1, duration: 0.6 }}
           />
         ))}
-      </motion.svg>
+      </m.svg>
     </div>
   );
 }
