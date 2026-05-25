@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import fs from 'fs';
 import path from 'path';
+import { scheduleWelcomeSeries, isWelcomeSeriesEnabled } from '@/lib/welcome-series';
+
+const SUPPORTED_LOCALES = ['en', 'cs', 'de'];
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -168,6 +171,7 @@ export async function POST(request) {
 
   const email = typeof body?.email === 'string' ? body.email.trim().toLowerCase() : '';
   const name = typeof body?.name === 'string' ? body.name.trim() : '';
+  const locale = SUPPORTED_LOCALES.includes(body?.locale) ? body.locale : 'en';
   if (!EMAIL_RE.test(email)) {
     return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
   }
@@ -199,7 +203,7 @@ export async function POST(request) {
   const subscribers = readSubscribers();
   const existing = subscribers.find((s) => s.email === email);
   if (!existing) {
-    subscribers.push({ email, name: name || '', subscribedAt: new Date().toISOString() });
+    subscribers.push({ email, name: name || '', locale, subscribedAt: new Date().toISOString() });
     try {
       writeSubscribers(subscribers);
     } catch (err) {
@@ -230,6 +234,25 @@ export async function POST(request) {
       }
     } catch (err) {
       console.error('[newsletter] Welcome email threw:', err);
+    }
+
+    // Welcome series — schedule the follow-up emails (only for brand-new subscribers,
+    // and only when explicitly enabled so nothing auto-sends before the From domain is
+    // verified). See docs/NEWSLETTER_STRATEGY.md.
+    if (!existing && isWelcomeSeriesEnabled()) {
+      try {
+        const { scheduled, errors } = await scheduleWelcomeSeries(resend, {
+          email,
+          locale,
+          from: FROM_EMAIL,
+        });
+        if (errors.length) {
+          console.error('[newsletter] Welcome series scheduling errors:', errors);
+        }
+        console.info(`[newsletter] Welcome series: scheduled ${scheduled} email(s) for ${email} (${locale}).`);
+      } catch (err) {
+        console.error('[newsletter] Welcome series threw:', err);
+      }
     }
 
     try {
