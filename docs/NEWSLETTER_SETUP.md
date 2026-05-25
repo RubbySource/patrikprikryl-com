@@ -114,6 +114,55 @@ lokální JSON je jen dev fallback. → Krok 3 není volitelný pro produkci.
 
 ---
 
+## 7. Auto-digest při novém blog postu
+
+Když do `content/blog/{cs,en,de}/` přibude nový `.mdx` článek a změna se dostane na
+`main`, GitHub Action spustí
+[`scripts/send-blog-digest.js`](../scripts/send-blog-digest.js), který subscriberům pošle
+digest přes **Resend Broadcasts** (subject `🌱 Nový článek: …` / `New post:` / `Neuer Beitrag:`).
+Broadcasts řeší unsubscribe link automaticky. Měsíční „insight" mail (viz
+`NEWSLETTER_STRATEGY.md` §3) zůstává ruční — tohle je jen lehká notifikace o článku.
+
+**Bezpečnostní pojistka:** script neodešle nic, dokud není repo variable
+`BLOG_DIGEST_ENABLED=on`. Workflow se tak může bez obav mergnout — do zapnutí je každý
+běh no-op (jen log).
+
+### Per-locale doručení
+
+- **Preferováno:** vytvoř 3 Audience (CS/EN/DE) a do GitHub Secrets dej
+  `RESEND_AUDIENCE_ID_CS/_EN/_DE`. CS článek pak dostanou jen CS subscribeři atd.
+- **Fallback (1 Audience):** nastav jen `RESEND_AUDIENCE_ID`. Script pak pošle **jeden**
+  digest na článek v primárním jazyce (`BLOG_DIGEST_PRIMARY_LOCALE`, default `en`), aby
+  smíšený seznam nedostal stejný článek vícekrát. (Root-level `content/blog/*.mdx` se
+  ignorují — kanonická je verze v `en/`.)
+
+### Setup (Patrik, v GitHubu — ne ve Vercelu)
+
+**Krok 0 — zkopíruj workflow** (autonomní runner ho commitnout nemůže — jeho GitHub token
+nemá `workflow` scope, proto je uložený jako šablona v `docs/`):
+
+```bash
+mkdir -p .github/workflows
+cp docs/blog-digest.workflow.yml .github/workflows/blog-digest.yml
+git add .github/workflows/blog-digest.yml && git commit -m "ci: add blog-digest workflow" && git push
+```
+
+Repo → **Settings → Secrets and variables → Actions**:
+
+- [ ] **Secrets:** `RESEND_API_KEY` (Full access), a buď `RESEND_AUDIENCE_ID`, nebo
+      `RESEND_AUDIENCE_ID_CS/_EN/_DE`. Volitelně `RESEND_FROM_EMAIL`, `RESEND_REPLY_TO`.
+- [ ] **Variables:** `BLOG_DIGEST_ENABLED=on` (až po ověření domény!), volitelně
+      `NEXT_PUBLIC_SITE_URL`, `BLOG_DIGEST_PRIMARY_LOCALE`.
+
+### Test bez rozeslání
+
+Actions → **Blog digest** → *Run workflow* → vyplň `files`
+(`content/blog/en/<slug>.mdx`), nech `dry_run` zaškrtnuté. Log ukáže subject + velikost
+e-mailu, ale nic neodešle. Lokálně: `BLOG_DIGEST_DRY_RUN=1 RESEND_AUDIENCE_ID=x node
+scripts/send-blog-digest.js content/blog/en/<slug>.mdx`.
+
+---
+
 ## Stav
 
 - ✅ Frontend + backend hotové, kód odolný vůči chybějícím env vars.

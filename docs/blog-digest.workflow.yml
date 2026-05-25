@@ -1,0 +1,101 @@
+# ⚠️ COPY ME TO .github/workflows/blog-digest.yml
+#
+# This template lives under docs/ because the autonomous runner's GitHub token lacks the
+# `workflow` scope, so it can't push files under .github/workflows/ itself. One-time
+# manual step for Patrik:
+#
+#   mkdir -p .github/workflows
+#   cp docs/blog-digest.workflow.yml .github/workflows/blog-digest.yml
+#   git add .github/workflows/blog-digest.yml && git commit -m "ci: add blog-digest workflow" && git push
+#
+# (Or just create the file via the GitHub web UI → Add file → paste this content.)
+# Everything else — scripts/send-blog-digest.js, secrets/variables setup — is documented
+# in docs/NEWSLETTER_SETUP.md §7. Keep this template in sync if the workflow changes.
+# ---------------------------------------------------------------------------------------
+
+name: Blog digest
+
+# Sends a "new post" newsletter digest when a blog article is published to main.
+# Detects files ADDED under content/blog/ and hands them to scripts/send-blog-digest.js.
+#
+# Safety: the script only sends when the repository variable BLOG_DIGEST_ENABLED is "on"
+# (Settings → Secrets and variables → Actions → Variables). Until then every run is a
+# no-op, so merging this workflow can't accidentally email the list. See
+# docs/NEWSLETTER_SETUP.md → "Auto-digest on new post".
+#
+# Required secrets: RESEND_API_KEY, and either RESEND_AUDIENCE_ID (single list) or
+# per-locale RESEND_AUDIENCE_ID_CS / _EN / _DE. Optional: RESEND_FROM_EMAIL,
+# RESEND_REPLY_TO. Optional variables: NEXT_PUBLIC_SITE_URL, BLOG_DIGEST_PRIMARY_LOCALE.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/blog/**'
+  workflow_dispatch:
+    inputs:
+      files:
+        description: 'Space-separated blog files (e.g. content/blog/en/foo.mdx). Blank = files added in the last commit.'
+        required: false
+        default: ''
+      dry_run:
+        description: 'Dry run — build + log, do not send'
+        type: boolean
+        default: true
+
+concurrency:
+  group: blog-digest
+  cancel-in-progress: false
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci --omit=dev
+
+      - name: Determine added blog posts
+        id: detect
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.files }}" ]; then
+            FILES="${{ github.event.inputs.files }}"
+          else
+            BEFORE="${{ github.event.before }}"
+            AFTER="${{ github.sha }}"
+            # First push to a branch (or unreachable before SHA) → fall back to parent.
+            if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ] || ! git cat-file -e "${BEFORE}^{commit}" 2>/dev/null; then
+              BEFORE="$(git rev-parse "${AFTER}~1" 2>/dev/null || echo '')"
+            fi
+            if [ -n "$BEFORE" ]; then
+              FILES="$(git diff --name-only --diff-filter=A "$BEFORE" "$AFTER" -- 'content/blog/' | tr '\n' ' ')"
+            else
+              FILES="$(git show --name-only --diff-filter=A --pretty=format: "$AFTER" -- 'content/blog/' | tr '\n' ' ')"
+            fi
+          fi
+          echo "Detected added blog files: $FILES"
+          echo "files=$FILES" >> "$GITHUB_OUTPUT"
+
+      - name: Send digest
+        if: steps.detect.outputs.files != ''
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_AUDIENCE_ID: ${{ secrets.RESEND_AUDIENCE_ID }}
+          RESEND_AUDIENCE_ID_CS: ${{ secrets.RESEND_AUDIENCE_ID_CS }}
+          RESEND_AUDIENCE_ID_EN: ${{ secrets.RESEND_AUDIENCE_ID_EN }}
+          RESEND_AUDIENCE_ID_DE: ${{ secrets.RESEND_AUDIENCE_ID_DE }}
+          RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
+          RESEND_REPLY_TO: ${{ secrets.RESEND_REPLY_TO }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
+          BLOG_DIGEST_PRIMARY_LOCALE: ${{ vars.BLOG_DIGEST_PRIMARY_LOCALE }}
+          BLOG_DIGEST_ENABLED: ${{ vars.BLOG_DIGEST_ENABLED }}
+          BLOG_DIGEST_DRY_RUN: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run == 'true') && '1' || '' }}
+          BLOG_DIGEST_FILES: ${{ steps.detect.outputs.files }}
+        run: node scripts/send-blog-digest.js

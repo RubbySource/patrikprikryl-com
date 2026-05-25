@@ -80,9 +80,12 @@ follow it.
 
 ## 6. Backlog / future
 
-- **Auto-digest on new post** — separate backlog item: GitHub Action on push to
-  `content/blog/`, sends a digest via Resend Broadcasts. The monthly insight (§3 lead)
-  stays manual.
+- **Auto-digest on new post** — ✅ implemented. GitHub Action (template:
+  [`blog-digest.workflow.yml`](./blog-digest.workflow.yml), Patrik copies it into
+  `.github/workflows/`) + [`scripts/send-blog-digest.js`](../scripts/send-blog-digest.js) send a digest via Resend
+  Broadcasts when a post is added to `content/blog/` on main. Per-locale audiences when
+  configured, single-audience fallback otherwise; gated by `BLOG_DIGEST_ENABLED`. Setup +
+  test: `NEWSLETTER_SETUP.md` §7. The monthly insight (§3 lead) stays manual.
 - **DE content** — until German posts exist, DE must-read links point at root-level
   (English) posts. Add `content/blog/de/` to close the gap.
 - **Segmentation** — once the list grows, split procurement vs. builder interests via
