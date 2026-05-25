@@ -4,6 +4,7 @@
     "about": "Über mich",
     "projects": "Projekte",
     "awards": "Auszeichnungen",
+    "journey": "Werdegang",
     "contact": "Kontakt",
     "blog": "Blog"
   },
@@ -61,6 +62,18 @@
     "role_label": "Rolle",
     "internal_project": "Internes Projekt @ Škoda Auto",
     "more_info": "Mehr Infos →"
+  },
+  "timeline": {
+    "label": "Werdegang",
+    "title": "Wie ich hierher kam",
+    "subtitle": "Die Meilensteine, die meinen Weg durch Einkauf, Technologie und KI geprägt haben — die Rollen, Projekte und Momente, die den Unterschied machten.",
+    "now": "Jetzt",
+    "types": {
+      "work": "Arbeit",
+      "education": "Ausbildung",
+      "project": "Projekt",
+      "award": "Auszeichnung"
+    }
   },
   "beliefs": {
     "label": "Perspektive",

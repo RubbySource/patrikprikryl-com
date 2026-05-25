@@ -4,6 +4,7 @@
     "about": "About",
     "projects": "Projects",
     "awards": "Awards",
+    "journey": "Journey",
     "contact": "Contact",
     "blog": "Blog"
   },
@@ -61,6 +62,18 @@
     "role_label": "Role",
     "internal_project": "Internal Project @ Škoda Auto",
     "more_info": "More info →"
+  },
+  "timeline": {
+    "label": "Journey",
+    "title": "How I got here",
+    "subtitle": "The milestones that shaped my path through procurement, technology and AI — the roles, projects and moments that moved the needle.",
+    "now": "Now",
+    "types": {
+      "work": "Work",
+      "education": "Education",
+      "project": "Project",
+      "award": "Award"
+    }
   },
   "beliefs": {
     "label": "Perspective",

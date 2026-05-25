@@ -4,6 +4,7 @@
     "about": "O mně",
     "projects": "Projekty",
     "awards": "Ocenění",
+    "journey": "Cesta",
     "contact": "Kontakt",
     "blog": "Blog"
   },
@@ -61,6 +62,18 @@
     "role_label": "Role",
     "internal_project": "Interní projekt @ Škoda Auto",
     "more_info": "Více informací →"
+  },
+  "timeline": {
+    "label": "Cesta",
+    "title": "Jak jsem se sem dostal",
+    "subtitle": "Milníky, které formovaly mou cestu nákupem, technologiemi a AI — role, projekty a momenty, co něco posunuly.",
+    "now": "Teď",
+    "types": {
+      "work": "Práce",
+      "education": "Vzdělání",
+      "project": "Projekt",
+      "award": "Ocenění"
+    }
   },
   "beliefs": {
     "label": "Perspektiva",

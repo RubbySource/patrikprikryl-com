@@ -27,8 +27,6 @@ Plný context: viz [REDESIGN_STRATEGY.md](./REDESIGN_STRATEGY.md).
 
 ### Fáze 2 — Personal brand assets (vyžadují Patrika k naplnění)
 
-- [~] **About — Timeline kariéry komponent (skeleton)** ⚠️ Patrik doplní data — postavit `components/Timeline.jsx` jako iOS-style vertikální timeline (tečka + čára + card per milestone, sticky year header, scroll reveal animace). Data v `data/timeline.js` jako prázdná struktura `[{ year, role, company, location, description, type: 'work'|'education'|'project'|'award' }]` s 1-2 example entries (např. první role, founding GardenPin). Plná i18n cs/en/de v `locales/*.json` namespace `timeline`. Po implementaci do `app/[locale]/about/page.jsx`, Patrik doplní milestones ručně.
-
 - [ ] **Testimonials — naplnit reálnými citáty** ⚠️ Patrik vloží — `components/Testimonials.jsx` + `data/testimonials.js` už existují jako placeholder (zobrazí friendly empty state). Po vložení 2-3 reálných testimonials (jméno, role, firma, LinkedIn URL, foto/inicály, quote per locale) se sekce auto-přepne na grid layout. Akce: claude přidá do BACKLOGu instrukci `Patrik vlož reálné testimonials do data/testimonials.js dle existujícího schématu`. Pak commit.
 
 - [ ] **"As seen in" / "Mentioned in" lišta médií** ⚠️ Patrik dodá logos — pokud Patrik má články/zmínky v médiích (Forbes, e15, ihned.cz, podcasty, konference), postavit `components/MediaMentions.jsx` jako horizontal scrolling logo strip pod Hero sekcí. Skeleton komponent + `data/mediaMentions.js` schema `[{ name, logoUrl, articleUrl, date }]`. Logos jako PNG/SVG v `public/media/`. Plus instrukci v BACKLOGu pro Patrika co dodat.
@@ -107,3 +105,7 @@ Plný context: viz [REDESIGN_STRATEGY.md](./REDESIGN_STRATEGY.md).
   - `docs/NEWSLETTER_STRATEGY.md`: audience (procurement / AI builders / CZ tech), ~měsíční frekvence, digest+insight formát, osobní tón.
   - Welcome series `lib/welcome-series.js`: 2 navazující emaily (must-read posty +2 dny, reply CTA +5 dní), plně lokalizované cs/en/de, plánované přes Resend `scheduledAt` (bez cronu — robustní na Vercel). Locale se zachytí při signupu (`Newsletter.jsx` → API).
   - Gated env `NEWSLETTER_WELCOME_SERIES=on` (default off — nic se neodešle dokud Patrik neověří From doménu). Manuální test trigger `POST /api/newsletter/welcome-series` (chráněno `NEWSLETTER_ADMIN_SECRET`).
+
+- [x] **About — Timeline kariéry komponent (skeleton)** — hotovo 2026-05-26
+  - `components/Timeline.jsx` (iOS-style vertikální rail: barevná tečka per typ, sticky rok, scroll-reveal přes framer-motion) + `data/timeline.js` se schématem `{ year, role, company, location, description, type, current }` a 2 example entries. Typy work/education/project/award mají vlastní barvu + ikonu; `current: true` přidá pulzující "Teď" badge. Plná i18n cs/en/de (namespace `timeline` + `nav.journey`).
+  - **Pozn.:** `/about` route neexistuje (web je single-page, story-driven), takže sekce je zapojená do homepage `app/[locale]/page.js` za Awards (id `#journey`) + nový nav link "Cesta/Journey/Werdegang". Sekce se auto-skryje když je `data/timeline.js` prázdné. ⚠️ **Patrik:** přepiš 2 example milestones reálnou kariérní historií (role, vzdělání, ocenění) dle schématu v `data/timeline.js`.

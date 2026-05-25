@@ -49,6 +49,7 @@ export default function Navigation() {
   const navItems = [
     { label: t('projects'), href: '#projects' },
     { label: t('awards'), href: '#awards' },
+    { label: t('journey'), href: '#journey' },
   ];
 
   const onBlog = pathname?.includes('/blog');
