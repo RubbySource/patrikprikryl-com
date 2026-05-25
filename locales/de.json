@@ -124,6 +124,10 @@
     "placeholder_text": "Dieser Abschnitt ist noch leer — ich sammle kurze Zitate von Menschen, mit denen ich Projekte umgesetzt, verhandelt oder Vorträge gehalten habe. Wenn wir etwas gemeinsam aufgebaut haben und Sie ein paar Worte beisteuern möchten, melden Sie sich.",
     "placeholder_cta": "Nachricht senden"
   },
+  "mediaMentions": {
+    "label": "Bekannt aus",
+    "aria": "Medienerwähnungen"
+  },
   "contact": {
     "label": "Kontakt",
     "title": "Lassen Sie uns vernetzen",

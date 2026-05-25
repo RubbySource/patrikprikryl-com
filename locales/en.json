@@ -124,6 +124,10 @@
     "placeholder_text": "This section is empty for now — I'm collecting short quotes from people I've shipped projects with, negotiated alongside, or spoken at events with. If we've built something together and you'd like to add a few words, get in touch.",
     "placeholder_cta": "Send a message"
   },
+  "mediaMentions": {
+    "label": "As seen in",
+    "aria": "Media mentions"
+  },
   "contact": {
     "label": "Contact",
     "title": "Let's Connect",

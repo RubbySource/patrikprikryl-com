@@ -124,6 +124,10 @@
     "placeholder_text": "Tahle sekce je zatím prázdná — sbírám krátké citace od lidí, se kterými jsem stavěl projekty, vyjednával nebo přednášel. Jestli jsme spolu na něčem dělali a chceš se přidat, ozvi se.",
     "placeholder_cta": "Napsat zprávu"
   },
+  "mediaMentions": {
+    "label": "Mluví o mně",
+    "aria": "Mediální zmínky"
+  },
   "contact": {
     "label": "Kontakt",
     "title": "Pojďme se spojit",

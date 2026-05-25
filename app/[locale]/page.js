@@ -2,6 +2,7 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import StatsBar from '@/components/StatsBar';
+import MediaMentions from '@/components/MediaMentions';
 import Projects from '@/components/Projects';
 import CurrentlyBuilding from '@/components/CurrentlyBuilding';
 import Awards from '@/components/Awards';
@@ -93,6 +94,7 @@ export default async function Home({ params }) {
         <Navigation />
         <Hero />
         <StatsBar />
+        <MediaMentions />
         <Projects />
         <Awards />
         <Timeline />

@@ -29,8 +29,6 @@ Plný context: viz [REDESIGN_STRATEGY.md](./REDESIGN_STRATEGY.md).
 
 - [ ] **Testimonials — naplnit reálnými citáty** ⚠️ Patrik vloží — `components/Testimonials.jsx` + `data/testimonials.js` už existují jako placeholder (zobrazí friendly empty state). Po vložení 2-3 reálných testimonials (jméno, role, firma, LinkedIn URL, foto/inicály, quote per locale) se sekce auto-přepne na grid layout. Akce: claude přidá do BACKLOGu instrukci `Patrik vlož reálné testimonials do data/testimonials.js dle existujícího schématu`. Pak commit.
 
-- [~] **"As seen in" / "Mentioned in" lišta médií** ⚠️ Patrik dodá logos — pokud Patrik má články/zmínky v médiích (Forbes, e15, ihned.cz, podcasty, konference), postavit `components/MediaMentions.jsx` jako horizontal scrolling logo strip pod Hero sekcí. Skeleton komponent + `data/mediaMentions.js` schema `[{ name, logoUrl, articleUrl, date }]`. Logos jako PNG/SVG v `public/media/`. Plus instrukci v BACKLOGu pro Patrika co dodat.
-
 - [ ] **Speaking sekce — keynotes/podcasts/conferences** ⚠️ Patrik dodá data — pokud Patrik někde mluví, samostatná sekce nebo subpage `/speaking` s kartami: event/podcast název, datum, místo, popis, video embed (YouTube/Spotify), fotka. Skeleton `components/Speaking.jsx` + `data/speaking.js`. Plná i18n.
 
 ### Fáze 3 — Polish + redesign experiment
@@ -105,6 +103,11 @@ Plný context: viz [REDESIGN_STRATEGY.md](./REDESIGN_STRATEGY.md).
   - `docs/NEWSLETTER_STRATEGY.md`: audience (procurement / AI builders / CZ tech), ~měsíční frekvence, digest+insight formát, osobní tón.
   - Welcome series `lib/welcome-series.js`: 2 navazující emaily (must-read posty +2 dny, reply CTA +5 dní), plně lokalizované cs/en/de, plánované přes Resend `scheduledAt` (bez cronu — robustní na Vercel). Locale se zachytí při signupu (`Newsletter.jsx` → API).
   - Gated env `NEWSLETTER_WELCOME_SERIES=on` (default off — nic se neodešle dokud Patrik neověří From doménu). Manuální test trigger `POST /api/newsletter/welcome-series` (chráněno `NEWSLETTER_ADMIN_SECRET`).
+
+- [x] **"As seen in" / media mentions lišta (skeleton)** — hotovo 2026-05-26
+  - `components/MediaMentions.jsx` (horizontal logo strip pod StatsBar, id-less trust band s border-y) + `data/mediaMentions.js` se schématem `{ name, logoUrl?, articleUrl?, date? }`. Logo s grayscale→barva hoverem; když `logoUrl` chybí, vykreslí se jméno jako textový wordmark (nepadá na chybějící obrázek). `articleUrl` udělá z loga odkaz (nový tab).
+  - >6 položek → seamless auto-scroll marquee (duplikovaná stopa, `translateX -50%`, pauza na hover, vypnuto pod `prefers-reduced-motion` přes `motion-safe:`); ≤6 → vycentrovaný flex-wrap. Nová `marquee` keyframe v `tailwind.config.js`. Plná i18n cs/en/de (namespace `mediaMentions`: label "Mluví o mně/As seen in/Bekannt aus").
+  - **Pozn.:** sekce se auto-skryje když je `data/mediaMentions.js` prázdné — žádné falešné mediální claimy na živém webu. ⚠️ **Patrik:** doplň reálné zmínky (články, podcasty, konference) do `data/mediaMentions.js`; logo dej jako PNG/SVG do `public/media/` (nebo nech jen `name` → wordmark) a přidej `articleUrl` pro proklik.
 
 - [x] **About — Timeline kariéry komponent (skeleton)** — hotovo 2026-05-26
   - `components/Timeline.jsx` (iOS-style vertikální rail: barevná tečka per typ, sticky rok, scroll-reveal přes framer-motion) + `data/timeline.js` se schématem `{ year, role, company, location, description, type, current }` a 2 example entries. Typy work/education/project/award mají vlastní barvu + ikonu; `current: true` přidá pulzující "Teď" badge. Plná i18n cs/en/de (namespace `timeline` + `nav.journey`).
