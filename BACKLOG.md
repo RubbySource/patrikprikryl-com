@@ -27,7 +27,7 @@ Plný context: viz [REDESIGN_STRATEGY.md](./REDESIGN_STRATEGY.md).
 
 ### Fáze 2 — Personal brand assets (vyžadují Patrika k naplnění)
 
-- [ ] **About — Timeline kariéry komponent (skeleton)** ⚠️ Patrik doplní data — postavit `components/Timeline.jsx` jako iOS-style vertikální timeline (tečka + čára + card per milestone, sticky year header, scroll reveal animace). Data v `data/timeline.js` jako prázdná struktura `[{ year, role, company, location, description, type: 'work'|'education'|'project'|'award' }]` s 1-2 example entries (např. první role, founding GardenPin). Plná i18n cs/en/de v `locales/*.json` namespace `timeline`. Po implementaci do `app/[locale]/about/page.jsx`, Patrik doplní milestones ručně.
+- [~] **About — Timeline kariéry komponent (skeleton)** ⚠️ Patrik doplní data — postavit `components/Timeline.jsx` jako iOS-style vertikální timeline (tečka + čára + card per milestone, sticky year header, scroll reveal animace). Data v `data/timeline.js` jako prázdná struktura `[{ year, role, company, location, description, type: 'work'|'education'|'project'|'award' }]` s 1-2 example entries (např. první role, founding GardenPin). Plná i18n cs/en/de v `locales/*.json` namespace `timeline`. Po implementaci do `app/[locale]/about/page.jsx`, Patrik doplní milestones ručně.
 
 - [ ] **Testimonials — naplnit reálnými citáty** ⚠️ Patrik vloží — `components/Testimonials.jsx` + `data/testimonials.js` už existují jako placeholder (zobrazí friendly empty state). Po vložení 2-3 reálných testimonials (jméno, role, firma, LinkedIn URL, foto/inicály, quote per locale) se sekce auto-přepne na grid layout. Akce: claude přidá do BACKLOGu instrukci `Patrik vlož reálné testimonials do data/testimonials.js dle existujícího schématu`. Pak commit.
 
