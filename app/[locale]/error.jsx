@@ -9,6 +9,7 @@ export default function LocaleError({ error, reset }) {
   const locale = useLocale();
   const home = locale === 'en' ? '/' : `/${locale}`;
   const contact = `${home === '/' ? '' : home}/#contact`;
+  const terminal = `${home === '/' ? '' : home}/terminal`;
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -79,6 +80,13 @@ export default function LocaleError({ error, reset }) {
             {t('contact')}
           </Link>
         </div>
+
+        <p className="mt-12 text-xs text-[var(--muted)]/80">
+          {t('terminal_hint')}{' '}
+          <Link href={terminal} className="font-mono font-semibold text-[#1A56DB] hover:underline underline-offset-4">
+            {t('terminal_cta')}
+          </Link>
+        </p>
       </div>
     </main>
   );

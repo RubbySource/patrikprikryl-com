@@ -40,7 +40,10 @@ Plný context: viz [REDESIGN_STRATEGY.md](./REDESIGN_STRATEGY.md).
   - **Proč parsovat build tabulku** místo sumování `.next` manifestů: gzip suma z manifestů běžela 20–40 kB vysoko a chyba byla route-závislá (`/demo` +41 kB — async chunky se počítají v manifestu, ne ve First Load). Parsování dává čísla **identická s build logy / Vercelem**. Ověřeno proti reálnému buildu (171/136/146/115/139/121 kB sedí na 1 kB).
   - Workflow `docs/bundle-size.workflow.yml` (PR k main): buildne base i head v jednom jobu → žádná cross-run artifact logika, žádný "první PR nemá baseline" edge case; jen first-party actions (checkout/setup-node/github-script), sticky PR comment. ⚠️ **Patrik:** runner token nemá `workflow` scope → zkopíruj `docs/bundle-size.workflow.yml` → `.github/workflows/bundle-size.yml` (návod v `PERF_NOTES.md` § "Bundle-size CI monitor"). Žádné secrets potřeba.
 
-- [~] **404 + 500 stránky polish** — stránky existují (`not-found.jsx`, `error.jsx`), ale možná postrádají osobní touch (humor, ASCII art, "co dělat dál" linky). Upgrade na zapamatovatelné error pages — bonus brand point.
+- [x] **404 + 500 stránky polish** — hotovo 2026-05-26
+  - Nová prezentační komponenta `components/HelpfulLinks.jsx` (bez hooků → bezpečná v server i client kontextu; inline Heroicons SVG, hover lift + arrow reveal, dark mode, `var(--text/muted)` tokeny). Renderuje grid „co dělat dál" karet.
+  - **404** (`app/[locale]/not-found.jsx` i root `app/not-found.jsx`): pod CTA tlačítky přibyl grid 4 destinací — Projekty (`#projects`), případovka GardenPin, Kontakt, a **easter-egg „Skrytý terminál"** (`/terminal`, „Pst — je tu shell. Napište 'help'."). Hrefy locale-aware (`as-needed`, EN bez prefixu). Root fallback má hardcoded EN verzi.
+  - **500** (`app/[locale]/error.jsx`): drobný osobní touch — řádek s odkazem na skrytý terminál pod akcemi (retry/home/contact ponechány). Plná i18n cs/en/de (nové klíče `notfound.explore_label` + `notfound.links.*`, `error500.terminal_hint`/`terminal_cta`). Build čistý (43/43 stránek, home First Load JS 171 kB beze změny — komponenta je server-rendered, nulový JS).
 
 ---
 

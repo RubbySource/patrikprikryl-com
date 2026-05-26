@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import NotFoundScene from '@/components/NotFoundScene';
 import Navigation from '@/components/Navigation';
 import NetworkCanvas from '@/components/NetworkCanvas';
+import HelpfulLinks from '@/components/HelpfulLinks';
 
 const SITE_URL = 'https://patrikprikryl.com';
 
@@ -53,6 +54,14 @@ export default async function LocaleNotFound({ params }) {
   const t = await getTranslations({ locale, namespace: 'notfound' });
   const home = locale === 'en' ? '/' : `/${locale}`;
   const blog = locale === 'en' ? '/blog' : `/${locale}/blog`;
+  const prefix = locale === 'en' ? '' : `/${locale}`;
+
+  const exploreLinks = [
+    { href: `${prefix || '/'}#projects`, icon: 'projects', title: t('links.projects.title'), desc: t('links.projects.desc') },
+    { href: `${prefix}/projects/gardenpin`, icon: 'case-study', title: t('links.case_study.title'), desc: t('links.case_study.desc') },
+    { href: `${prefix}/contact`, icon: 'contact', title: t('links.contact.title'), desc: t('links.contact.desc') },
+    { href: `${prefix}/terminal`, icon: 'terminal', title: t('links.terminal.title'), desc: t('links.terminal.desc') },
+  ];
 
   return (
     <>
@@ -100,6 +109,8 @@ export default async function LocaleNotFound({ params }) {
               {t('read_blog')}
             </Link>
           </div>
+
+          <HelpfulLinks heading={t('explore_label')} links={exploreLinks} />
         </div>
       </main>
     </>

@@ -230,7 +230,26 @@
     "title": "Tahle stránka se ztratila v zahradě 🌿",
     "text": "Možná leží pod listem rajčete, možná ji odnesl motýl. Tak jako tak — pojďme vás dostat někam užitečnějšího.",
     "back_home": "Zpět na úvod",
-    "read_blog": "Číst blog"
+    "read_blog": "Číst blog",
+    "explore_label": "Nebo se vydejte jednou z cestiček",
+    "links": {
+      "projects": {
+        "title": "Projekty",
+        "desc": "Co stavím v práci i o víkendech"
+      },
+      "case_study": {
+        "title": "Případovka GardenPin",
+        "desc": "Víkendový build za 48 hodin, od začátku do konce"
+      },
+      "contact": {
+        "title": "Napsat mi",
+        "desc": "Začněte konverzaci — odpovídám do 24 h"
+      },
+      "terminal": {
+        "title": "Skrytý terminál",
+        "desc": "Pst — je tu shell. Napište 'help'."
+      }
+    }
   },
   "error500": {
     "error_label": "Chyba · 500",
@@ -239,7 +258,9 @@
     "try_again": "Zkusit znovu",
     "back_home": "Zpět na úvod",
     "contact": "Napsat mi",
-    "digest_label": "ID chyby"
+    "digest_label": "ID chyby",
+    "terminal_hint": "Než to spravím, schovává se tu někde skrytý terminál.",
+    "terminal_cta": "Otevřít →"
   },
   "caseStudy": {
     "back": "Zpět na projekty",

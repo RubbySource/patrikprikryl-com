@@ -230,7 +230,26 @@
     "title": "Diese Seite hat sich im Garten verirrt 🌿",
     "text": "Vielleicht liegt sie unter einem Tomatenblatt, vielleicht hat sie ein Schmetterling weggetragen. So oder so — bringen wir Sie zu etwas Nützlichem zurück.",
     "back_home": "Zurück zur Startseite",
-    "read_blog": "Zum Blog"
+    "read_blog": "Zum Blog",
+    "explore_label": "Oder nehmen Sie von hier einen Pfad",
+    "links": {
+      "projects": {
+        "title": "Projekte",
+        "desc": "Was ich beruflich und am Wochenende baue"
+      },
+      "case_study": {
+        "title": "GardenPin-Fallstudie",
+        "desc": "Ein 48-Stunden-Wochenendprojekt, von A bis Z"
+      },
+      "contact": {
+        "title": "Kontakt aufnehmen",
+        "desc": "Starten Sie ein Gespräch — Antwort meist in 24 Std."
+      },
+      "terminal": {
+        "title": "Verstecktes Terminal",
+        "desc": "Pst — hier gibt's eine Shell. Tippen Sie 'help'."
+      }
+    }
   },
   "error500": {
     "error_label": "Fehler · 500",
@@ -239,7 +258,9 @@
     "try_again": "Erneut versuchen",
     "back_home": "Zurück zur Startseite",
     "contact": "Kontakt aufnehmen",
-    "digest_label": "Fehler-ID"
+    "digest_label": "Fehler-ID",
+    "terminal_hint": "Während ich das repariere, gibt es hier irgendwo ein verstecktes Terminal.",
+    "terminal_cta": "Öffnen →"
   },
   "caseStudy": {
     "back": "Zurück zu Projekten",

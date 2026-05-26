@@ -1,5 +1,13 @@
 import Link from 'next/link';
 import NotFoundScene from '@/components/NotFoundScene';
+import HelpfulLinks from '@/components/HelpfulLinks';
+
+const EXPLORE_LINKS = [
+  { href: '/#projects', icon: 'projects', title: 'Projects', desc: 'What I build at work and on weekends' },
+  { href: '/projects/gardenpin', icon: 'case-study', title: 'GardenPin case study', desc: 'A 48-hour weekend build, start to finish' },
+  { href: '/contact', icon: 'contact', title: 'Get in touch', desc: 'Start a conversation — I usually reply within 24h' },
+  { href: '/terminal', icon: 'terminal', title: 'Hidden terminal', desc: "Psst — there's a shell here. Type 'help'." },
+];
 
 export const metadata = {
   title: '404 — Lost in the garden | Patrik Přikryl',
@@ -76,6 +84,8 @@ export default function NotFound() {
             Read the blog
           </Link>
         </div>
+
+        <HelpfulLinks heading="Or pick a trail from here" links={EXPLORE_LINKS} />
       </div>
     </main>
   );

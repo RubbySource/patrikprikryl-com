@@ -230,7 +230,26 @@
     "title": "This page got lost in the garden 🌿",
     "text": "Maybe it's under a tomato leaf, maybe a butterfly carried it off. Either way — let's get you somewhere useful.",
     "back_home": "Back to homepage",
-    "read_blog": "Read the blog"
+    "read_blog": "Read the blog",
+    "explore_label": "Or pick a trail from here",
+    "links": {
+      "projects": {
+        "title": "Projects",
+        "desc": "What I build at work and on weekends"
+      },
+      "case_study": {
+        "title": "GardenPin case study",
+        "desc": "A 48-hour weekend build, start to finish"
+      },
+      "contact": {
+        "title": "Get in touch",
+        "desc": "Start a conversation — I usually reply within 24h"
+      },
+      "terminal": {
+        "title": "Hidden terminal",
+        "desc": "Psst — there's a shell here. Type 'help'."
+      }
+    }
   },
   "error500": {
     "error_label": "Error · 500",
@@ -239,7 +258,9 @@
     "try_again": "Try again",
     "back_home": "Back to homepage",
     "contact": "Get in touch",
-    "digest_label": "Error ID"
+    "digest_label": "Error ID",
+    "terminal_hint": "While I patch things up, there's a hidden terminal around here.",
+    "terminal_cta": "Open it →"
   },
   "caseStudy": {
     "back": "Back to projects",
