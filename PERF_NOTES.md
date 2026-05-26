@@ -103,6 +103,47 @@ Shared chunks unchanged (45.9 + 54.2 kB) — framer-motion's full feature set wa
 
 The mechanical `motion.*` → `m.*` rename collides with **local variables named `m`**. The case studies had `metrics.map((m, i) => <m.div .../>)` — after the rename, the `m` param shadowed the framer-motion `m`, so `<m.div>` resolved to `undefined` → `Error: Element type is invalid … got: undefined` at SSR prerender (only on the two `/projects/*` pages; home was unaffected). Fixed by renaming the param to `metric`. `LazyMotion strict` does **not** catch this (it only guards against the heavy `motion.*`). Any future `motion`→`m` work must scan for `m` shadowing.
 
+## Bundle-size CI monitor (2026-05-26)
+
+Regression guard so the LazyMotion/lenis wins above don't quietly erode. On every PR
+to `main`, CI builds the base branch and the PR head, parses the **First Load JS** column
+out of each `next build` table, and posts a per-route Δ table as a sticky PR comment.
+
+### Pieces
+
+| Piece | File |
+|---|---|
+| Report + diff logic (parse build table → JSON → Markdown) | `scripts/bundle-size-report.js` |
+| Budget + noise threshold | `package.json` → `nextBundleAnalysis` (`budget` 350 kB, `minimumChangeThreshold` 1 kB) |
+| Workflow (build base + head, compare, comment) | `docs/bundle-size.workflow.yml` (template — see below) |
+| Local one-shot | `npm run bundle:report` (build + parse, prints the table) |
+
+**Why parse the build table instead of summing `.next` manifests?** The first cut gzipped
+the chunks each route pulls from `app-build-manifest.json`. It ran 20–40 kB high and the
+error was route-dependent (`/demo` was +41 kB — its async chunks count in the manifest but
+not in Next's First Load metric). Parsing the `next build` table makes the bot's numbers
+**identical to what the build logs and Vercel show** — no "why does the bot say 192 when
+the build says 171" confusion. Resolution is 1 kB (Next rounds First Load JS), which is the
+right granularity for catching regressions anyway.
+
+The comparison is self-contained: it builds **both** refs in one job, so there's no
+cross-run artifact wiring and no "first PR has no baseline" edge case. Only first-party
+actions (`checkout`, `setup-node`, `github-script`) — no third-party trust surface. Flat
+baseline routes (API, sitemap, feed, `_not-found`) are filtered out; the table only shows
+routes that ship route-specific JS. A shared-chunk change is called out separately because
+it moves every route at once.
+
+### ⚠️ One-time manual step (Patrik)
+
+The runner token lacks the `workflow` scope, so the workflow ships as a template:
+
+```bash
+cp docs/bundle-size.workflow.yml .github/workflows/bundle-size.yml
+git add .github/workflows/bundle-size.yml && git commit -m "ci: add bundle-size workflow" && git push
+```
+
+No secrets or variables needed — it runs on PR events with the default `GITHUB_TOKEN`.
+
 ## Why this pass stopped at setup
 
 Running `next build` requires Node.js, which isn't available in the current agent worktree (`node.exe` not on PATH). Setup + methodology + candidates are committable now; the analyzer-report HTML is reproducible by anyone with Node who runs `npm run analyze`. Verification of the new dep + config will happen on the next Vercel CI deploy.

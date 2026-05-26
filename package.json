@@ -8,7 +8,12 @@
     "start": "next start",
     "lint": "next lint",
     "analyze": "node scripts/analyze.js",
+    "bundle:report": "next build 2>&1 | tee /tmp/next-build.log && node scripts/bundle-size-report.js report /tmp/next-build.log",
     "og:generate": "node scripts/generate-og-image.js"
+  },
+  "nextBundleAnalysis": {
+    "budget": 358400,
+    "minimumChangeThreshold": 1024
   },
   "dependencies": {
     "@vercel/speed-insights": "^1.3.1",

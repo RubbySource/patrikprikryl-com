@@ -35,7 +35,10 @@ Plný context: viz [REDESIGN_STRATEGY.md](./REDESIGN_STRATEGY.md).
 
 ### Fáze 4 — Drobnosti & maintenance
 
-- [~] **Bundle size monitoring** — přidat GitHub Action která po každém PR spustí `npm run analyze` a okomentuje do PR jak se změnil bundle size (Δ per route). Prevence regressí. Použít existing `@next/bundle-analyzer` setup.
+- [x] **Bundle size monitoring** — hotovo 2026-05-26
+  - `scripts/bundle-size-report.js` (self-contained, jen Node builtins) parsuje **First Load JS** tabulku z `next build` výstupu → snapshot JSON; `compare` mód dělá per-route Δ Markdown tabulku (🔺 regrese / 🟢 zlepšení / 🆕 nová / 🗑️ smazaná route, + budget warning). Budget + threshold v `package.json` → `nextBundleAnalysis` (350 kB / 1 kB). Lokální test: `npm run bundle:report`.
+  - **Proč parsovat build tabulku** místo sumování `.next` manifestů: gzip suma z manifestů běžela 20–40 kB vysoko a chyba byla route-závislá (`/demo` +41 kB — async chunky se počítají v manifestu, ne ve First Load). Parsování dává čísla **identická s build logy / Vercelem**. Ověřeno proti reálnému buildu (171/136/146/115/139/121 kB sedí na 1 kB).
+  - Workflow `docs/bundle-size.workflow.yml` (PR k main): buildne base i head v jednom jobu → žádná cross-run artifact logika, žádný "první PR nemá baseline" edge case; jen first-party actions (checkout/setup-node/github-script), sticky PR comment. ⚠️ **Patrik:** runner token nemá `workflow` scope → zkopíruj `docs/bundle-size.workflow.yml` → `.github/workflows/bundle-size.yml` (návod v `PERF_NOTES.md` § "Bundle-size CI monitor"). Žádné secrets potřeba.
 
 - [ ] **404 + 500 stránky polish** — stránky existují (`not-found.jsx`, `error.jsx`), ale možná postrádají osobní touch (humor, ASCII art, "co dělat dál" linky). Upgrade na zapamatovatelné error pages — bonus brand point.
 
