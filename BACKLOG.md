@@ -35,7 +35,7 @@ Plný context: viz [REDESIGN_STRATEGY.md](./REDESIGN_STRATEGY.md).
 
 ### Fáze 4 — Drobnosti & maintenance
 
-- [ ] **Bundle size monitoring** — přidat GitHub Action která po každém PR spustí `npm run analyze` a okomentuje do PR jak se změnil bundle size (Δ per route). Prevence regressí. Použít existing `@next/bundle-analyzer` setup.
+- [~] **Bundle size monitoring** — přidat GitHub Action která po každém PR spustí `npm run analyze` a okomentuje do PR jak se změnil bundle size (Δ per route). Prevence regressí. Použít existing `@next/bundle-analyzer` setup.
 
 - [ ] **404 + 500 stránky polish** — stránky existují (`not-found.jsx`, `error.jsx`), ale možná postrádají osobní touch (humor, ASCII art, "co dělat dál" linky). Upgrade na zapamatovatelné error pages — bonus brand point.
 
