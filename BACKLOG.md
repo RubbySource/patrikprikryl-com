@@ -29,7 +29,7 @@ Plný context: viz [REDESIGN_STRATEGY.md](./REDESIGN_STRATEGY.md).
 
 - [ ] **Testimonials — naplnit reálnými citáty** ⚠️ Patrik vloží — `components/Testimonials.jsx` + `data/testimonials.js` už existují jako placeholder (zobrazí friendly empty state). Po vložení 2-3 reálných testimonials (jméno, role, firma, LinkedIn URL, foto/inicály, quote per locale) se sekce auto-přepne na grid layout. Akce: claude přidá do BACKLOGu instrukci `Patrik vlož reálné testimonials do data/testimonials.js dle existujícího schématu`. Pak commit.
 
-- [ ] **Speaking sekce — keynotes/podcasts/conferences** ⚠️ Patrik dodá data — pokud Patrik někde mluví, samostatná sekce nebo subpage `/speaking` s kartami: event/podcast název, datum, místo, popis, video embed (YouTube/Spotify), fotka. Skeleton `components/Speaking.jsx` + `data/speaking.js`. Plná i18n.
+- [~] **Speaking sekce — keynotes/podcasts/conferences** ⚠️ Patrik dodá data — pokud Patrik někde mluví, samostatná sekce nebo subpage `/speaking` s kartami: event/podcast název, datum, místo, popis, video embed (YouTube/Spotify), fotka. Skeleton `components/Speaking.jsx` + `data/speaking.js`. Plná i18n.
 
 ### Fáze 3 — Polish + redesign experiment
 
