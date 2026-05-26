@@ -75,6 +75,19 @@
       "award": "Ocenění"
     }
   },
+  "speaking": {
+    "label": "Vystoupení",
+    "title": "Přednášky, podcasty a pódia",
+    "subtitle": "Kde sdílím, co jsem se naučil — keynoty, panelové diskuse, podcasty a rozhovory o AI v nákupu a budování produktů.",
+    "watch": "Přehrát",
+    "listen": "Poslechnout",
+    "types": {
+      "keynote": "Keynote",
+      "conference": "Konference",
+      "podcast": "Podcast",
+      "interview": "Rozhovor"
+    }
+  },
   "beliefs": {
     "label": "Perspektiva",
     "title": "V co věřím"

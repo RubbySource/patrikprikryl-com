@@ -7,6 +7,7 @@ import Projects from '@/components/Projects';
 import CurrentlyBuilding from '@/components/CurrentlyBuilding';
 import Awards from '@/components/Awards';
 import Timeline from '@/components/Timeline';
+import Speaking from '@/components/Speaking';
 import Beliefs from '@/components/Beliefs';
 import Skills from '@/components/Skills';
 import CoCreators from '@/components/CoCreators';
@@ -98,6 +99,7 @@ export default async function Home({ params }) {
         <Projects />
         <Awards />
         <Timeline />
+        <Speaking />
         <Beliefs />
         <Skills />
         <CoCreators />

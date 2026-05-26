@@ -75,6 +75,19 @@
       "award": "Award"
     }
   },
+  "speaking": {
+    "label": "Speaking",
+    "title": "Talks, podcasts & stages",
+    "subtitle": "Where I share what I've learned — keynotes, panels, podcast episodes, and interviews on AI in procurement and building products.",
+    "watch": "Watch",
+    "listen": "Listen",
+    "types": {
+      "keynote": "Keynote",
+      "conference": "Conference",
+      "podcast": "Podcast",
+      "interview": "Interview"
+    }
+  },
   "beliefs": {
     "label": "Perspective",
     "title": "What I Believe"

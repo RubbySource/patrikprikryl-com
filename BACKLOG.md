@@ -29,8 +29,6 @@ Plný context: viz [REDESIGN_STRATEGY.md](./REDESIGN_STRATEGY.md).
 
 - [ ] **Testimonials — naplnit reálnými citáty** ⚠️ Patrik vloží — `components/Testimonials.jsx` + `data/testimonials.js` už existují jako placeholder (zobrazí friendly empty state). Po vložení 2-3 reálných testimonials (jméno, role, firma, LinkedIn URL, foto/inicály, quote per locale) se sekce auto-přepne na grid layout. Akce: claude přidá do BACKLOGu instrukci `Patrik vlož reálné testimonials do data/testimonials.js dle existujícího schématu`. Pak commit.
 
-- [~] **Speaking sekce — keynotes/podcasts/conferences** ⚠️ Patrik dodá data — pokud Patrik někde mluví, samostatná sekce nebo subpage `/speaking` s kartami: event/podcast název, datum, místo, popis, video embed (YouTube/Spotify), fotka. Skeleton `components/Speaking.jsx` + `data/speaking.js`. Plná i18n.
-
 ### Fáze 3 — Polish + redesign experiment
 
 - [ ] **Performance optimalizace — LazyMotion + lenis lazy** — dle PERF_NOTES.md: nahradit `import { motion } from 'framer-motion'` za `LazyMotion + domAnimation` (~25 kB úspora), lazy-load lenis smooth scroll (~10 kB úspora). Audit `next-intl` client boundaries (možná zbytečně velký client bundle). Ověř Lighthouse score před/po. Cíl: Performance ≥ 90, Accessibility ≥ 95, FCP < 1.5 s. Push na main.
@@ -112,3 +110,8 @@ Plný context: viz [REDESIGN_STRATEGY.md](./REDESIGN_STRATEGY.md).
 - [x] **About — Timeline kariéry komponent (skeleton)** — hotovo 2026-05-26
   - `components/Timeline.jsx` (iOS-style vertikální rail: barevná tečka per typ, sticky rok, scroll-reveal přes framer-motion) + `data/timeline.js` se schématem `{ year, role, company, location, description, type, current }` a 2 example entries. Typy work/education/project/award mají vlastní barvu + ikonu; `current: true` přidá pulzující "Teď" badge. Plná i18n cs/en/de (namespace `timeline` + `nav.journey`).
   - **Pozn.:** `/about` route neexistuje (web je single-page, story-driven), takže sekce je zapojená do homepage `app/[locale]/page.js` za Awards (id `#journey`) + nový nav link "Cesta/Journey/Werdegang". Sekce se auto-skryje když je `data/timeline.js` prázdné. ⚠️ **Patrik:** přepiš 2 example milestones reálnou kariérní historií (role, vzdělání, ocenění) dle schématu v `data/timeline.js`.
+
+- [x] **Speaking sekce — keynotes/podcasts/conferences (skeleton)** — hotovo 2026-05-26
+  - `components/Speaking.jsx` (card grid `sm:grid-cols-2`, scroll-reveal přes framer-motion, dark mode, sort newest-first dle `date`) + `data/speaking.js` se schématem `{ type, title, event, date, location, description, videoUrl?, link?, image? }`. Typy keynote/conference/podcast/interview mají vlastní chip (barva + ikona). `date` ('YYYY' | 'YYYY-MM' | 'YYYY-MM-DD') se lokalizuje přes `Intl.DateTimeFormat`.
+  - **Video embed:** `videoUrl` umí YouTube (`watch?v=` / `youtu.be` / `/embed/` / `/shorts/`) → 16:9 iframe, i Spotify (`episode`/`show`/…) → kompaktní 152px přehrávač; jinak fallback na `image` thumbnail nebo externí "Přehrát/Poslechnout" odkaz (`link`). Plná i18n cs/en/de (namespace `speaking`).
+  - Zapojeno do homepage `app/[locale]/page.js` za Timeline (id `#speaking`). Sekce se auto-skryje když je `data/speaking.js` prázdné (žádné vymyšlené talky na živém webu) → bez nav linku, dokud není obsah. ⚠️ **Patrik:** doplň reálná vystoupení do `data/speaking.js` (keynoty, panely, podcasty, rozhovory); stačí vložit YouTube/Spotify link do `videoUrl` a embedne se inline.

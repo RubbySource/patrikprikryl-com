@@ -75,6 +75,19 @@
       "award": "Auszeichnung"
     }
   },
+  "speaking": {
+    "label": "Vorträge",
+    "title": "Talks, Podcasts & Bühnen",
+    "subtitle": "Wo ich teile, was ich gelernt habe — Keynotes, Panels, Podcast-Folgen und Interviews über KI im Einkauf und das Bauen von Produkten.",
+    "watch": "Ansehen",
+    "listen": "Anhören",
+    "types": {
+      "keynote": "Keynote",
+      "conference": "Konferenz",
+      "podcast": "Podcast",
+      "interview": "Interview"
+    }
+  },
   "beliefs": {
     "label": "Perspektive",
     "title": "Was ich glaube"
