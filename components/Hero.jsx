@@ -10,7 +10,7 @@ const container = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.12,
       delayChildren: 0.1,
     },
   },
@@ -21,8 +21,42 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
+// A name line orchestrates a per-letter stagger for its children.
+const nameLine = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.04 } },
+};
+
+const letter = {
+  hidden: { opacity: 0, y: '0.6em', rotateX: -45 },
+  show: { opacity: 1, y: 0, rotateX: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+};
+
+/**
+ * Splits `text` into individually-animated letters for the reveal effect.
+ * Decorative only — the parent <h1> carries an aria-label with the full name,
+ * so screen readers announce the name once, not letter by letter.
+ */
+function SplitText({ text, className }) {
+  return (
+    <span className={className} aria-hidden="true">
+      {Array.from(text).map((char, i) => (
+        <m.span
+          key={`${char}-${i}`}
+          variants={letter}
+          className="inline-block will-change-transform"
+          style={{ transformOrigin: 'bottom' }}
+        >
+          {char === ' ' ? ' ' : char}
+        </m.span>
+      ))}
+    </span>
+  );
+}
+
 export default function Hero() {
   const t = useTranslations('hero');
+  const fullName = `Patrik ${t('name_last')}`;
 
   return (
     <section
@@ -59,21 +93,32 @@ export default function Hero() {
             </m.div>
 
             <m.h1
-              variants={item}
-              className="font-bold text-[clamp(3rem,8vw,7rem)] leading-[0.9] tracking-[-0.03em] text-[#111111] dark:text-[#F0F0F0] mb-6"
+              variants={nameLine}
+              aria-label={fullName}
+              className="font-bold text-[clamp(3rem,8vw,7rem)] leading-[0.9] tracking-[-0.03em] text-[#111111] dark:text-[#F0F0F0] mb-6 [perspective:600px]"
               style={{ fontFamily: "var(--font-plus-jakarta-sans), 'Plus Jakarta Sans', sans-serif" }}
             >
-              Patrik
-              <br />
-              <span className="text-[#1A56DB]">{t('name_last')}</span>
+              <SplitText text="Patrik" className="block" />
+              <SplitText text={t('name_last')} className="block text-[#1A56DB]" />
             </m.h1>
 
             <m.p
               variants={item}
-              className="text-base sm:text-lg font-medium tracking-wide text-[#6B7280] dark:text-gray-400 mb-6"
+              className="text-base sm:text-lg font-medium tracking-wide text-[#6B7280] dark:text-gray-400 mb-4"
             >
               {t('tagline')}
             </m.p>
+
+            {/* Social proof — claims mirror the StatsBar below the hero */}
+            <m.div
+              variants={item}
+              className="inline-flex items-center gap-2 self-start text-sm font-medium text-[#4B5563] dark:text-gray-300 bg-[#1A56DB]/5 dark:bg-[#1A56DB]/10 border border-[#1A56DB]/15 dark:border-[#1A56DB]/25 px-3.5 py-1.5 rounded-full mb-8"
+            >
+              <svg className="w-4 h-4 text-[#1A56DB] shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2l2.95 5.98 6.6.96-4.77 4.65 1.13 6.56L12 17.02l-5.91 3.11 1.13-6.56L2.45 8.94l6.6-.96L12 2z" />
+              </svg>
+              {t('social_proof')}
+            </m.div>
 
             <m.p
               variants={item}
@@ -115,7 +160,7 @@ export default function Hero() {
 
           {/* Photo */}
           <m.div
-            initial={{ opacity: 0, scale: 0.96 }}
+            initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
             className="order-2 flex justify-center lg:justify-end"
