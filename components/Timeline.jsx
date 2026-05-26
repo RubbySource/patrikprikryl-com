@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import { timeline } from '@/data/timeline';
 
@@ -65,7 +65,7 @@ function Milestone({ item, index, locale, t }) {
   const typeLabel = t(`types.${item.type}`, {});
 
   return (
-    <motion.li
+    <m.li
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
@@ -124,7 +124,7 @@ function Milestone({ item, index, locale, t }) {
           )}
         </div>
       </div>
-    </motion.li>
+    </m.li>
   );
 }
 
@@ -141,7 +141,7 @@ export default function Timeline() {
   return (
     <section id="journey" className="section-padding">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
@@ -157,7 +157,7 @@ export default function Timeline() {
           <p className="mt-4 text-base sm:text-lg text-[#6B7280] dark:text-gray-400">
             {t('subtitle')}
           </p>
-        </motion.div>
+        </m.div>
 
         <ol className="max-w-3xl">
           {sorted.map((item, index) => (

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 
@@ -52,7 +52,7 @@ export default function ContactForm() {
 
   if (submitted) {
     return (
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-2xl p-8 text-center"
@@ -61,7 +61,7 @@ export default function ContactForm() {
         <p className="font-display font-semibold text-xl text-emerald-700 dark:text-emerald-400">
           {t('success')}
         </p>
-      </motion.div>
+      </m.div>
     );
   }
 

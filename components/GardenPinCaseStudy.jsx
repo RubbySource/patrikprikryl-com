@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useTranslations } from 'next-intl';
 
@@ -63,14 +63,14 @@ const TECH_STACK = [
 function FadeIn({ children, delay = 0 }) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.15 });
   return (
-    <motion.div
+    <m.div
       ref={ref}
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -131,7 +131,7 @@ export default function GardenPinCaseStudy() {
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {TECH_STACK.map((tech, i) => (
-              <motion.div
+              <m.div
                 key={tech.name}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -140,7 +140,7 @@ export default function GardenPinCaseStudy() {
               >
                 <span className="text-[#1A56DB]">{tech.icon}</span>
                 <span className="font-medium text-[var(--text)]">{tech.name}</span>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </section>
@@ -154,7 +154,7 @@ export default function GardenPinCaseStudy() {
           </h2>
           <div className="grid sm:grid-cols-2 gap-5">
             {features.map((f, i) => (
-              <motion.div
+              <m.div
                 key={f.title}
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -168,7 +168,7 @@ export default function GardenPinCaseStudy() {
                   {f.title}
                 </h3>
                 <p className="text-sm text-[var(--muted)] leading-relaxed">{f.body}</p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </section>
@@ -182,7 +182,7 @@ export default function GardenPinCaseStudy() {
           </h2>
           <ol className="relative border-l-2 border-[#1A56DB]/30 pl-6 space-y-6">
             {timeline.map((item, i) => (
-              <motion.li
+              <m.li
                 key={i}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -194,7 +194,7 @@ export default function GardenPinCaseStudy() {
                   {item.when}
                 </div>
                 <p className="text-base text-[var(--text)]/85 leading-relaxed">{item.what}</p>
-              </motion.li>
+              </m.li>
             ))}
           </ol>
         </section>
@@ -207,21 +207,21 @@ export default function GardenPinCaseStudy() {
             {t('metrics.title')}
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {metrics.map((m, i) => (
-              <motion.div
-                key={m.label}
+            {metrics.map((metric, i) => (
+              <m.div
+                key={metric.label}
                 initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
                 className="p-5 rounded-2xl border border-[var(--border)] bg-[var(--card)]"
               >
                 <div className="font-display font-bold text-3xl sm:text-4xl text-[#1A56DB] mb-1">
-                  {m.value}
+                  {metric.value}
                 </div>
                 <div className="text-xs uppercase tracking-wider text-[var(--muted)] font-medium">
-                  {m.label}
+                  {metric.label}
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </section>
@@ -235,7 +235,7 @@ export default function GardenPinCaseStudy() {
           </h2>
           <div className="grid sm:grid-cols-2 gap-4">
             {screenshots.map((label, i) => (
-              <motion.div
+              <m.div
                 key={i}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -249,7 +249,7 @@ export default function GardenPinCaseStudy() {
                 <p className="text-xs text-[var(--muted)]/70 mt-1">
                   {t('screenshots.caption')}
                 </p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </section>
@@ -263,7 +263,7 @@ export default function GardenPinCaseStudy() {
           </h2>
           <div className="space-y-5">
             {lessons.map((l, i) => (
-              <motion.div
+              <m.div
                 key={l.title}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -274,7 +274,7 @@ export default function GardenPinCaseStudy() {
                   {l.title}
                 </h3>
                 <p className="text-base text-[var(--muted)] leading-relaxed">{l.body}</p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </section>

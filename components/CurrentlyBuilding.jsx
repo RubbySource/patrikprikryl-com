@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
 const ITEMS = [
@@ -26,7 +26,7 @@ export default function CurrentlyBuilding() {
       className="py-16 md:py-20 px-4 sm:px-6 lg:px-8"
     >
       <div className="max-w-6xl mx-auto">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -43,11 +43,11 @@ export default function CurrentlyBuilding() {
           <p className="text-base text-[#6B7280] dark:text-gray-400 max-w-xl mx-auto">
             {t('subtitle')}
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {ITEMS.map((item, idx) => (
-            <motion.article
+            <m.article
               key={item.key}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -82,7 +82,7 @@ export default function CurrentlyBuilding() {
                   </span>
                 </div>
               </div>
-            </motion.article>
+            </m.article>
           ))}
         </div>
       </div>

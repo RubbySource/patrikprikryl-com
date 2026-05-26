@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import { speaking } from '@/data/speaking';
 
@@ -115,7 +115,7 @@ function TalkCard({ item, index, locale, t }) {
   const ctaHref = item.videoUrl || item.link;
 
   return (
-    <motion.li
+    <m.li
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
@@ -202,7 +202,7 @@ function TalkCard({ item, index, locale, t }) {
           </a>
         )}
       </div>
-    </motion.li>
+    </m.li>
   );
 }
 
@@ -219,7 +219,7 @@ export default function Speaking() {
   return (
     <section id="speaking" className="section-padding">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
@@ -235,7 +235,7 @@ export default function Speaking() {
           <p className="mt-4 text-base sm:text-lg text-[#6B7280] dark:text-gray-400">
             {t('subtitle')}
           </p>
-        </motion.div>
+        </m.div>
 
         <ul className="grid gap-6 sm:grid-cols-2">
           {sorted.map((item, index) => (

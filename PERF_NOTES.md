@@ -75,6 +75,34 @@ The `lenis` library is initialized in `<SmoothScroll>` (root layout). It's not h
 2. Pick one candidate (recommend: `LazyMotion` swap, biggest single saving).
 3. Re-run `npm run analyze`, diff against baseline, append a "Pass 2" section to this file with the numbers.
 
+## Pass 2 — LazyMotion + lazy lenis (2026-05-26)
+
+Implemented candidates #2 (LazyMotion) and #3 (lazy lenis). Verified via `next build`.
+
+### Changes
+
+| Change | File |
+|---|---|
+| `<LazyMotion features={domAnimation} strict>` wrapping the whole tree | `components/MotionProvider.jsx` (new) + `app/layout.js` |
+| All 23 animated components `motion.*` → `m.*` (lightweight) | `components/*.jsx` |
+| `lenis` dynamic-imported in `useEffect` (out of First Load) + skipped under `prefers-reduced-motion` | `components/SmoothScroll.jsx` |
+
+`domAnimation` (not `domMax`) is enough — no component uses `drag`/`pan`/`layout`.
+
+### Before → after (First Load JS)
+
+| Route | Baseline | Pass 2 | Δ |
+|---|---|---|---|
+| `/[locale]` (home) | 196 kB | **171 kB** | **−25 kB** |
+| `/[locale]/blog` | 165 kB | 136 kB | −29 kB |
+| `/[locale]/projects/gardenpin` | 170 kB | 139 kB | −31 kB |
+
+Shared chunks unchanged (45.9 + 54.2 kB) — framer-motion's full feature set was route-specific, so the win lands per-route. The `domAnimation` bundle + the now-async `lenis` chunk load after hydration.
+
+### ⚠️ Gotcha hit during this pass
+
+The mechanical `motion.*` → `m.*` rename collides with **local variables named `m`**. The case studies had `metrics.map((m, i) => <m.div .../>)` — after the rename, the `m` param shadowed the framer-motion `m`, so `<m.div>` resolved to `undefined` → `Error: Element type is invalid … got: undefined` at SSR prerender (only on the two `/projects/*` pages; home was unaffected). Fixed by renaming the param to `metric`. `LazyMotion strict` does **not** catch this (it only guards against the heavy `motion.*`). Any future `motion`→`m` work must scan for `m` shadowing.
+
 ## Why this pass stopped at setup
 
 Running `next build` requires Node.js, which isn't available in the current agent worktree (`node.exe` not on PATH). Setup + methodology + candidates are committable now; the analyzer-report HTML is reproducible by anyone with Node who runs `npm run analyze`. Verification of the new dep + config will happen on the next Vercel CI deploy.

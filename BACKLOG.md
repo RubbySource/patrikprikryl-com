@@ -31,8 +31,6 @@ Plný context: viz [REDESIGN_STRATEGY.md](./REDESIGN_STRATEGY.md).
 
 ### Fáze 3 — Polish + redesign experiment
 
-- [ ] **Performance optimalizace — LazyMotion + lenis lazy** — dle PERF_NOTES.md: nahradit `import { motion } from 'framer-motion'` za `LazyMotion + domAnimation` (~25 kB úspora), lazy-load lenis smooth scroll (~10 kB úspora). Audit `next-intl` client boundaries (možná zbytečně velký client bundle). Ověř Lighthouse score před/po. Cíl: Performance ≥ 90, Accessibility ≥ 95, FCP < 1.5 s. Push na main.
-
 - [ ] **Hero redesign dle REDESIGN_STRATEGY** — implementovat doporučení: dark hero variant (toggle nebo system preference), split-text reveal animace pro jméno (Framer Motion stagger), velká fotka s fade-in + scale 1.05→1.0, social proof badge ("500+ connections · Top Voice in Procurement"), primary CTA LinkedIn (ne mailto), scroll indicator (animated arrow). Inspirace: Brittany Chiang, Josh Comeau.
 
 - [ ] **Claude Design audit + návrh redesignu webu** ⚠️ EXPERIMENT — pustit `frontend-design` skill na celý web (Hero, About, Projects, Awards, Testimonials, Newsletter, Contact, Blog, Footer). Výstup `docs/CLAUDE_DESIGN_PROPOSAL.md` s návrhem ucelené nové vizuální identity + HTML mockupy. Patrik schválí / odmítne / vybere části. Pokud good → implementační položky se přidají do BACKLOGu. Pokud ne → status quo (současný design je dobrý dle REDESIGN_STRATEGY).
@@ -110,6 +108,11 @@ Plný context: viz [REDESIGN_STRATEGY.md](./REDESIGN_STRATEGY.md).
 - [x] **About — Timeline kariéry komponent (skeleton)** — hotovo 2026-05-26
   - `components/Timeline.jsx` (iOS-style vertikální rail: barevná tečka per typ, sticky rok, scroll-reveal přes framer-motion) + `data/timeline.js` se schématem `{ year, role, company, location, description, type, current }` a 2 example entries. Typy work/education/project/award mají vlastní barvu + ikonu; `current: true` přidá pulzující "Teď" badge. Plná i18n cs/en/de (namespace `timeline` + `nav.journey`).
   - **Pozn.:** `/about` route neexistuje (web je single-page, story-driven), takže sekce je zapojená do homepage `app/[locale]/page.js` za Awards (id `#journey`) + nový nav link "Cesta/Journey/Werdegang". Sekce se auto-skryje když je `data/timeline.js` prázdné. ⚠️ **Patrik:** přepiš 2 example milestones reálnou kariérní historií (role, vzdělání, ocenění) dle schématu v `data/timeline.js`.
+
+- [x] **Performance optimalizace — LazyMotion + lazy lenis** — hotovo 2026-05-26
+  - `components/MotionProvider.jsx` (`<LazyMotion features={domAnimation} strict>` v root `app/layout.js`) + všech 23 animovaných komponent převedeno z `motion.*` na lightweight `m.*`. `domAnimation` stačí (nikde `drag`/`layout`). lenis lazy-loadovaný přes dynamický `import()` v `SmoothScroll.jsx` `useEffect` (mimo First Load) + přeskočen pod `prefers-reduced-motion`.
+  - **First Load JS:** home 196 → **171 kB** (−25 kB), blog 165 → 136 kB, gardenpin 170 → 139 kB. Sdílené chunky beze změny → úspora per-route. Detaily + před/po tabulka v `PERF_NOTES.md` §"Pass 2".
+  - **Pozn.:** rename `motion`→`m` koliduje s lokálními proměnnými `m` — case studies měly `metrics.map((m,i)=> <m.div/>)`, kde param `m` stínil import → `undefined` element → SSR prerender fail jen na `/projects/*`. Opraveno přejmenováním na `metric`. `strict` tohle nechytí (hlídá jen těžký `motion.*`). Build čistý (43/43 stránek).
 
 - [x] **Speaking sekce — keynotes/podcasts/conferences (skeleton)** — hotovo 2026-05-26
   - `components/Speaking.jsx` (card grid `sm:grid-cols-2`, scroll-reveal přes framer-motion, dark mode, sort newest-first dle `date`) + `data/speaking.js` se schématem `{ type, title, event, date, location, description, videoUrl?, link?, image? }`. Typy keynote/conference/podcast/interview mají vlastní chip (barva + ikona). `date` ('YYYY' | 'YYYY-MM' | 'YYYY-MM-DD') se lokalizuje přes `Intl.DateTimeFormat`.

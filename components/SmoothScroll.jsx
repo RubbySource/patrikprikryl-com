@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect } from 'react';
-import Lenis from 'lenis';
 
 export default function SmoothScroll({ children }) {
   useEffect(() => {
@@ -11,22 +10,39 @@ export default function SmoothScroll({ children }) {
       window.scrollTo(0, 0);
     }
 
-    const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    // Skip smooth scroll entirely when the user prefers reduced motion —
+    // also avoids loading the lenis chunk for those users.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
     }
 
-    const rafId = requestAnimationFrame(raf);
+    let lenis;
+    let rafId;
+    let cancelled = false;
+
+    // Lazy-load lenis after hydration so it stays out of the First Load JS
+    // (~10 kB saved on every route, including ones that never scroll).
+    import('lenis').then(({ default: Lenis }) => {
+      if (cancelled) return;
+
+      lenis = new Lenis({
+        duration: 1.4,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        rafId = requestAnimationFrame(raf);
+      }
+
+      rafId = requestAnimationFrame(raf);
+    });
 
     return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
+      cancelled = true;
+      if (rafId) cancelAnimationFrame(rafId);
+      if (lenis) lenis.destroy();
     };
   }, []);
 

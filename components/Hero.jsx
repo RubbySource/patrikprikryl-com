@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -36,19 +36,19 @@ export default function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[calc(100vh-5rem)]">
 
           {/* Text content */}
-          <motion.div
+          <m.div
             variants={container}
             initial="hidden"
             animate="show"
             className="flex flex-col justify-center order-1 pb-12 lg:pb-0"
           >
-            <motion.div variants={item}>
+            <m.div variants={item}>
               <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#1A56DB] mb-4">
                 patrikprikryl.com
               </span>
-            </motion.div>
+            </m.div>
 
-            <motion.div variants={item} className="mb-5">
+            <m.div variants={item} className="mb-5">
               <span className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800/60 px-3.5 py-1.5 rounded-full">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -56,9 +56,9 @@ export default function Hero() {
                 </span>
                 {t('building_badge')}
               </span>
-            </motion.div>
+            </m.div>
 
-            <motion.h1
+            <m.h1
               variants={item}
               className="font-bold text-[clamp(3rem,8vw,7rem)] leading-[0.9] tracking-[-0.03em] text-[#111111] dark:text-[#F0F0F0] mb-6"
               style={{ fontFamily: "var(--font-plus-jakarta-sans), 'Plus Jakarta Sans', sans-serif" }}
@@ -66,23 +66,23 @@ export default function Hero() {
               Patrik
               <br />
               <span className="text-[#1A56DB]">{t('name_last')}</span>
-            </motion.h1>
+            </m.h1>
 
-            <motion.p
+            <m.p
               variants={item}
               className="text-base sm:text-lg font-medium tracking-wide text-[#6B7280] dark:text-gray-400 mb-6"
             >
               {t('tagline')}
-            </motion.p>
+            </m.p>
 
-            <motion.p
+            <m.p
               variants={item}
               className="text-base sm:text-lg text-[#4B5563] dark:text-gray-400 leading-relaxed max-w-xl mb-10"
             >
               {t('bio')}
-            </motion.p>
+            </m.p>
 
-            <motion.div variants={item} className="flex flex-wrap gap-4">
+            <m.div variants={item} className="flex flex-wrap gap-4">
               <button
                 onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#1A56DB] text-white font-semibold text-sm hover:bg-[#1340B0] active:scale-95 transition-all duration-200 shadow-lg shadow-blue-500/20"
@@ -110,11 +110,11 @@ export default function Hero() {
                 </svg>
                 {t('cta_linkedin')}
               </a>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
 
           {/* Photo */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
@@ -133,25 +133,25 @@ export default function Hero() {
               {/* Decorative frame */}
               <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-black/5 dark:ring-white/5 z-20" />
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.6 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <motion.div
+        <m.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
           className="w-5 h-8 rounded-full border-2 border-[#6B7280]/40 flex items-start justify-center p-1"
         >
           <div className="w-1 h-2 rounded-full bg-[#6B7280]/60" />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </section>
   );
 }

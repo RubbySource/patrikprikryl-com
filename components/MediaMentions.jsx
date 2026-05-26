@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { mediaMentions } from '@/data/mediaMentions';
 
@@ -55,7 +55,7 @@ export default function MediaMentions() {
       aria-label={t('aria')}
       className="border-y border-gray-100 dark:border-gray-800/70 bg-gray-50/40 dark:bg-white/[0.02]"
     >
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-40px' }}
@@ -68,7 +68,7 @@ export default function MediaMentions() {
 
         {scroll ? (
           // Seamless marquee — the list is duplicated and translated -50%.
-          // Pauses on hover; static (no animation) under prefers-reduced-motion.
+          // Pauses on hover; static (no animation) under prefers-reduced-m.
           <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)]">
             <ul className="flex w-max items-center gap-x-12 sm:gap-x-16 motion-safe:animate-marquee hover:[animation-play-state:paused]">
               {[...mediaMentions, ...mediaMentions].map((item, i) => (
@@ -87,7 +87,7 @@ export default function MediaMentions() {
             ))}
           </ul>
         )}
-      </motion.div>
+      </m.div>
     </section>
   );
 }
