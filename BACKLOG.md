@@ -31,7 +31,7 @@ Plný context: viz [REDESIGN_STRATEGY.md](./REDESIGN_STRATEGY.md).
 
 ### Fáze 3 — Polish + redesign experiment
 
-- [ ] **Hero redesign dle REDESIGN_STRATEGY** — implementovat doporučení: dark hero variant (toggle nebo system preference), split-text reveal animace pro jméno (Framer Motion stagger), velká fotka s fade-in + scale 1.05→1.0, social proof badge ("500+ connections · Top Voice in Procurement"), primary CTA LinkedIn (ne mailto), scroll indicator (animated arrow). Inspirace: Brittany Chiang, Josh Comeau.
+- [~] **Hero redesign dle REDESIGN_STRATEGY** — implementovat doporučení: dark hero variant (toggle nebo system preference), split-text reveal animace pro jméno (Framer Motion stagger), velká fotka s fade-in + scale 1.05→1.0, social proof badge ("500+ connections · Top Voice in Procurement"), primary CTA LinkedIn (ne mailto), scroll indicator (animated arrow). Inspirace: Brittany Chiang, Josh Comeau.
 
 - [ ] **Claude Design audit + návrh redesignu webu** ⚠️ EXPERIMENT — pustit `frontend-design` skill na celý web (Hero, About, Projects, Awards, Testimonials, Newsletter, Contact, Blog, Footer). Výstup `docs/CLAUDE_DESIGN_PROPOSAL.md` s návrhem ucelené nové vizuální identity + HTML mockupy. Patrik schválí / odmítne / vybere části. Pokud good → implementační položky se přidají do BACKLOGu. Pokud ne → status quo (současný design je dobrý dle REDESIGN_STRATEGY).
 
