@@ -31,7 +31,7 @@ Plný context: viz [REDESIGN_STRATEGY.md](./REDESIGN_STRATEGY.md).
 
 ### Fáze 3 — Polish + redesign experiment
 
-- [ ] **Claude Design audit + návrh redesignu webu** ⚠️ EXPERIMENT — pustit `frontend-design` skill na celý web (Hero, About, Projects, Awards, Testimonials, Newsletter, Contact, Blog, Footer). Výstup `docs/CLAUDE_DESIGN_PROPOSAL.md` s návrhem ucelené nové vizuální identity + HTML mockupy. Patrik schválí / odmítne / vybere části. Pokud good → implementační položky se přidají do BACKLOGu. Pokud ne → status quo (současný design je dobrý dle REDESIGN_STRATEGY).
+- [~] **Claude Design audit + návrh redesignu webu** ⚠️ EXPERIMENT — pustit `frontend-design` skill na celý web (Hero, About, Projects, Awards, Testimonials, Newsletter, Contact, Blog, Footer). Výstup `docs/CLAUDE_DESIGN_PROPOSAL.md` s návrhem ucelené nové vizuální identity + HTML mockupy. Patrik schválí / odmítne / vybere části. Pokud good → implementační položky se přidají do BACKLOGu. Pokud ne → status quo (současný design je dobrý dle REDESIGN_STRATEGY).
 
 ### Fáze 4 — Drobnosti & maintenance
 
