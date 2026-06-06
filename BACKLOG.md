@@ -31,7 +31,11 @@ Plný context: viz [REDESIGN_STRATEGY.md](./REDESIGN_STRATEGY.md).
 
 ### Fáze 3 — Polish + redesign experiment
 
-- [~] **Claude Design audit + návrh redesignu webu** ⚠️ EXPERIMENT — pustit `frontend-design` skill na celý web (Hero, About, Projects, Awards, Testimonials, Newsletter, Contact, Blog, Footer). Výstup `docs/CLAUDE_DESIGN_PROPOSAL.md` s návrhem ucelené nové vizuální identity + HTML mockupy. Patrik schválí / odmítne / vybere části. Pokud good → implementační položky se přidají do BACKLOGu. Pokud ne → status quo (současný design je dobrý dle REDESIGN_STRATEGY).
+- [x] **Claude Design audit + návrh redesignu webu** — hotovo 2026-06-06
+  - `docs/CLAUDE_DESIGN_PROPOSAL.md` (~450 řádků): audit současné design vrstvy (16 sekcí, 3 nezávislé palety blue/emerald/gold, 3 fonty, ad-hoc spacing), identifikuje **8 problémů P1–P4** s diagnózou + řešením, navrhuje **9-blokovou strukturu se 3 „kapitolami"** (Kdo jsem / Co dělám / Pojď do toho) a **chapter break** vizuální pattern.
+  - **4 HTML mockupy** (self-contained Tailwind CDN, Patrik je může otevřít v prohlížeči): Hero s cleaner CTA hierarchy + sjednoceným fontem, Chapter Break komponenta, Trust Strip (sloučený StatsBar + MediaMentions), Contact (sloučený Contact + GetInTouch + LinkedIn CTA do jednoho bloku se side panelem).
+  - **Implementační roadmapa** rozsekaná na 4 tracky (A = quick wins <2h, B = struktura homepage 1 odpoledne, C = větší upgrade 1-2 dny, D = experimenty) → 16 atomických ticket-ready položek. MVP 4 položky = „80 % impactu za 20 % práce".
+  - **Anti-patterns** (co nedělat): nepřidávat font, neměnit `#1A56DB` accent, nezavádět glassmorphism mimo nav, žádný parallax (zbil by 171 kB First Load JS baseline). Doc respektuje existující REDESIGN_STRATEGY (zachovává split-text reveal, scale-in foto, dark charcoal). ⚠️ **Patrik:** vyber Track A + 2-3 B položky → přidám atomické tickety do BACKLOGu jako `[ ]`.
 
 ### Fáze 4 — Drobnosti & maintenance
 
