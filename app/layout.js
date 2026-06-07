@@ -4,7 +4,6 @@ import Analytics from '@/components/Analytics';
 import MotionProvider from '@/components/MotionProvider';
 import StructuredData from '@/components/seo/StructuredData';
 import { personSchema } from '@/components/seo/schemas';
-import MotionProvider from '@/components/MotionProvider';
 
 const inter = { variable: 'font-inter' };
 
