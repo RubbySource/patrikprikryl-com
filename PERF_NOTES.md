@@ -147,3 +147,46 @@ No secrets or variables needed — it runs on PR events with the default `GITHUB
 ## Why this pass stopped at setup
 
 Running `next build` requires Node.js, which isn't available in the current agent worktree (`node.exe` not on PATH). Setup + methodology + candidates are committable now; the analyzer-report HTML is reproducible by anyone with Node who runs `npm run analyze`. Verification of the new dep + config will happen on the next Vercel CI deploy.
+
+## Pass 2 — LazyMotion + lenis lazy-load (2026-05-24)
+
+Implemented candidates #2 and #3 from above.
+
+### What changed
+
+- **`framer-motion` → `LazyMotion`.** New `components/MotionProvider.jsx` wraps the
+  whole app (mounted in `app/layout.js`) in `<LazyMotion features={domAnimation} strict>`.
+  All 19 animated components swapped `motion.*` for the lightweight `m.*` component.
+  `strict` makes the heavy `motion` API throw, so the saving cannot silently regress.
+- **`lenis` lazy-loaded.** `components/SmoothScroll.jsx` now does a dynamic
+  `import('lenis')` inside the effect instead of a static top-level import, so Lenis
+  lands in its own chunk loaded after hydration — off the initial bundle.
+
+### Before / after — First Load JS (`next build`)
+
+| Route                          | Before  | After   | Saved  |
+|--------------------------------|---------|---------|--------|
+| `/[locale]` (home)             | 195 kB  | 167 kB  | -28 kB |
+| `/[locale]/blog`               | 164 kB  | 136 kB  | -28 kB |
+| `/[locale]/blog/[slug]`        | 164 kB  | 136 kB  | -28 kB |
+| `/[locale]/contact`            | 173 kB  | 146 kB  | -27 kB |
+| `/[locale]/projects/gardenpin` | 167 kB  | 139 kB  | -28 kB |
+| `/[locale]/projects/zdravotni` | 167 kB  | 139 kB  | -28 kB |
+
+~28 kB off First Load JS on every animated route — combined framer-motion
+feature-set trim + lenis moved off the critical path. Route-specific `Size`
+ticks up slightly (home 21.9 -> 22.7 kB) because the `domAnimation` feature
+bundle now counts per-route, but net First Load is down ~28 kB.
+
+### Verification
+
+`next build` compiles cleanly and prerenders all 42 static pages. The build was
+run in the agent sandbox with `next/font/google` stubbed locally (Google Fonts
+host is not reachable from the sandbox — an environment limit, unrelated to this
+change); on Vercel the fonts resolve normally. Lighthouse before/after was not
+run in-sandbox (no headless Chrome); the `next build` First Load numbers above
+are the verifiable proxy and carry into Lighthouse TBT/LCP on the Vercel deploy.
+
+During conversion, two case-study components (`GardenPinCaseStudy`,
+`HealthAnalyzerCaseStudy`) had a `metrics.map((m, i) => ...)` callback whose
+parameter shadowed the new `m` import — the parameter was renamed to `metric`.
